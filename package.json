@@ -9,13 +9,13 @@
     "start": "brunch watch --server",
     "build": "brunch build --production"
   },
-  "dependencies": {},
   "devDependencies": {
     "auto-reload-brunch": "^2",
-    "babel-brunch": "~6.0",
-    "babel-preset-latest": "^6",
+    "babel-brunch": "^7.0.1",
+    "babel-preset-latest": "^1.0.0",
     "brunch": "^2",
-    "clean-css-brunch": "^2",
+    "clean-css-brunch": "^3.0.0",
+    "tailwindcss": "^3.4.16",
     "uglify-js-brunch": "^2"
   }
 }
