@@ -4,6 +4,7 @@
   "private": true,
   "author": "Brunch",
   "version": "0.0.1",
+  "main": "app/index.html",
   "repository": "",
   "scripts": {
     "start": "brunch watch --server",
