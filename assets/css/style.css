@@ -282,24 +282,94 @@
     .popular-today{
         display: flex;
         width: 100%;
-        height: 200px;
+        height: 550px;
         align-items: center;
         align-content: center;
         justify-content: center;
+        padding-top: 40px;
     }
 
-    .popular-today .pt-child{
+    .popular-today .pt-child {
         position: relative;
         background-color: var(--color-background);
         width: 1050px;
-        height: 200px;
+        height: 500px;
+        display: flex; 
+        justify-content: space-between; 
+        align-items: flex-start; 
+        gap: 20px;
+        padding: 20px;
     }
 
+    .popular-today .pt-child .item-wrapper {
+        position: relative;
+        width: 1050px;
+        top: 100px;
+        display: flex; 
+        justify-content: space-between; 
+        align-items: flex-start; 
+        gap: 20px;
+        padding: 20px;
+    }
+    
     .popular-today .pt-child h1{
-        padding-left: 10px;
-        padding-top: 5px;
-        font-size: 14px;
+        top: -10px;
+        display: block;
+        line-height: 1.4;
+        font-size: 20px;
         font-family:"Plus Jakarta Sans", serif;
     }
+
+    .popular-today .pt-child .item-wrapper .pt-item {
+        position: relative;
+        background-color: var(--container);
+        width: 180px; 
+        border-radius: 10px; 
+        overflow: hidden;
+        display: flex;
+        flex-direction: column; 
+        align-items: center; 
+        text-align: center; 
+        padding: 10px; 
+        gap: 10px; 
+    }
+    
+    .popular-today .pt-child .item-wrapper .pt-item img {
+        width: 100%; /* Make image fit the container */
+        height: auto; /* Maintain aspect ratio */
+        border-radius: 5px; /* Optional: Add rounded corners to images */
+    }
+    
+    .popular-today .pt-child .item-wrapper .pt-item a {
+        text-decoration: none; /* Remove underline from links */
+        color: var(--text); /* Use text color variable */
+    }
+    
+    .popular-today .pt-child .item-wrapper .pt-item .title {
+        font-size: 14px;
+        font-weight: bold;
+        display: block;
+        line-height: 1.4;
+    }
+    
+    .popular-today .pt-child .item-wrapper .pt-item .chapter {
+        font-size: 13px;
+        color: #cccccc; /* Use a lighter color for chapter text */
+    }
+    
+    .popular-today .pt-child .item-wrapper .pt-item .rating {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 13px;
+        color: #f0c14b; /* Yellow color for stars */
+        gap: 5px; /* Space between stars and rating value */
+    }
+    
+    .popular-today .pt-child .item-wrapper .pt-item .rating span {
+        font-weight: bold;
+    }
+    
+
 }
 
