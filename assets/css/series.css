@@ -53,6 +53,50 @@ body {
     gap: 20px;
 }
 
+.search-bar {
+    grid-column: span 2;
+    border-radius: 50px;
+    height: 50px;
+    width: 100%;
+    background: var(--container);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+    input {
+        width: 70%;
+        height: 70%;
+        background: transparent;
+        border-color: transparent;
+
+        &:focus {
+            outline: none;
+        }
+    }
+
+    .icon {
+        height: 30px;
+        width: 30px;
+        border-radius: 100%;
+        background: var(--container);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.1s;
+
+        img {
+            height: 18px;
+            width: 18px;
+        }
+
+        &:hover {
+            cursor: pointer;
+            border-style: groove;
+            border-color: var(--accent);
+        }
+    }
+}
+
 header {
     background: var(--surface);
     width: 100%;
@@ -93,50 +137,6 @@ header {
                 &:hover {
                     color: var(--accent);
                 }
-            }
-        }
-    }
-
-    .search-bar {
-        grid-column: span 2;
-        border-radius: 50px;
-        height: 50px;
-        width: 100%;
-        background: var(--container);
-        display: flex;
-        justify-content: space-around;
-        align-items: center;
-
-        input {
-            width: 70%;
-            height: 70%;
-            background: transparent;
-            border-color: transparent;
-
-            &:focus {
-                outline: none;
-            }
-        }
-
-        .icon {
-            height: 30px;
-            width: 30px;
-            border-radius: 100%;
-            background: var(--container);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.1s;
-
-            img {
-                height: 18px;
-                width: 18px;
-            }
-
-            &:hover {
-                cursor: pointer;
-                border-style: groove;
-                border-color: var(--accent);
             }
         }
     }
@@ -213,15 +213,17 @@ main {
     }
 
     .info {
+        justify-content: center;
+
         .rating {
-            grid-column: span 1;
-            width: 100%;
+            background: var(--container);
             border-radius: 50px;
             height: 50px;
-            background: var(--container);
             display: flex;
-            justify-content: space-around;
+            gap: 2px;
+            padding: 0px 20px;
             align-items: center;
+            justify-self: start;
         }
 
         .actions {
@@ -230,5 +232,72 @@ main {
             justify-content: end;
             gap: 8px;
         }
+
+        .publishing-data {
+            grid-column: span 3;
+            display: flex;
+            flex-direction: column;
+
+            .publishing-data-container {
+                display: flex;
+                justify-content: space-between;
+
+                .first {
+                    font-weight: lighter;
+                }
+
+                .second {
+                    font-weight: bold;
+                }
+
+                p {
+                    font-size: 12px;
+                    color: var(--text);
+                }
+            }
+        }
+    }
+}
+
+.chapters-header {
+    align-items: center;
+    background: var(--surface);
+
+    #read-first {
+        grid-column: 3;
+    }
+
+    .search-bar-chapter {
+        padding: 0px 15px;
+        grid-column: span 1;
+    }
+
+    .button {
+        background: var(--container);
+        border-radius: 50px;
+        width: 100%;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 2px;
+        padding: 0px 20px;
+    }
+}
+
+.chapter-list {
+    .chapter-star {
+        grid-column: 5;
+    }
+    .single-chapter {
+        display: flex;
+    }    
+    .chapter-image-wrap {
+        background: var(--container);
+        width: 100%;
+        height: 104px;
+    }
+    .title-container {
+        grid-column: 2;
     }
 }

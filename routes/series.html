@@ -10,7 +10,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
 </head>
-<body class="sl-theme-dark">
+<body>
     <!-- BE AWARE THAT EACH SECTION IS DIVIDED INTO A GRID OF 5 COLUMNS -->
     <header class="five-grid">
         <nav class="links">  <!-- 2 COLUMNS -->
@@ -56,17 +56,60 @@
         </div>
 
         <div class="info five-grid">
-            <div class="rating"></div> <!-- 1 COLUMN -->
+            <div class="rating">
+                <img src="../assets/img/icons/star.svg" alt="">
+                <img src="../assets/img/icons/star.svg" alt="">
+                <img src="../assets/img/icons/star.svg" alt="">
+                <img src="../assets/img/icons/star.svg" alt="">
+                <img src="../assets/img/icons/star.svg" alt="">
+            </div> <!-- 1 COLUMN -->
             <div class="actions"> <!-- 1 COLUMN -->
                 <button class="icon" id="favorite-action"><img src="../assets/img/icons/favorite.svg" alt=""></button>
                 <button class="icon" id="bookmark-action"><img src="../assets/img/icons/bookmark.svg" alt=""></button>
             </div>
             <div class="publishing-data">
-                
+                <div class="publishing-data-container">
+                    <p class="first">ARTIST</p>
+                    <p class="second">ARTIST NAME</p>
+                </div>
+                <div class="publishing-data-container">
+                    <p class="first">AUTHOR</p>
+                    <p class="second">AUTHOR NAME</p>
+                </div>
+                <div class="publishing-data-container">
+                    <p class="first">PUBLISHER</p>
+                    <p class="second">PUBLISHER NAME</p>
+                </div>
+                <div class="publishing-data-container">
+                    <p class="first">RELEASE</p>
+                    <p class="second">DATE</p>
+                </div>
             </div>
 
         </div>
     </main>
+
+    <div class="chapters">
+        <div class="chapters-header five-grid">
+            <h2>Chapters</h2>
+            <button class="button" id="read-first">READ FIRST</button>
+            <button class="button" id="read-last">READ LAST</button>
+            <nav class="search-bar search-bar-chapter"> <!-- 2 COLUMNS -->
+                <input type="text" placeholder="SEARCH CHAPTER...">
+                <button class="icon"><img src="../assets/img/magnifying glass 1.png" alt="ICON"></button>
+            </nav>
+        </div>
+        <div class="chapter-list five-grid">
+            <div class="single-chapter">
+                <div class="chapter-image-wrap"><img src="" alt=""></div>
+                <button class="icon chapter-star"><img src="../assets/img/icons/star.svg" alt="ICON"></button>
+                <div class="title-container">
+                    <h2>title</h2>
+                    <h3>date</h2>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <footer>
 
