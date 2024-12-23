@@ -156,13 +156,15 @@ main {
     width: 100%;
 
     .cover {
+        grid-template-columns: repeat(6, 1fr);
         justify-content: start;
         align-items: start;
         width: 100%;
 
     .image-container {
-        grid-column: span 2;
+        grid-column: 2;
         width: 100%;
+        height: 100%;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -213,6 +215,7 @@ main {
     }
 
     .info {
+        grid-template-columns: repeat(6, 1fr);
         justify-content: center;
 
         .rating {
@@ -227,6 +230,7 @@ main {
         }
 
         .actions {
+            grid-column: 6;
             width: 100%;
             display: flex;
             justify-content: end;
@@ -234,7 +238,7 @@ main {
         }
 
         .publishing-data {
-            grid-column: span 3;
+            grid-column: span 4;
             display: flex;
             flex-direction: column;
 
@@ -268,8 +272,9 @@ main {
     }
 
     .search-bar-chapter {
-        padding: 0px 15px;
-        grid-column: span 1;
+        grid-column: 5;
+        padding: 0px 20px;
+        box-sizing: border-box;
     }
 
     .button {
@@ -286,18 +291,32 @@ main {
 }
 
 .chapter-list {
-    .chapter-star {
-        grid-column: 5;
-    }
+
     .single-chapter {
-        display: flex;
-    }    
+        background: var(--surface);
+
+        &:hover {
+            background: var(--background);
+            cursor: pointer;
+        }
+    }
+    
     .chapter-image-wrap {
+        grid-column: 1;
         background: var(--container);
         width: 100%;
         height: 104px;
     }
+
     .title-container {
         grid-column: 2;
     }
+
+    .button-container {
+        display: flex;
+        grid-column: 5;
+        width: 100%;
+        justify-content: end;
+    }
 }
+
