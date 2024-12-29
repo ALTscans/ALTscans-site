@@ -279,95 +279,109 @@
         text-shadow: 0px 1px 2px rgba(0, 0, 0, 0.33), -1px 0px 2px rgba(255, 255, 255, 0);
     }
 
-    .popular-today{
+    .popular-section {
         display: flex;
+        max-width: 919px;
+        flex-direction: column;
+        font-family: Plus Jakarta Sans, sans-serif;
+        color: rgba(255, 255, 255, 1);
+    }
+    
+    .section-title {
+        font-size: 15px;
+        font-weight: 700;
+        align-self: start;
+        background-color: #ffa21b;
+        padding: 8px 16px;
+        border-radius: 4px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+    
+    .thumbs-up {
+        width: 16px;
+        height: 16px;
+        fill: white;
+    }
+    
+    .grid-container {
+        display: flex;
+        margin: 10px 0 0;
+        gap: 8px;
+        font-size: 12px;
+        font-weight: 400;
+        flex-wrap: wrap;
+    }
+    
+    .grid-item {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        position: relative;
+        cursor: pointer;
+        transition: transform 0.3s ease, opacity 0.3s ease;
+    }
+    
+    .grid-item:hover {
+        transform: scale(1.05);
+        opacity: 0.9;
+    }
+    
+    .grid-item:active {
+        transform: scale(0.98);
+    }
+    
+    .item-content {
+        background-color: rgba(52, 45, 39, 1);
+        position: relative;
+        transition: background-color 0.3s ease;
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .manga-cover {
         width: 100%;
-        height: 550px;
-        align-items: center;
-        align-content: center;
-        justify-content: center;
-        padding-top: 40px;
-    }
-
-    .popular-today .pt-child {
-        position: relative;
-        background-color: var(--color-background);
-        width: 1050px;
-        height: 500px;
-        display: flex; 
-        justify-content: space-between; 
-        align-items: flex-start; 
-        gap: 20px;
-        padding: 20px;
-    }
-
-    .popular-today .pt-child .item-wrapper {
-        position: relative;
-        width: 1050px;
-        top: 100px;
-        display: flex; 
-        justify-content: space-between; 
-        align-items: flex-start; 
-        gap: 20px;
-        padding: 20px;
+        height: 134px;
+        object-fit: cover;
     }
     
-    .popular-today .pt-child h1{
-        top: -10px;
-        display: block;
-        line-height: 1.4;
-        font-size: 20px;
-        font-family:"Plus Jakarta Sans", serif;
-    }
-
-    .popular-today .pt-child .item-wrapper .pt-item {
-        position: relative;
-        background-color: var(--container);
-        width: 180px; 
-        border-radius: 10px; 
-        overflow: hidden;
-        display: flex;
-        flex-direction: column; 
-        align-items: center; 
-        text-align: center; 
-        padding: 10px; 
-        gap: 10px; 
+    .chapter-text {
+        padding: 4px;
     }
     
-    .popular-today .pt-child .item-wrapper .pt-item img {
-        width: 100%; /* Make image fit the container */
-        height: auto; /* Maintain aspect ratio */
-        border-radius: 5px; /* Optional: Add rounded corners to images */
+    .grid-item:hover .item-content {
+        background-color: rgba(62, 55, 49, 1);
     }
     
-    .popular-today .pt-child .item-wrapper .pt-item a {
-        text-decoration: none; /* Remove underline from links */
-        color: var(--text); /* Use text color variable */
+    @keyframes fadeZoomIn {
+        0% {
+            opacity: 1;
+            transform: scale(1);
+        }
+        50% {
+            opacity: 0.7;
+            transform: scale(1.1);
+        }
+        100% {
+            opacity: 0;
+            transform: scale(1.2);
+        }
     }
     
-    .popular-today .pt-child .item-wrapper .pt-item .title {
-        font-size: 14px;
-        font-weight: bold;
-        display: block;
-        line-height: 1.4;
+    .grid-item.clicking {
+        animation: fadeZoomIn 0.5s ease forwards;
+        pointer-events: none;
     }
     
-    .popular-today .pt-child .item-wrapper .pt-item .chapter {
-        font-size: 13px;
-        color: #cccccc; /* Use a lighter color for chapter text */
-    }
-    
-    .popular-today .pt-child .item-wrapper .pt-item .rating {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 13px;
-        color: #f0c14b; /* Yellow color for stars */
-        gap: 5px; /* Space between stars and rating value */
-    }
-    
-    .popular-today .pt-child .item-wrapper .pt-item .rating span {
-        font-weight: bold;
+    @media (max-width: 991px) {
+        .section-title {
+            margin-left: 8px;
+        }
+        
+        .manga-cover {
+            height: 97px;
+        }
     }
     
 

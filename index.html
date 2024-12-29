@@ -94,63 +94,93 @@
       </div>
   </div>
 
-  <div class="popular-today">
-    <div class="pt-child">
-      <h1>Popular Today</h1>
-      <div class="item-wrapper">
-        <div class="pt-item">
-          <img src="./assets/img/imgs/teasg.png" alt="Title 1">
-          <a href="#">
-              <span class="title">The Extra's Academy Survival Guide</span>
-              <span class="chapter">Chapter 57</span>
-          </a>
-          <div class="rating">
-              <span>⭐</span>
-              <span>9.5</span>
-          </div>
-        </div>
-        <div class="pt-item">
-          <img src="./assets/img/imgs/ass.png" alt="Title 2">
-          <a href="#">
-              <span class="title">Absoulte Sword Sense</span>
-              <span class="chapter">Chapter 92</span>
-          </a>
-          <div class="rating">
-              <span>⭐</span>
-              <span>9.8</span>
-          </div>
-        </div>
-        <div class="pt-item">
-          <img src="./assets/img/imgs/cotdf.png" alt="Title 3">
-          <a href="#">
-              <span class="title">Chronicles of the Demon Faction</span>
-              <span class="chapter">Chapter 97</span>
-          </a>
-          <div class="rating">
-              <span>⭐</span>
-              <span>9.8</span>
-          </div>
-        </div>
-        <div class="pt-item">
-        <img src="./assets/img/imgs/sys.png" alt="Title 4">
-        <a href="#">
-            <span class="title">Swordmaster's Youngest Son</span>
-            <span class="chapter">Chapter 97</span>
-        </a>
-        <div class="rating">
-            <span>⭐</span>
-            <span>9.8</span>
-        </div>
-        </div>    
-      </div>
+  <div class="popular-section"></div>
+    <div class="section-title">
+        <svg class="thumbs-up" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M2 20h2c0.55 0 1-0.45 1-1v-9c0-0.55-0.45-1-1-1H2v11zm19.83-7.12c0.11-0.25 0.17-0.52 0.17-0.8V11c0-1.1-0.9-2-2-2h-5.5l0.92-4.65c0.05-0.22 0.02-0.46-0.08-0.66-0.23-0.45-0.52-0.86-0.88-1.22L14 2 7.59 8.41C7.21 8.79 7 9.3 7 9.83v7.84C7 18.95 8.05 20 9.34 20h8.11c0.7 0 1.36-0.37 1.72-0.97l2.66-6.15z"/>
+        </svg>
+        POPULAR TODAY
     </div>
-  </div>
+    <div class="grid-container">
+        <div class="grid-item" onclick="handleClick(this, '/chapter1')">
+            <div class="item-content">
+                <img src="./assets/img/imgs/ass.png" alt="Manga Chapter 1" class="manga-cover">
+                <span class="chapter-text">CHAPTER NUMBER...</span>
+            </div>
+        </div>
+        <div class="grid-item" onclick="handleClick(this, '/chapter2')">
+            <div class="item-content">
+                <img src="./assets/img/imgs/cotdf.png" alt="Manga Chapter 2" class="manga-cover">
+                <span class="chapter-text">CHAPTER NUMBER...</span>
+            </div>
+        </div>
+        <div class="grid-item" onclick="handleClick(this, '/chapter3')">
+            <div class="item-content">
+                <img src="./assets/img/imgs/sys.png" alt="Manga Chapter 3" class="manga-cover">
+                <span class="chapter-text">CHAPTER NUMBER...</span>
+            </div>
+        </div>
+        <div class="grid-item" onclick="handleClick(this, '/chapter4')">
+            <div class="item-content">
+                <img src="./assets/img/imgs/teasg.png" alt="Manga Chapter 4" class="manga-cover">
+                <span class="chapter-text">CHAPTER NUMBER...</span>
+            </div>
+        </div>
+        <div class="grid-item" onclick="handleClick(this, '/chapter5')">
+            <div class="item-content">
+                <img src="./assets/img/manga5.jpg" alt="Manga Chapter 5" class="manga-cover">
+                <span class="chapter-text">CHAPTER NUMBER...</span>
+            </div>
+        </div>
+        <div class="grid-item" onclick="handleClick(this, '/chapter6')">
+            <div class="item-content">
+                <img src="./assets/img/manga6.jpg" alt="Manga Chapter 6" class="manga-cover">
+                <span class="chapter-text">CHAPTER NUMBER...</span>
+            </div>
+        </div>
+        <div class="grid-item" onclick="handleClick(this, '/chapter7')">
+            <div class="item-content">
+                <img src="./assets/img/manga7.jpg" alt="Manga Chapter 7" class="manga-cover">
+                <span class="chapter-text">CHAPTER NUMBER...</span>
+            </div>
+        </div>
+    </div>
+</div>
 
 
     <div class="latest">
 
     </div>
-  
+
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-analytics.js";
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+      
+        // Your web app's Firebase configuration
+        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+        const firebaseConfig = {
+          apiKey: "AIzaSyDDHV06eYmF6v57gmBSlyB-ZGyMLEbVXC0",
+          authDomain: "altscans-eb41a.firebaseapp.com",
+          projectId: "altscans-eb41a",
+          storageBucket: "altscans-eb41a.firebasestorage.app",
+          messagingSenderId: "125401189899",
+          appId: "1:125401189899:web:f1bfde8ac6405bf3d2c10e",
+          measurementId: "G-YFH7LJKXEK"
+        };
+      
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+        const auth = app.auth();
+        const db = app.firestore();
+
+        //Update firestore settings
+        db.settings({ timestampsInSnapshots: true})
+    </script>
+    <script type="text/javascript" src="./assets/js/index.js"></script>
   <script type="text/javascript" src="./vanilla-tilt.js"></script>
   <script type="module" src="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.19.1/cdn/shoelace-autoloader.js"></script>
   </body>

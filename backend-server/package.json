@@ -1,0 +1,17 @@
+{
+  "name": "altscans-backend",
+  "version": "1.0.0",
+  "description": "Backend Server for AltScans Website",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Alternate Scans",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.7.9",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2"
+  }
+}
