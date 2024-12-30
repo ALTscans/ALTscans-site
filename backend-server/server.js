@@ -4,6 +4,7 @@ const bcrypt = require("bcrypt");
 const cors = require('cors');
 const app = express()
 const port = 3000
+const { limiter } = require("./checkIfwebsiteOrRandomIdiot")
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
@@ -17,7 +18,7 @@ app.use(cors({
   allowedHeaders: ['Content-Type', 'Authorization'],
 }));
 
-app.get('/', (req, res) => {
+app.get('/', limiter, (req, res) => {
   res.json('This is the API used for AltScans Website. Created by https://github.com/AeolusDev');
 });
 

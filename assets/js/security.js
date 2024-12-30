@@ -31,7 +31,14 @@ signupForm.addEventListener('submit', (e) => {
         username: username,
         email: email,
         pwd: pwd
-      })
+      },
+      {
+        headers: {
+            'Content-Type': 'application/json',
+            'x-api-key': '019417e6-a468-7c95-9e8e-2562e1b182a7'
+          },
+      }
+    )
       .then(function (response) {
         console.log(response);
       })
