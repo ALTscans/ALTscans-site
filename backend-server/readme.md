@@ -8,6 +8,13 @@ $ npm i
 
 ## Run
 
+-> For Development Purposes it is recommended to use the `dev` run script.
+
+```
+$ npm run dev
+```
+
+For production testing:
 ```
 $ npm run start
 ```
