@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nine Heavens Swordmaster - Chapter Reader</title>
+    <style>
+        :root {
+            --primary-bg: #16151d;
+            --secondary-bg: #212121;
+            --accent-bg: #342d27;
+            --primary-text: #ffffff;
+            --accent-color: #ffa21b;
+            --border-radius: 46px;
+            --font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--primary-bg);
+            color: var(--primary-text);
+            font-family: var(--font-family);
+            line-height: 1.5;
+        }
+
+        .reader-container {
+            display: flex;
+            min-height: 100vh;
+            flex-direction: column;
+        }
+
+        .header {
+            background-color: var(--secondary-bg);
+            padding: 12px 70px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            text-align: center;
+        }
+
+        .header-content {
+            max-width: 1154px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .chapter-navigation {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            width: 100%;
+            justify-content: center;
+        }
+
+        .chapter-title {
+            color: var(--primary-text);
+            font-size: 24px;
+            font-weight: 700;
+        }
+
+        .chapter-select {
+            background-color: var(--accent-bg);
+            border: none;
+            border-radius: 8px;
+            color: var(--primary-text);
+            font-family: var(--font-family);
+            font-weight: 700;
+            padding: 12px 40px 12px 20px;
+            cursor: pointer;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23ffffff' d='M6 9L0 3h12z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 12px center;
+            min-width: 200px;
+        }
+
+        .navigation-controls {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .nav-button {
+            background-color: var(--accent-bg);
+            border: none;
+            border-radius: var(--border-radius);
+            padding: 12px 24px;
+            color: var(--primary-text);
+            font-weight: 700;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        .nav-button:hover,
+        .nav-button:focus {
+            background-color: var(--accent-color);
+        }
+
+        .nav-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .reader-content {
+            flex: 1;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .chapter-content {
+            width: 100%;
+            max-width: 800px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .chapter-image {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+
+        .bottom-navigation {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            padding: 20px 0;
+            background-color: var(--secondary-bg);
+            margin: 20px 0;
+        }
+
+        .comment-container {
+            background-color: rgba(52, 45, 39, 1);
+            display: flex;
+            margin-top: 8px;
+            width: 100%;
+            flex-direction: column;
+            align-items: center;
+            color: rgba(255, 255, 255, 1);
+            white-space: nowrap;
+            justify-content: center;
+            padding: 197px 70px;
+            font: 700 48px Plus Jakarta Sans, -apple-system, Roboto, Helvetica, sans-serif;
+        }
+
+        .content-wrapper {
+            display: flex;
+            margin-bottom: -39px;
+            align-items: center;
+            gap: 40px 55px;
+            justify-content: center;
+            flex-direction: column;
+        }
+
+        .icon-button {
+            background: none;
+            border: none;
+            padding: 0;
+            cursor: pointer;
+        }
+
+        .icon {
+            aspect-ratio: 1;
+            object-fit: contain;
+            object-position: center;
+            width: 48px;
+            align-self: stretch;
+            margin: auto 0;
+        }
+
+        .comment-options {
+            background: white;
+            border-radius: 8px;
+            padding: 16px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .tab-button {
+            background: none;
+            border: none;
+            padding: 8px 16px;
+            color: #342D27;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: background-color 0.2s;
+        }
+
+        .tab-button[aria-selected="true"] {
+            background-color: #342D27;
+            color: white;
+        }
+
+        .comment-panel {
+            width: 100%;
+            max-width: 800px;
+            margin-top: 20px;
+        }
+
+        .footer-container {
+            background-color: var(--secondary-bg);
+            padding: 24px 70px 0;
+            width: 100%;
+        }
+
+        .footer-wrapper {
+            width: 100%;
+            max-width: 1010px;
+            margin: 0 auto;
+        }
+
+        .footer-content {
+            display: flex;
+            gap: 20px;
+        }
+
+        .left-column {
+            flex: 0 0 63%;
+        }
+
+        .mission-wrapper {
+            margin-top: 38px;
+        }
+
+        .mission-text {
+            color: var(--primary-text);
+            font-size: 20px;
+            margin-bottom: 31px;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .footer-button {
+            background-color: var(--accent-bg);
+            border: 1px solid rgba(0, 0, 0, 0.5);
+            border-radius: 20px;
+            color: var(--primary-text);
+            padding: 13px 21px;
+            font-weight: 700;
+            font-size: 12px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .right-column {
+            flex: 0 0 37%;
+        }
+
+        .donation-wrapper {
+            background-color: var(--accent-bg);
+            border-radius: 14px 14px 0 0;
+            padding: 26px;
+            color: var(--primary-text);
+        }
+
+        .donation-text {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        @media (max-width: 991px) {
+            .header {
+                padding: 12px 20px;
+            }
+
+            .chapter-navigation {
+                flex-direction: column;
+            }
+
+            .chapter-select {
+                width: 100%;
+            }
+
+            .navigation-controls {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .comment-container {
+                max-width: 100%;
+                font-size: 40px;
+                white-space: initial;
+                padding: 100px 20px;
+            }
+
+            .content-wrapper {
+                margin-bottom: 10px;
+                font-size: 40px;
+                white-space: initial;
+            }
+
+            .footer-container {
+                padding: 24px 20px 0;
+            }
+
+            .footer-content {
+                flex-direction: column;
+            }
+
+            .left-column,
+            .right-column {
+                flex: 0 0 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="reader-container">
+        <header class="header">
+            <div class="header-content">
+                <h1 class="chapter-title">Read Chapter <span id="current-chapter">3</span> of Nine Heavens Swordmaster</h1>
+                <div class="chapter-navigation">
+                    <select class="chapter-select" aria-label="Select chapter">
+                        <option value="3">Chapter 3</option>
+                        <option value="2">Chapter 2</option>
+                        <option value="1">Chapter 1</option>
+                        <option value="0">Chapter 0</option>
+                    </select>
+                    <div class="navigation-controls">
+                        <button class="nav-button prev-chapter" aria-label="Previous chapter">Previous</button>
+                        <button class="nav-button next-chapter" aria-label="Next chapter">Next</button>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <main class="reader-content">
+            <div class="chapter-content">
+                <img src="chapter-3-page-1.jpg" alt="Chapter 3 Page 1" class="chapter-image">
+                <img src="chapter-3-page-2.jpg" alt="Chapter 3 Page 2" class="chapter-image">
+                <img src="chapter-3-page-3.jpg" alt="Chapter 3 Page 3" class="chapter-image">
+            </div>
+            
+            <div class="bottom-navigation">
+                <button class="nav-button prev-chapter" aria-label="Previous chapter">Previous</button>
+                <button class="nav-button next-chapter" aria-label="Next chapter">Next</button>
+            </div>
+        </main>
+
+        <div class="comment-container">
+            <div class="content-wrapper">
+                <button 
+                    class="icon-button" 
+                    aria-expanded="false"
+                    aria-controls="comment-options"
+                    onclick="toggleCommentOptions()"
+                >
+                    <img
+                        loading="lazy"
+                        src="https://cdn.builder.io/api/v1/image/assets/TEMP/3cc4a50b4d90ec5605ac4cd4d52db0db28a40a8b27793f10e141c430c9aa911d?placeholderIfAbsent=true&apiKey=8e442171329c45b7b66ad2e988bbd377"
+                        class="icon"
+                        alt="Open comment options"
+                    />
+                </button>
+                
+                <div id="comment-options" class="comment-options" role="tablist" hidden>
+                    <button 
+                        role="tab"
+                        aria-selected="true"
+                        aria-controls="disqus-panel"
+                        id="disqus-tab"
+                        class="tab-button"
+                        onclick="switchTab('disqus')"
+                    >
+                        Disqus
+                    </button>
+                    <button
+                        role="tab" 
+                        aria-selected="false"
+                        aria-controls="facebook-panel"
+                        id="facebook-tab"
+                        class="tab-button"
+                        onclick="switchTab('facebook')"
+                    >
+                        Facebook
+                    </button>
+                </div>
+
+                <div 
+                    id="disqus-panel" 
+                    role="tabpanel"
+                    aria-labelledby="disqus-tab"
+                    class="comment-panel"
+                    hidden
+                >
+                    <div id="disqus_thread"></div>
+                </div>
+
+                <div
+                    id="facebook-panel"
+                    role="tabpanel" 
+                    aria-labelledby="facebook-tab"
+                    class="comment-panel"
+                    hidden
+                >
+                    <div class="fb-comments" data-href="window.location.href" data-width="100%" data-numposts="5"></div>
+                </div>
+            </div>
+        </div>
+
+        <footer class="footer-container">
+            <div class="footer-wrapper">
+                <div class="footer-content">
+                    <div class="left-column">
+                        <div class="mission-wrapper">
+                            <p class="mission-text">
+                                In a world where everyone is turning paid we want to become the only site that is free and maintains the quality! That is the whole meaning of altscans. The alternative to every site that is paywalled!
+                            </p>
+                            <div class="action-buttons">
+                                <button class="footer-button">TERMS AND SERVICES</button>
+                                <button class="footer-button">
+                                    FOLLOW US
+                                    <img src="social-icon-1.svg" alt="Social media" width="18" height="18">
+                                    <img src="social-icon-2.svg" alt="Social media" width="18" height="18">
+                                </button>
+                                <button class="footer-button">
+                                    JOIN SERVER
+                                    <img src="discord-icon.svg" alt="Discord" width="18" height="18">
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="right-column">
+                        <div class="donation-wrapper">
+                            <h2 class="donation-text">SPARE SOME PENNY?</h2>
+                            <img src="donation-image.png" alt="Support us" class="donation-image">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const chapterSelect = document.querySelector('.chapter-select');
+            const prevButtons = document.querySelectorAll('.prev-chapter');
+            const nextButtons = document.querySelectorAll('.next-chapter');
+            const currentChapterSpan = document.getElementById('current-chapter');
+            const chapterContent = document.querySelector('.chapter-content');
+            
+            let currentChapter = 3;
+            const maxChapter = 3;
+            const minChapter = 0;
+
+            function updateChapterUI(chapter) {
+                currentChapterSpan.textContent = chapter;
+                chapterSelect.value = chapter;
+                
+                prevButtons.forEach(button => button.disabled = chapter <= minChapter);
+                nextButtons.forEach(button => button.disabled = chapter >= maxChapter);
+                
+                const images = [];
+                for (let i = 1; i <= 3; i++) {
+                    images.push(`
+                        <img 
+                            src="chapter-${chapter}-page-${i}.jpg" 
+                            alt="Chapter ${chapter} Page ${i}" 
+                            class="chapter-image"
+                            loading="${i === 1 ? 'eager' : 'lazy'}"
+                        >
+                    `);
+                }
+                
+                chapterContent.innerHTML = images.join('');
+                
+                history.pushState(
+                    {chapter}, 
+                    `Chapter ${chapter} - Nine Heavens Swordmaster`,
+                    `/reader/chapter-${chapter}`
+                );
+                
+                document.title = `Chapter ${chapter} - Nine Heavens Swordmaster`;
+            }
+
+            function navigateChapter(direction) {
+                const newChapter = currentChapter + direction;
+                if (newChapter >= minChapter && newChapter <= maxChapter) {
+                    currentChapter = newChapter;
+                    updateChapterUI(currentChapter);
+                    window.scrollTo({top: 0, behavior: 'smooth'});
+                }
+            }
+
+            chapterSelect.addEventListener('change', (e) => {
+                currentChapter = parseInt(e.target.value);
+                updateChapterUI(currentChapter);
+                window.scrollTo({top: 0, behavior: 'smooth'});
+            });
+
+            prevButtons.forEach(button => {
+                button.addEventListener('click', () => navigateChapter(-1));
+            });
+
+            nextButtons.forEach(button => {
+                button.addEventListener('click', () => navigateChapter(1));
+            });
+
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'ArrowLeft') {
+                    navigateChapter(-1);
+                } else if (e.key === 'ArrowRight') {
+                    navigateChapter(1);
+                }
+            });
+
+            window.addEventListener('popstate', (e) => {
+                if (e.state && typeof e.state.chapter === 'number') {
+                    currentChapter = e.state.chapter;
+                    updateChapterUI(currentChapter);
+                }
+            });
+
+            updateChapterUI(currentChapter);
+        });
+
+        function toggleCommentOptions() {
+            const options = document.getElementById('comment-options');
+            const button = document.querySelector('.icon-button');
+            const isHidden = options.hidden;
+
+            options.hidden = !isHidden;
+            button.setAttribute('aria-expanded', !isHidden);
+        }
+
+        function switchTab(type) {
+            const tabs = document.querySelectorAll('[role="tab"]');
+            const panels = document.querySelectorAll('[role="tabpanel"]');
+
+            tabs.forEach(tab => {
+                tab.setAttribute('aria-selected', 'false');
+            });
+
+            panels.forEach(panel => {
+                panel.hidden = true;
+            });
+
+            const selectedTab = document.getElementById(`${type}-tab`);
+            const selectedPanel = document.getElementById(`${type}-panel`);
+
+            selectedTab.setAttribute('aria-selected', 'true');
+            selectedPanel.hidden = false;
+        }
+    </script>
+
+    <script>
+        (function() {
+            var d = document, s = d.createElement('script');
+            s.src = 'https://EXAMPLE.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+    </script>
+
+    <div id="fb-root"></div>
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v12.0"></script>
+</body>
+</html>
