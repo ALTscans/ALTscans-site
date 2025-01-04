@@ -24,11 +24,12 @@ app.get('/', limiter, (req, res) => {
 
 
 // Define Routes
-const createUserRoute = require('./routes/createUsers');
-const retrieveUsersRoute = require('./routes/retrieveUsers')
-
+const createUserRoute = require('./routes/createusers');
+const retrieveUsersRoute = require('./routes/retrieveUsers');
+const signInUserRoute = require('./routes/signInUser');
 // Use Routes
 app.use('/createUser', createUserRoute)
+app.use('/signIn', signInUserRoute)
 
 app.listen(port, () => {
   console.log(`API now listening on port http://localhost:${port}`)

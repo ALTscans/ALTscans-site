@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="User profile page with bookmarks and customization options">
+    <title>User Profile</title>
+    <link href="../assets/css/profile.css" rel="stylesheet">
+</head>
+<body>
+    <main>
+        <section class="profile-container">
+            <div class="banner-container" role="img" aria-label="Profile banner">
+                <button class="banner-upload" onclick="triggerBannerUpload()" aria-label="Upload banner image">
+                    Change Banner
+                </button>
+                <input type="file" id="banner-input" class="visually-hidden" accept="image/*" onchange="handleBannerUpload(event)">
+            </div>
+
+            <div class="profile-section">
+                <div class="profile-image-container" onclick="triggerProfileUpload()" role="button" aria-label="Change profile picture">
+                    <img src="default-profile.jpg" alt="" class="profile-image" id="profile-image">
+                    <input type="file" id="profile-input" class="visually-hidden" accept="image/*" onchange="handleProfileUpload(event)">
+                </div>
+
+                <div class="profile-details">
+                    <h1 class="profile-username">Darkside_gamer</h1>
+                    <p class="profile-id">ID: 0fd443f1-7067-4650-9527-e9c4ff954d0d</p>
+                    <textarea class="profile-bio" id="profile-bio" aria-label="Biography" placeholder="Write something about yourself...">idk man, put anything here.</textarea>
+                    <button class="btn btn-save" onclick="saveBio()">Save Bio</button>
+                    
+                    <div class="profile-actions">
+                        <button class="btn btn-delete">DELETE ACCOUNT</button>
+                        <button class="btn btn-change">CHANGE PASSWORD</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="bookmarks-container">
+            <h2 class="bookmarks-title">Your Bookmarks</h2>
+            <div class="bookmarks-list">
+                <div class="bookmark-item">
+                    <div class="bookmark-image">
+                        <img src="https://imgsrv.crunchyroll.com/cdn-cgi/image/fit=contain,format=auto,quality=85,width=480,height=720/catalog/crunchyroll/0f3c1f6c3b75aaa9b8062f19df77d5e9.jpg" alt="Highschool DxD cover">
+                    </div>
+                    <div class="bookmark-details">
+                        <h3 class="bookmark-title">Highschool DxD</h3>
+                        <div class="bookmark-info">Viewed: <span class="chapter-viewed">Chapter 33</span></div>
+                        <div class="bookmark-info">Current: <span class="chapter-current">Chapter 57</span></div>
+                        <div class="bookmark-info">Last updated: 13 hours ago</div>
+                    </div>
+                    <button class="remove-btn" aria-label="Remove bookmark">Remove</button>
+                </div>
+
+                <div class="bookmark-item">
+                    <div class="bookmark-image">
+                        <img src="book1.jpg" alt="The Academy's Genius Tamer cover">
+                    </div>
+                    <div class="bookmark-details">
+                        <h3 class="bookmark-title">The Academy's Genius Tamer</h3>
+                        <div class="bookmark-info">Viewed: <span class="chapter-viewed">Chapter 38</span></div>
+                        <div class="bookmark-info">Current: <span class="chapter-current">Chapter 39</span></div>
+                        <div class="bookmark-info">Last updated: 4 hours ago</div>
+                    </div>
+                    <button class="remove-btn" aria-label="Remove bookmark">Remove</button>
+                </div>
+
+                <div class="bookmark-item">
+                    <div class="bookmark-image">
+                        <img src="book3.jpg" alt="Solo Leveling cover">
+                    </div>
+                    <div class="bookmark-details">
+                        <h3 class="bookmark-title">Solo Leveling</h3>
+                        <div class="bookmark-info">Viewed: <span class="chapter-viewed">Chapter 179</span></div>
+                        <div class="bookmark-info">Current: <span class="chapter-current">Chapter 179</span></div>
+                        <div class="bookmark-info">Last updated: 1 day ago</div>
+                    </div>
+                    <button class="remove-btn" aria-label="Remove bookmark">Remove</button>
+                </div>
+
+                <div class="bookmark-item">
+                    <div class="bookmark-image">
+                        <img src="book4.jpg" alt="Omniscient Reader's Viewpoint cover">
+                    </div>
+                    <div class="bookmark-details">
+                        <h3 class="bookmark-title">Omniscient Reader's Viewpoint</h3>
+                        <div class="bookmark-info">Viewed: <span class="chapter-viewed">Chapter 89</span></div>
+                        <div class="bookmark-info">Current: <span class="chapter-current">Chapter 102</span></div>
+                        <div class="bookmark-info">Last updated: 2 days ago</div>
+                    </div>
+                    <button class="remove-btn" aria-label="Remove bookmark">Remove</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        function triggerBannerUpload() {
+            document.getElementById('banner-input').click();
+        }
+
+        function triggerProfileUpload() {
+            document.getElementById('profile-input').click();
+        }
+
+        function handleBannerUpload(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.querySelector('.banner-container').style.backgroundImage = `url(${e.target.result})`;
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function handleProfileUpload(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('profile-image').src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function saveBio() {
+            const bio = document.getElementById('profile-bio').value;
+            console.log('Bio saved:', bio);
+        }
+
+        document.querySelectorAll('.remove-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                const bookmarkItem = this.closest('.bookmark-item');
+                bookmarkItem.remove();
+            });
+        });
+    </script>
+</body>
+</html>
