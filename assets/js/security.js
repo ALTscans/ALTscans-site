@@ -64,7 +64,34 @@ signupForm.addEventListener('submit', (e) => {
 
 
 
+function handleCredentialResponse(response) {
+  console.log("Encoded JWT ID token: " + response.credential);
 
+  axios.post('http://localhost:3000/oauth/google', {
+    response
+  },
+  {
+    headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': '019417e6-a468-7c95-9e8e-2562e1b182a7'
+      },
+  }
+);
+}
+
+window.onload = function googleAuth() {
+  google.accounts.id.initialize({
+    client_id: "125401189899-h844luec9lsheutbgrq3hr3o3lq7n57r.apps.googleusercontent.com",
+    callback: handleCredentialResponse
+  });
+  
+  google.accounts.id.renderButton(
+    document.getElementById("googleAuth"),
+    { theme: "outline", size: "large" }  // customization attributes
+  );
+
+  google.accounts.id.prompt(); // also display the One Tap dialog
+}
 
 
 
@@ -83,13 +110,15 @@ function closeDialog() {
 }
 
 function handleSocialAuth(provider) {
-    const providers = {
-        google: 'https://accounts.google.com/o/oauth2/v2/auth',
-        naver: 'https://nid.naver.com/oauth2.0/authorize',
-        facebook: 'https://www.facebook.com/v12.0/dialog/oauth',
-        telegram: 'https://oauth.telegram.org/auth'
-    };
-    window.location.href = providers[provider];
+  console.log(provider);
+  
+  try {
+    switch(provider) {
+      case 'google':
+    }
+  } catch(error) {
+    console.log(error);
+  }
 }
 
 document.getElementById('verifyForm').addEventListener('submit', function(e) {
