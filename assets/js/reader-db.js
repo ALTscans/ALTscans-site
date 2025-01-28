@@ -41,11 +41,11 @@ document.addEventListener('DOMContentLoaded', function() {
       chapterNoHeader.textContent = `Chapter ${chapterNo}`;
       chapterNameHeader.textContent = formatTitle(response.data.seriesDetails.title);
 
-      let imageContainer = document.getElementById('chapter-content');
+      let imageContainer = document.querySelector('.chapter-content');
       if (!imageContainer) {
         // If the container doesn't exist, create it
         imageContainer = document.createElement('div');
-        imageContainer.id = 'chapter-content';
+        imageContainer.className = 'chapter-content';
         const readerContent = document.querySelector('.reader-content');
         if (readerContent) {
           readerContent.appendChild(imageContainer);

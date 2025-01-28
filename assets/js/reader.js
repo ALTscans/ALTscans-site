@@ -86,6 +86,26 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     updateChapterUI(currentChapter);
+
+    // Add header scroll logic
+    let lastScroll = 100;
+    const header = document.querySelector('.header');
+    const scrollThreshold = 100; // minimum scroll amount before showing/hiding
+
+    window.addEventListener('scroll', () => {
+        const currentScroll = window.scrollY;
+        
+        // Determine scroll direction and distance
+        if (currentScroll > lastScroll && currentScroll > scrollThreshold) {
+            // Scrolling down & past threshold - hide header
+            header.classList.add('hidden');
+        } else if (currentScroll < lastScroll) {
+            // Scrolling up - show header
+            header.classList.remove('hidden');
+        }
+        
+        lastScroll = currentScroll;
+    });
 });
 
 function toggleCommentOptions() {

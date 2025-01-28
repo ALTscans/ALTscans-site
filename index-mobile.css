@@ -1,0 +1,263 @@
+/* Root Variables */
+:root {
+    --accent: #FFA21B;
+    --background: #16151D;
+    --surface: #212121;
+    --container: #332C26;
+    --variable: #2F1E06;
+    --text: #FFFFFF;
+}
+
+/* General Body Styling */
+body {
+    background-color: var(--background);
+    color: var(--text);
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+/* Carousel Section */
+.carousel-container {
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+    position: relative;
+}
+
+.carousel-button {
+    width: 40px;
+    height: 40px;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    z-index: 3;
+    transition: all 0.3s ease;
+}
+
+.carousel-button:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+.prev {
+    left: 10px;
+}
+
+.next {
+    right: 10px;
+}
+
+.carousel-track {
+    width: 100%;
+    display: flex;
+    transition: transform 0.3s ease;
+}
+
+.carousel-slide {
+    width: 100%;
+    flex-shrink: 0;
+    box-sizing: border-box;
+}
+
+/* Hero Section */
+.hero-container {
+    padding: 10px 15px;
+    text-align: center;
+}
+
+.hero-title {
+    font-size: 20px;
+    margin: 10px 0;
+    color: var(--text);
+}
+
+/* Ad Space */
+.ad-space {
+    width: 100%;
+    height: 80px;
+    background-color: var(--surface);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text);
+    font-size: 14px;
+    margin: 20px 0;
+}
+
+/* Latest Releases Section */
+.latest-releases-container {
+    padding: 10px;
+    background-color: var(--surface);
+    order: 2; /* Set this section below Popular Today */
+}
+
+.latest-releases-container .section-title {
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: var(--text);
+}
+
+.latest-releases-container .grid-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.latest-releases-container .grid-item {
+    flex: 1 1 calc(50% - 10px);
+    background-color: var(--container);
+    border-radius: 8px;
+    overflow: hidden;
+    text-align: center;
+    padding: 8px;
+}
+
+.latest-releases-container .series-thumbnail img {
+    width: 100%;
+    height: 120px;
+    object-fit: cover;
+}
+
+.latest-releases-container .series-title {
+    font-size: 14px;
+    margin-top: 5px;
+    color: var(--text);
+}
+
+/* Popular Today Section */
+.popular-section {
+    padding: 10px;
+    background-color: var(--surface);
+    order: 1; /* Ensure Popular Today appears above Latest Releases */
+    margin-bottom: 20px;
+}
+
+.popular-section .section-title {
+    font-size: 18px;
+    margin-bottom: 10px;
+    text-align: center;
+    color: var(--text);
+}
+
+.popular-section .grid-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* Show 4 manga boxes */
+    gap: 10px;
+}
+
+.popular-section .grid-item {
+    background-color: var(--container);
+    border-radius: 8px;
+    overflow: hidden;
+    text-align: center;
+    padding: 8px;
+}
+
+.popular-section .manga-cover {
+    width: 100%;
+    height: 120px;
+    object-fit: cover;
+}
+
+.popular-section .chapter-text {
+    font-size: 14px;
+    margin-top: 5px;
+    color: var(--text);
+}
+
+/* Popular Tab Section */
+.popular-tab {
+    padding: 10px;
+    background-color: var(--surface);
+}
+
+.popular-tab .content-wrapper {
+    background-color: var(--surface);
+    padding: 15px;
+    border-radius: 8px;
+}
+
+.popular-tab .section-title {
+    font-size: 18px;
+    margin-bottom: 10px;
+    text-align: center;
+    color: var(--text);
+}
+
+.popular-tab .filter-container {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.popular-tab .filter-option {
+    padding: 8px 12px;
+    background: none;
+    border: none;
+    color: var(--text);
+    font-size: 12px;
+    cursor: pointer;
+    border-radius: 20px;
+}
+
+.popular-tab .filter-option.active {
+    background-color: var(--accent);
+    color: #000;
+}
+
+.popular-tab .items-container {
+    display: flex; /* Stack items vertically */
+    flex-direction: column;
+    gap: 10px;
+}
+
+.popular-tab .item-card {
+    background-color: var(--container);
+    border-radius: 8px;
+    padding: 10px;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.popular-tab .item-card:hover {
+    background-color: var(--variable);
+}
+
+/* Footer */
+.footer-container {
+    padding: 10px;
+    background-color: var(--surface);
+}
+
+.footer-container .footer-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.footer-container .footer-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.footer-container .footer-button {
+    background-color: var(--container);
+    padding: 8px 12px;
+    border-radius: 8px;
+    color: var(--text);
+    cursor: pointer;
+}
+
+.footer-container .footer-button:hover {
+    background-color: var(--variable);
+}
