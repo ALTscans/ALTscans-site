@@ -1,13 +1,14 @@
 document.addEventListener('DOMContentLoaded', () => {
-
-
+    const urlParams = new URLSearchParams(window.location.search);
     const chapterSelect = document.querySelector('.chapter-select');
     const prevButtons = document.querySelectorAll('.prev-chapter');
     const nextButtons = document.querySelectorAll('.next-chapter');
     const currentChapterSpan = document.getElementById('current-chapter');
     const chapterContent = document.querySelector('.chapter-content');
     
-    let currentChapter = 3;
+    let currentChapter = parseInt(urlParams.get('chapter')) || 3;
+    const seriesName = urlParams.get('series') || 'hclw';
+    const seriesId = urlParams.get('id') || '31868';
     const maxChapter = 3;
     const minChapter = 0;
 
@@ -32,13 +33,18 @@ document.addEventListener('DOMContentLoaded', () => {
         
         chapterContent.innerHTML = images.join('');
         
+        const newUrl = new URL(window.location.href);
+        newUrl.searchParams.set('chapter', chapter);
+        newUrl.searchParams.set('series', seriesName);
+        newUrl.searchParams.set('id', seriesId);
+        
         history.pushState(
             {chapter}, 
-            `Chapter ${chapter} - Nine Heavens Swordmaster`,
-            `/reader/chapter-${chapter}`
+            `Chapter ${chapter} - ${seriesName.toUpperCase()}`,
+            newUrl.toString()
         );
         
-        document.title = `Chapter ${chapter} - Nine Heavens Swordmaster`;
+        document.title = `Chapter ${chapter} - ${seriesName.toUpperCase()}`;
     }
 
     function navigateChapter(direction) {
