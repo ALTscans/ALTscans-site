@@ -1,0 +1,272 @@
+<style>
+  .footer-container {
+    background-color: rgba(33, 33, 33, 1);
+    display: flex;
+    margin-top: 8px;
+    width: 100%;
+    flex-direction: column;
+    align-items: start;
+    padding: 24px 70px 0;
+  }
+  .footer-wrapper {
+    width: 100%;
+    max-width: 1010px;
+  }
+  .footer-content {
+    gap: 20px;
+    display: flex;
+  }
+  .left-column {
+    display: flex;
+    flex-direction: column;
+    line-height: normal;
+    width: 63%;
+    margin-left: 0;
+  }
+  .mission-wrapper {
+    display: flex;
+    margin-top: 38px;
+    width: 100%;
+    flex-direction: column;
+  }
+  .mission-text {
+    color: rgba(255, 255, 255, 1);
+    align-self: start;
+    font: 400 20px Plus Jakarta Sans, -apple-system, Roboto, Helvetica, sans-serif;
+  }
+  .action-buttons {
+    display: flex;
+    margin-top: 31px;
+    align-items: center;
+    gap: 8px;
+    justify-content: start;
+    flex-wrap: wrap;
+  }
+  .terms-button {
+    border-radius: 20px;
+    align-self: stretch;
+    display: flex;
+    flex-direction: column;
+    color: rgba(255, 255, 255, 1);
+    width: 207px;
+    margin: auto 0;
+    font: 700 12px Plus Jakarta Sans, -apple-system, Roboto, Helvetica, sans-serif;
+  }
+  .terms-content {
+    border-radius: 20px;
+    background-color: rgba(52, 45, 39, 1);
+    padding: 13px 21px;
+    border: 1px solid rgba(0, 0, 0, 0.5);
+  }
+  .social-wrapper {
+    border-radius: 0;
+    align-self: stretch;
+    display: flex;
+    flex-direction: column;
+    width: 165px;
+    margin: auto 0;
+  }
+  .social-container {
+    border-radius: 20px;
+    background-color: rgba(52, 45, 39, 1);
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    justify-content: center;
+    padding: 11px 0;
+    border: 1px solid rgba(0, 0, 0, 0.5);
+  }
+  .social-content {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    gap: 14px;
+    justify-content: center;
+  }
+  .social-text {
+    color: rgba(255, 255, 255, 1);
+    align-self: stretch;
+    margin: auto 0;
+    font: 700 12px Plus Jakarta Sans, -apple-system, Roboto, Helvetica, sans-serif;
+  }
+  .social-icons {
+    align-self: stretch;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    justify-content: center;
+    margin: auto 0;
+  }
+  .social-icon {
+    aspect-ratio: 1;
+    object-fit: contain;
+    object-position: center;
+    width: 18px;
+    align-self: stretch;
+    margin: auto 0;
+  }
+  .server-wrapper {
+    border-radius: 0;
+    align-self: stretch;
+    display: flex;
+    flex-direction: column;
+    color: rgba(255, 255, 255, 1);
+    width: 137px;
+    margin: auto 0;
+    font: 700 12px Plus Jakarta Sans, -apple-system, Roboto, Helvetica, sans-serif;
+  }
+  .server-container {
+    border-radius: 20px;
+    background-color: rgba(52, 45, 39, 1);
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    justify-content: center;
+    padding: 11px 0;
+    border: 1px solid rgba(0, 0, 0, 0.5);
+  }
+  .server-content {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    justify-content: center;
+  }
+  .server-text {
+    align-self: stretch;
+    margin: auto 0;
+  }
+  .right-column {
+    display: flex;
+    flex-direction: column;
+    line-height: normal;
+    width: 37%;
+    margin-left: 20px;
+  }
+  .donation-wrapper {
+    border-radius: 14px 14px 0 0;
+    background-color: rgba(52, 45, 39, 1);
+    display: flex;
+    flex-grow: 1;
+    flex-direction: column;
+    color: rgba(255, 255, 255, 1);
+    width: 100%;
+    padding: 26px 0 0 26px;
+    font: 700 24px Plus Jakarta Sans, -apple-system, Roboto, Helvetica, sans-serif;
+  }
+  .donation-text {
+    margin-right: 26px;
+  }
+  .donation-image {
+    aspect-ratio: 1.27;
+    object-fit: contain;
+    object-position: center;
+    width: 247px;
+    align-self: end;
+    z-index: 10;
+    max-width: 100%;
+    margin: 8px -117px 0 0;
+  }
+  @media (max-width: 991px) {
+    .footer-container {
+      max-width: 100%;
+      padding: 0 20px;
+    }
+    .footer-wrapper {
+      max-width: 100%;
+    }
+    .footer-content {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0;
+    }
+    .left-column {
+      width: 100%;
+    }
+    .mission-wrapper {
+      max-width: 100%;
+      margin-top: 40px;
+    }
+    .mission-text {
+      max-width: 100%;
+    }
+    .terms-content {
+      padding: 0 20px;
+    }
+    .right-column {
+      width: 100%;
+    }
+    .donation-wrapper {
+      margin-top: 40px;
+    }
+    .donation-text {
+      margin-right: 10px;
+    }
+  }
+</style>
+
+<div class="footer-container">
+  <div class="footer-wrapper">
+    <div class="footer-content">
+      <div class="left-column">
+        <div class="mission-wrapper">
+          <div class="mission-text">
+            In a world where everyone is turning paid we want to become the only
+            site that is free and maintains the quality! That is the whole
+            meaning of altscans. The alternative to every site that is
+            paywalled!
+          </div>
+          <div class="action-buttons">
+            <div class="terms-button">
+              <div class="terms-content" tabindex="0" role="button">TERMS AND SERVICES</div>
+            </div>
+            <div class="social-wrapper">
+              <div class="social-container">
+                <div class="social-content">
+                  <div class="social-text">FOLLOW US</div>
+                  <div class="social-icons">
+                    <img
+                      loading="lazy"
+                      src="https://cdn.builder.io/api/v1/image/assets/TEMP/402f15e4c8679df15d20ad5808e71d4e7758da3f37f4d80022526142f2b0a954?placeholderIfAbsent=true&apiKey=8e442171329c45b7b66ad2e988bbd377"
+                      class="social-icon"
+                      alt="Social media icon"
+                    />
+                    <img
+                      loading="lazy"
+                      src="https://cdn.builder.io/api/v1/image/assets/TEMP/690aa8ae4f90b6a8c055baa4da24752d54fe28e66dec2f435b112bc1fb7e5ea8?placeholderIfAbsent=true&apiKey=8e442171329c45b7b66ad2e988bbd377"
+                      class="social-icon"
+                      alt="Social media icon"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="server-wrapper">
+              <div class="server-container">
+                <div class="server-content">
+                  <div class="server-text">JOIN SERVER</div>
+                  <img
+                    loading="lazy"
+                    src="https://cdn.builder.io/api/v1/image/assets/TEMP/ba4dce101ceb0ac703c64c0e015b0d0095c971dab91700642901ab91a63a8aeb?placeholderIfAbsent=true&apiKey=8e442171329c45b7b66ad2e988bbd377"
+                    class="social-icon"
+                    alt="Server join icon"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="right-column">
+        <div class="donation-wrapper">
+          <div class="donation-text">SPARE SOME PENNY?</div>
+          <img
+            loading="lazy"
+            src="https://cdn.builder.io/api/v1/image/assets/TEMP/9737e48752ec7264ac480f491821a62165cbe335df7fffcbf14bfbdf9339b437?placeholderIfAbsent=true&apiKey=8e442171329c45b7b66ad2e988bbd377"
+            class="donation-image"
+            alt="Donation illustration"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

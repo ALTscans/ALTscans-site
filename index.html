@@ -3,6 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>
+        // Check if the device is mobile
+        function isMobile() {
+            return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) 
+                   || window.innerWidth <= 768;
+        }
+        
+        // Redirect if on mobile and not already on mobile version
+        if (isMobile() && !window.location.pathname.includes('mobile-index.html')) {
+            window.location.href = 'mobile-index.html';
+        }
+    </script>
     <title>AltScans</title>
 
     <link rel="apple-touch-icon" sizes="57x57" href="assets/img/favicons/apple-icon-57x57.png">
