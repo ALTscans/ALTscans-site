@@ -1,3 +1,5 @@
+const baseAPI = 'https://altscans-api.netlify.app/api';
+
 const handleSeriesCover = (chapterNo) => {
     window.location.href = `/reader.html?chapter=${chapterNo}&series=${seriesName}&id=${mangaId}`;
 };

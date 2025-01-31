@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentChapter = parseInt(urlParams.get('chapter')) || 3;
     const seriesName = urlParams.get('series') || 'hclw';
     const seriesId = urlParams.get('id') || '31868';
-    const maxChapter = 3;
+    const maxChapter = ;
     const minChapter = 0;
 
     function updateChapterUI(chapter) {

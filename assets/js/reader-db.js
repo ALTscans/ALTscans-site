@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function() {
   const urlParams = new URLSearchParams(window.location.search);
   const chapterNo = urlParams.get('chapter') || '73';
   const seriesName = urlParams.get('series') || 'hclw';
-  const seriesId = urlParams.get('id') || '31868';
+  const seriesId = urlParams.get('id') || '78526';
 
   function formatTitle(title) {
     return title
