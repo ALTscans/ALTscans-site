@@ -1,9 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <title>AltScans</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="./assets/css/index-mobile.css">
+
+<script type="text/javascript" src="./assets/js/carousel.js"></script>
+<script type="text/javascript" src="./assets/js/mobile-index.js"></script>
+<script type="text/javascript" src="./assets/js/api.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios@1.6.7/dist/axios.min.js"></script>
+
 <script>
     // Check if the device is mobile
     function isMobile() {
@@ -12,12 +18,31 @@
     }
     
     // Redirect if on desktop and currently on mobile version
-    if (!isMobile() && window.location.pathname.includes('mobile-index.html')) {
-        window.location.href = 'index.html';
-    }
+   // if (!isMobile() && window.location.pathname.includes('mobile-index.html')) {
+   //     window.location.href = 'index.html';
+    //}
 </script>
-  
-    <link rel="preload" href="/fonts/JatarkaSans-Regular.woff2" as="font" type="font/woff2" crossorigin>
+
+<link rel="apple-touch-icon" sizes="57x57" href="assets/img/favicons/apple-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="assets/img/favicons/apple-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="assets/img/favicons/apple-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="assets/img/favicons/apple-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="assets/img/favicons/apple-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="assets/img/favicons/apple-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="assets/img/favicons/apple-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="assets/img/favicons/apple-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="assets/img/favicons/apple-icon-180x180.png">
+<link rel="icon" type="image/png" sizes="192x192"  href="assets/img/favicons/android-icon-192x192.png">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicons/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="96x96" href="assets/img/favicons/favicon-96x96.png">
+<link rel="icon" type="image/png" sizes="16x16" href="assets/img/favicons/favicon-16x16.png">
+<link rel="manifest" href="assets/img/favicons/manifest.json">
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+<meta name="theme-color" content="#ffffff">
+<link rel="stylesheet" href="./assets/css/index-mobile.css">
+<link rel="preload" href="/fonts/JatarkaSans-Regular.woff2" as="font" type="font/woff2" crossorigin>
+
 <style>
 .latest-releases-container{background-color:#212121;display:flex;width:100%;flex-direction:column;padding:12px 0 20px}.section-header{display:flex;align-items:center;padding:8px 16px;background-color:#ffa21b;border-radius:26px;margin-bottom:20px}.section-title{color:#16151d;font:700 15px Plus Jakarta Sans,-apple-system,Roboto,Helvetica,sans-serif;margin:0}.releases-grid{gap:20px;display:flex;margin-top:10px}.release-card{display:flex;flex-grow:1;flex-direction:column;font:12px Plus Jakarta Sans,sans-serif}.card-content{background-color:#342d27;display:flex;flex-direction:row;padding:12px;border-radius:8px;gap:16px}.series-info{display:flex;flex-direction:column;gap:12px;flex:1}.cover-container{position:relative;width:120px;flex-shrink:0}.cover-upload{width:120px;height:180px;background-color:#2a231d;border-radius:4px;display:flex;align-items:center;justify-content:center;cursor:pointer;position:relative;overflow:hidden}.cover-upload input[type=file]{position:absolute;width:100%;height:100%;opacity:0;cursor:pointer}.cover-upload-icon{color:rgba(255,255,255,.5);font-size:24px}.like-button{position:absolute;top:8px;right:8px;background:rgba(0,0,0,.5);border:none;color:rgba(255,255,255,.8);cursor:pointer;padding:8px;border-radius:50%;width:32px;height:32px;display:flex;align-items:center;justify-content:center;transition:all .2s ease;z-index:2}.like-button[data-liked=true]{color:#ff4757;background:rgba(255,255,255,.9)}.series-details{flex:1}.series-title{color:#fff;font-size:16px;font-weight:700;margin-bottom:8px}.star-rating{display:flex;gap:4px}.star{color:#ffd700;cursor:pointer;font-size:20px;transition:color .2s ease;background:0 0;border:none;padding:0;line-height:1}.star:focus,.star:hover{color:#ffed4a;outline:none}.star[data-active=true]{color:#ffd700}.star[data-active=false]{color:#ccc}.chapter-container{display:flex;flex-direction:column;gap:8px;justify-content:center;min-width:160px}.chapter-btn{width:100%;border-radius:6px;background-color:#342d27;color:#fff;font-weight:700;padding:16px 24px;text-align:center;cursor:pointer;transition:background-color .3s ease;border:none;font-size:14px;letter-spacing:.5px}.chapter-btn:focus,.chapter-btn:hover{background-color:#48413b;outline:2px solid rgba(255,255,255,.5)}.chapter-btn:active{background-color:#2a231d}.chapter-btn-highlight{width:100%;border-radius:26px;background-color:#ffa21b;padding:16px 24px;text-align:center;cursor:pointer;transition:background-color .3s ease;border:none;color:#16151d;font-weight:700;font-size:14px;letter-spacing:.5px}.chapter-btn-highlight:focus,.chapter-btn-highlight:hover{background-color:#eb8e07;outline:2px solid rgba(255,255,255,.5)}.chapter-btn-highlight:active{background-color:#d77a00}@media (max-width:991px){.latest-releases-container{padding:12px 16px 20px}.releases-grid{flex-direction:column;gap:16px}.card-content{flex-direction:row;align-items:flex-start;gap:12px}.series-info{flex-direction:column;min-width:0}.cover-container{width:100px}.cover-upload{width:100px;height:150px}.chapter-container{display:flex;flex-direction:column;justify-content:space-between;height:150px;min-width:140px}.chapter-btn,.chapter-btn-highlight{padding:14px 20px;font-size:13px;height:44px;display:flex;align-items:center;justify-content:center}.series-title{font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.star{font-size:16px}.series-details{flex:1;min-width:0}}@media (max-width:480px){.card-content{padding:8px}.chapter-container{min-width:120px}.chapter-btn,.chapter-btn-highlight{padding:12px 16px;font-size:12px;height:40px}}
 </style>
@@ -87,9 +112,7 @@
     </main>
 <div class="latest-releases-container">
 <div class="section-header"><h2 class="section-title">LATEST RELEASES</h2></div>
-<div class="releases-grid">
 
-</div>
 </div>
  <div class="ad-container">
   <div class="ad-grid">
@@ -186,9 +209,5 @@
     </div>
   </div>
 </div>
-<script type="text/javascript" src="./assets/js/carousel.js"></script>
-<script type="text/javascript" src="./assets/js/mobile-index.js"></script>
-<script type="text/javascript" src="./assets/js/api.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/axios@1.6.7/dist/axios.min.js"></script>
 </body>
 </html>
