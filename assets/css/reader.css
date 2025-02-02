@@ -14,6 +14,10 @@
     box-sizing: border-box;
 }
 
+a {
+    text-decoration: none; 
+}
+
 body {
     background-color: var(--primary-bg);
     color: var(--primary-text);
@@ -395,7 +399,7 @@ body {
     aspect-ratio: 1.27;
     object-fit: contain;
     object-position: center;
-    width: 247px;
+    width: 400px;
     align-self: end;
     z-index: 10;
     max-width: 100%;
