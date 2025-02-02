@@ -63,4 +63,16 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
   console.log(`Series Log:`, series);
+  
+  var disqus_config = function () {
+      this.page.url = window.location.href;  // Use current page URL
+      this.page.identifier = `${seriesName}-chapter-${chapterNo}`; // Create unique identifier based on series and chapter
+  };
+
+  (function() { // DON'T EDIT BELOW THIS LINE
+  var d = document, s = d.createElement('script');
+  s.src = 'https://altscan.disqus.com/embed.js';
+  s.setAttribute('data-timestamp', +new Date());
+  (d.head || d.body).appendChild(s);
+  })();
 });

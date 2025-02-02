@@ -20,26 +20,31 @@
         .catch(error => console.error('Error loading header:', error));
 
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.6.7/dist/axios.min.js"></script>
+    <script src="./assets/js/reader.js"></script>
+    <script src="./assets/js/reader-db.js"></script>
 </head>
 <body>
     <div class="reader-container">
-        <header class="header">
-            <div class="header-content">
-                <h1 class="chapter-title">Read Chapter <span id="current-chapter"> </span> of <span id="current-chapter-name"></span> </h1>
-                <div class="chapter-navigation">
-                    <select class="chapter-select" aria-label="Select chapter">
-                        <option value="3">Chapter 3</option>
-                        <option value="2">Chapter 2</option>
-                        <option value="1">Chapter 1</option>
-                        <option value="0">Chapter 0</option>
-                    </select>
-                    <div class="navigation-controls">
-                        <button class="nav-button prev-chapter" aria-label="Previous chapter">Previous</button>
-                        <button class="nav-button next-chapter" aria-label="Next chapter">Next</button>
+        <div class="header-grid-container">
+            <header class="header">
+                <div class="header-content">
+                    <h1 class="chapter-title">Read Chapter <span id="current-chapter"> </span> of <span id="current-chapter-name"></span> </h1>
+                    <div class="chapter-navigation">
+                        <select class="chapter-select" aria-label="Select chapter">
+                            <option value="3">Chapter 3</option>
+                            <option value="2">Chapter 2</option>
+                            <option value="1">Chapter 1</option>
+                            <option value="0">Chapter 0</option>
+                        </select>
+                        <div class="navigation-controls">
+                            <button class="nav-button prev-chapter" aria-label="Previous chapter">Previous</button>
+                            <button class="nav-button next-chapter" aria-label="Next chapter">Next</button>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </header>
+            </header>
+        </div>
 
         <main class="reader-content">
             <div class="chapter-content">
@@ -117,24 +122,8 @@
         
     </div>
     <div id="fb-root"></div>
-    <script>
-        var disqus_config = function () {
-            this.page.url = window.location.href;  // Use current page URL
-            this.page.identifier = `${series}-chapter-${chapterNo}`; // Create unique identifier based on series and chapter
-        };
-
-        (function() { // DON'T EDIT BELOW THIS LINE
-        var d = document, s = d.createElement('script');
-        s.src = 'https://altscan.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', +new Date());
-        (d.head || d.body).appendChild(s);
-        })();
-    </script>
     <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
     <script id="dsq-count-scr" src="//altscan.disqus.com/count.js" async></script>
-    <script src="https://cdn.jsdelivr.net/npm/axios@1.6.7/dist/axios.min.js"></script>
-    <script src="./assets/js/reader.js"></script>
-    <script src="./assets/js/reader-db.js"></script>
     <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v12.0"></script>
 </body>
 </html>

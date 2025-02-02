@@ -28,15 +28,37 @@ body {
     padding-top: 120px;
 }
 
-.header {
-    background-color: var(--secondary-bg);
-    padding: 12px 70px;
-    position: fixed;
-    top: 0;
-    z-index: 100;
-    text-align: center;
+.header-grid-container {
     width: 100%;
-    transition: transform 0.5s ease;
+    display: grid;
+    align-items: center;
+    justify-items: center;
+}
+
+@media (min-width: 320px) {
+    .header {
+        background-color: var(--secondary-bg);
+        padding: 12px 70px;
+        position: fixed;
+        top: 0;
+        z-index: 100;
+        text-align: center;
+        width: 60%;
+        transition: transform 0.5s ease;
+    }
+}
+
+@media (min-width: 768px){
+    .header {
+        background-color: var(--secondary-bg);
+        padding: 12px 70px;
+        position: fixed;
+        top: 0;
+        z-index: 100;
+        text-align: center;
+        width: 100%;
+        transition: transform 0.5s ease;
+    }
 }
 
 .header.hidden {

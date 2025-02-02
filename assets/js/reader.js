@@ -6,12 +6,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const currentChapterSpan = document.getElementById('current-chapter');
     const chapterContent = document.querySelector('.chapter-content');
     
-    let currentChapter = parseInt(urlParams.get('chapter')) || 3;
+    let currentChapter = parseInt(urlParams.get('chapter')) || 73;
     const seriesName = urlParams.get('series') || 'hclw';
     const seriesId = urlParams.get('id') || '31868';
-    const maxChapter = ;
+    const maxChapter = chapterNo;
     const minChapter = 0;
-
+    
+  console.log(maxChapter);
+    
     function updateChapterUI(chapter) {
         currentChapterSpan.textContent = chapter;
         chapterSelect.value = chapter;
@@ -135,10 +137,3 @@ function switchTab(type) {
     selectedTab.setAttribute('aria-selected', 'true');
     selectedPanel.hidden = false;
 }
-
-(function() {
-    var d = document, s = d.createElement('script');
-    s.src = 'https://EXAMPLE.disqus.com/embed.js';
-    s.setAttribute('data-timestamp', +new Date());
-    (d.head || d.body).appendChild(s);
-})();
