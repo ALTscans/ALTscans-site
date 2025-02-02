@@ -46,7 +46,7 @@ async function fetchLatestReleases() {
       // Create a grid item for each release
       const gridItem = document.createElement("div");
       gridItem.className = "releases-grid";
-      gridItem.onclick = () => handleClick(release); // Assuming you have a handleClick function
+      gridItem.onclick = () => readChapter(manga, `${nick}`, chapterNo ); // Assuming you have a handleClick function
 
       const itemContent = `
         <div class="release-card">

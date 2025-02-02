@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function() {
   const urlParams = new URLSearchParams(window.location.search);
   const chapterNo = urlParams.get('chapter') || '73';
   const seriesName = urlParams.get('series') || 'hclw';
-  const seriesId = urlParams.get('id') || '78526';
+  const seriesId = urlParams.get('id');
 
   function formatTitle(title) {
     return title
@@ -13,7 +13,16 @@ document.addEventListener('DOMContentLoaded', function() {
       .map(word => word.charAt(0).toUpperCase() + word.slice(1))
       .join(' ');
   }
-
+  
+  if (!chapterNo || !seriesName || !seriesId) { 
+    console.log(`Error: Missing URL parameters`);
+    
+    let header = document.querySelector('.chapter-title');
+    if (header) {
+      header.textContent = 'Error: Missing URL parameters';
+    }
+  }
+  
   let series = axios.get(`${basedbUrl}/api/admin/getSeries/${seriesId}/${seriesName}/${chapterNo}`, {})
     .then(function (response) {
       console.log(response)
@@ -60,6 +69,15 @@ document.addEventListener('DOMContentLoaded', function() {
     })
     .catch(function (error) {
       console.log(`error: `, error);
+      let errorRes = error.response.request.response;
+      
+      if (errorRes) {
+        
+        let header = document.querySelector('.chapter-title');
+        if (header) {
+          header.textContent = `Error: An Error Has Occured. Error: ${errorRes}`;
+        }
+      }
     });
 
   console.log(`Series Log:`, series);
@@ -76,3 +94,4 @@ document.addEventListener('DOMContentLoaded', function() {
   (d.head || d.body).appendChild(s);
   })();
 });
+
