@@ -68,7 +68,7 @@ async function fetchLatestReleases() {
         </div>
         </div>
         <div class="chapter-container">
-        <button class="chapter-btn-highlight" aria-label="Read chapter 3">READ CHAPTER ${chapterNo}</button>
+        <button class="chapter-btn-highlight" aria-label="Read chapter 3" onClick="readChapter(${manga}, "${nick}", ${chapterNo})">READ CHAPTER ${chapterNo}</button>
         <button class="chapter-btn" aria-label="Read chapter 2">READ CHAPTER ${prevChapter}</button>
         <button class="chapter-btn" aria-label="Read chapter 1">READ CHAPTER ${lastChapter}</button>
         </div>

@@ -5,6 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title></title>
     <link href="./assets/css/reader.css" rel="stylesheet">
+        
+    <script>
+    fetch('./assets/footer.html')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok ' + response.statusText);
+            }
+            return response.text();
+        })
+        .then(data => {
+            document.getElementById('footer-content').innerHTML = data;
+        })
+        .catch(error => console.error('Error loading header:', error));
+
+    </script>
 </head>
 <body>
     <div class="reader-container">
@@ -97,74 +112,9 @@
                 </div>
             </div>
         </div>
-
-        <footer class="footer-container">
-                <div class="footer-wrapper">
-                  <div class="footer-content">
-                    <div class="left-column">
-                      <div class="mission-wrapper">
-                        <div class="mission-text">
-                          In a world where everyone is turning paid we want to become the only
-                          site that is free and maintains the quality! That is the whole
-                          meaning of altscans. The alternative to every site that is
-                          paywalled!
-                        </div>
-                        <div class="action-buttons">
-                          <div class="terms-button">
-                            <div class="terms-content" tabindex="0" role="button">TERMS AND SERVICES</div>
-                          </div>
-                          <div class="social-wrapper">
-                            <div class="social-container">
-                              <div class="social-content">
-                                <div class="social-text">FOLLOW US</div>
-                                <div class="social-icons">
-                                  <img
-                                    loading="lazy"
-                                    src="https://cdn.builder.io/api/v1/image/assets/TEMP/402f15e4c8679df15d20ad5808e71d4e7758da3f37f4d80022526142f2b0a954?placeholderIfAbsent=true&apiKey=8e442171329c45b7b66ad2e988bbd377"
-                                    class="social-icon"
-                                    alt="Social media icon"
-                                  />
-                                  <img
-                                    loading="lazy"
-                                    src="https://cdn.builder.io/api/v1/image/assets/TEMP/690aa8ae4f90b6a8c055baa4da24752d54fe28e66dec2f435b112bc1fb7e5ea8?placeholderIfAbsent=true&apiKey=8e442171329c45b7b66ad2e988bbd377"
-                                    class="social-icon"
-                                    alt="Social media icon"
-                                  />
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="server-wrapper">
-                            <div class="server-container">
-                              <a href="https://discord.gg/Rr5HWHuk7Y"><div class="server-content">
-                                <div class="server-text">JOIN SERVER</div>
-                                <img
-                                  loading="lazy"
-                                  src="https://cdn.builder.io/api/v1/image/assets/TEMP/ba4dce101ceb0ac703c64c0e015b0d0095c971dab91700642901ab91a63a8aeb?placeholderIfAbsent=true&apiKey=8e442171329c45b7b66ad2e988bbd377"
-                                  class="social-icon"
-                                  alt="Server join icon"
-                                />
-                              </div></a>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="right-column">
-                      <div class="donation-wrapper">
-                        <div class="donation-text">SPARE SOME PENNY?</div>
-                        <img
-                          loading="lazy"
-                          src="https://cdn.builder.io/api/v1/image/assets/TEMP/9737e48752ec7264ac480f491821a62165cbe335df7fffcbf14bfbdf9339b437?placeholderIfAbsent=true&apiKey=8e442171329c45b7b66ad2e988bbd377"
-                          class="donation-image"
-                          alt="Donation illustration"
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-        </footer>
-
+        
+        <div id="footer-content"></div>
+        
     </div>
     <div id="fb-root"></div>
     <script>
