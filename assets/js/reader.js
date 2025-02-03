@@ -90,25 +90,7 @@ document.addEventListener('DOMContentLoaded', () => {
   
       updateChapterUI(currentChapter);
   
-      // Add header scroll logic
-      // Add header scroll logic
-      let lastScroll = 0; // Changed from 100 to 0
-      const header = document.querySelector('.header');
-      const scrollThreshold = 100;
-      
-      window.addEventListener('scroll', () => {
-          const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
-          
-          if (currentScroll > lastScroll && currentScroll > scrollThreshold) {
-              // Scrolling down & past threshold - hide header
-              header.classList.add('hidden');
-          } else {
-              // Scrolling up - show header
-              header.classList.remove('hidden');
-          }
-          
-          lastScroll = currentScroll;
-      });
+
   });
 });
 

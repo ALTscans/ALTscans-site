@@ -30,6 +30,7 @@ body {
     min-height: 100vh;
     flex-direction: column;
     padding-top: 120px;
+    margin-top: 120px;
 }
 
 .header-grid-container {
@@ -70,7 +71,7 @@ body {
     .header {
         background-color: var(--secondary-bg);
         padding: 12px 70px;
-        position: fixed;
+        position: absolute;
         top: 0;
         z-index: 100;
         text-align: center;

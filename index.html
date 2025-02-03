@@ -6,7 +6,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<script type="text/javascript" src="./assets/js/carousel.js"></script>
 <script type="text/javascript" src="./assets/js/mobile-index.js"></script>
 <script type="text/javascript" src="./assets/js/api.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/axios@1.6.7/dist/axios.min.js"></script>
@@ -57,41 +56,23 @@ fetch('./assets/header.html')
         document.getElementById('header-content').innerHTML = data;
     })
     .catch(error => console.error('Error loading header:', error));
+
+fetch('./assets/carousel.html')
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok ' + response.statusText);
+        }
+        return response.text();
+    })
+    .then(data => {
+        document.getElementById('carousel-content').innerHTML = data;
+    })
+    .catch(error => console.error('Error loading header:', error));
 </script>
 </head>
 <body>
     <div id="header-content"></div>
-   <div class="carousel-container" role="region" aria-label="Image carousel">
-    <div class="carousel-slide" aria-hidden="true" tabindex="0">
-        <div style="width: 100%; height: 100%; background-color: #000000;">
-        <img src="./assets/img/carousel/IM.png">
-        </div>
-    </div>
-    <div class="carousel-slide" aria-hidden="true" tabindex="0">
-        <div style="width: 100%; height: 100%; background-color: #000000;">
-        <img src="./assets/img/carousel/orv.png">
-        </div>
-    </div>
-    <div class="carousel-slide" aria-hidden="true" tabindex="0">
-        <div style="width: 100%; height: 100%; background-color: #000000;">
-        <img src="./assets/img/carousel/timk.png">
-        </div>
-    </div>
-
-    <button class="carousel-button carousel-button-prev" aria-label="Previous slide">
-        <span aria-hidden="true">&#10094;</span>
-    </button>
-    <button class="carousel-button carousel-button-next" aria-label="Next slide">
-        <span aria-hidden="true">&#10095;</span>
-    </button>
-
-    <div class="carousel-navigation" role="tablist">
-        <button class="carousel-dot" role="tab" aria-label="Go to slide 1"></button>
-        <button class="carousel-dot" role="tab" aria-label="Go to slide 2"></button>
-        <button class="carousel-dot" role="tab" aria-label="Go to slide 3"></button>
-        <button class="carousel-dot" role="tab" aria-label="Go to slide 4"></button>
-    </div>
-</div>
+    <div id="carousel-content"></div>
    <main>
         <section class="trending-section" aria-labelledby="trending-title">
             <div class="trending-badge">
@@ -103,24 +84,9 @@ fetch('./assets/header.html')
         </section>
 
         <div class="series-grid">
-            <button class="chapter-heading" onclick="handleSeriesCover(1)" aria-label="View Chapter 1 series">
-                <img src="series-cover-1.jpg" alt="" fetchpriority="high" decoding="async">
-                CHAPTER 1
-            </button>
-
-            <button class="chapter-heading" onclick="handleSeriesCover(2)" aria-label="View Chapter 2 series">
-                <img src="series-cover-2.jpg" alt="" decoding="async">
-                CHAPTER 2
-            </button>
-
-            <button class="chapter-heading" onclick="handleSeriesCover(3)" aria-label="View Chapter 3 series">
-                <img src="series-cover-3.jpg" alt="" decoding="async">
-                CHAPTER 3
-            </button>
-
-            <button class="chapter-heading" onclick="handleSeriesCover(4)" aria-label="View Chapter 4 series">
-                <img src="series-cover-4.jpg" alt="" decoding="async">
-                CHAPTER 4
+            <button class="chapter-heading" onclick="readChapter(78526, 'hclw', 73)" aria-label="View Chapter 1 series">
+                <img src="https://meo.comick.pictures/qYrZ4R-s.jpg" alt="" fetchpriority="high" decoding="async">
+                <p class="p-series-title">Hardcore Leveling Warrior: Earth Game</p>
             </button>
         </div>
 
