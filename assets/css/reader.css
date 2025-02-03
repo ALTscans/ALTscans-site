@@ -39,6 +39,20 @@ body {
     justify-items: center;
 }
 
+.header.hidden {
+    transform: translateY(-100%);
+    transition: transform 0.3s ease-in-out;
+}
+
+.header {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    transform: translateY(0);
+    transition: transform 0.3s ease-in-out;
+}
+
 @media (min-width: 320px) {
     .header {
         background-color: var(--secondary-bg);
