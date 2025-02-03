@@ -3,8 +3,8 @@ let basedbUrl = "https://altscans-api.netlify.app";
 document.addEventListener('DOMContentLoaded', function() {
   // Get URL parameters
   const urlParams = new URLSearchParams(window.location.search);
-  const chapterNo = urlParams.get('chapter') || '73';
-  const seriesName = urlParams.get('series') || 'hclw';
+  const chapterNo = urlParams.get('chapter');
+  const seriesName = urlParams.get('series');
   const seriesId = urlParams.get('id');
 
   function formatTitle(title) {
@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', function() {
       let header = document.getElementsByClassName('chapter-title');
       let chapterNoHeader = document.getElementById('current-chapter');
       let chapterNameHeader = document.getElementById('current-chapter-name');
-
+      let chapterDropdown = document.getElementById('chapter-select');
       if(!chapterNoHeader || !chapterNameHeader) {
         // If Chapter No. doesn't exist, spawn it in
         chapterNoHeader = document.createElement('div');
@@ -50,6 +50,8 @@ document.addEventListener('DOMContentLoaded', function() {
       chapterNoHeader.textContent = `Chapter ${chapterNo}`;
       chapterNameHeader.textContent = formatTitle(response.data.seriesDetails.title);
 
+
+      
       let imageContainer = document.querySelector('.chapter-content');
       if (!imageContainer) {
         // If the container doesn't exist, create it

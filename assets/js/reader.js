@@ -6,14 +6,31 @@ document.addEventListener('DOMContentLoaded', () => {
   const currentChapterSpan = document.getElementById('current-chapter');
   const chapterContent = document.querySelector('.chapter-content');
     
-  let currentChapter = parseInt(urlParams.get('chapter')) || 73;
-  const seriesName = urlParams.get('series') || 'hclw';
-  const seriesId = urlParams.get('id') || '31868';
+  let currentChapter = parseInt(urlParams.get('chapter'));
+  const seriesName = urlParams.get('series');
+  const seriesId = urlParams.get('id');
+  const chapterNo = urlParams.get('chapter');
     
   let series = axios.get(`${basedbUrl}/api/admin/getSeries/${seriesId}/${seriesName}/${chapterNo}`, {})
     .then(function (response) {
       const maxChapter = response.data.chapterNo;
       const minChapter = 0;
+      
+      // Populate the chapter select dropdown
+      chapterSelect.innerHTML = chapterNo.map(ch => 
+                  <option value="${ch.number}">Chapter ${ch.number}</option>
+              ).join('');
+      
+              if (chapterNo.length) {
+                [currentChapter.textContent] = [chapterNo[0].number, chapterNo[0].title];
+              }
+      
+              chapterSelect.addEventListener('change', ({ target }) => {
+                  const selected = chapterNo.find(ch => ch.number == target.value);
+                  if (selected) {
+                      [currentChapter.textContent] = [selected.number, selected.title];
+                  }
+              });
       
       function updateChapterUI(chapter) {
           currentChapterSpan.textContent = chapter;

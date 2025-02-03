@@ -46,8 +46,7 @@ async function fetchLatestReleases() {
       // Create a grid item for each release
       const gridItem = document.createElement("div");
       gridItem.className = "releases-grid";
-      gridItem.onclick = () => readChapter(manga, `${nick}`, chapterNo ); // Assuming you have a handleClick function
-
+      
       const itemContent = `
         <div class="release-card">
         <div class="card-content">
@@ -68,9 +67,15 @@ async function fetchLatestReleases() {
         </div>
         </div>
         <div class="chapter-container">
-        <button class="chapter-btn-highlight" aria-label="Read chapter 3" onClick="readChapter(${manga}, "${nick}", ${chapterNo})">READ CHAPTER ${chapterNo}</button>
-        <button class="chapter-btn" aria-label="Read chapter 2">READ CHAPTER ${prevChapter}</button>
-        <button class="chapter-btn" aria-label="Read chapter 1">READ CHAPTER ${lastChapter}</button>
+        <a href="/reader.html?id=${manga}&series=${nick}&chapter=${chapterNo}" class="chapter-link">
+        <button class="chapter-btn-highlight" aria-label="Read chapter ${chapterNo}" onClick="/reader.html?id=${manga}&series=${nick}&chapter=${chapterNo}">READ CHAPTER ${chapterNo}</button>
+        </a>
+        <a href="/reader.html?id=${manga}&series=${nick}&chapter=${prevChapter}" class="chapter-link">
+        <button class="chapter-btn" aria-label="Read chapter ${prevChapter}" onClick="/reader.html?id=${manga}&series=${nick}&chapter=${prevChapter}">READ CHAPTER ${prevChapter}</button>
+        </a>
+        <a href="/reader.html?id=${manga}&series=${nick}&chapter=${lastChapter}" class="chapter-link">
+        <button class="chapter-btn" aria-label="Read chapter ${lastChapter}" onClick="/reader.html?id=${manga}&series=${nick}&chapter=${lastChapter}">READ CHAPTER ${lastChapter}</button>
+        </a>
         </div>
         </div>
         </div>
