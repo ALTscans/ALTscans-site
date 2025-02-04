@@ -63,7 +63,10 @@ a {
       display: flex;
       flex-direction: column;
       color: rgba(255, 255, 255, 1);
-      width: 207px;
+      width: fit-content;
+      height: 40px;
+      display: grid;
+      align-items: center;
       margin: auto 0;
       font: 700 12px Plus Jakarta Sans, -apple-system, Roboto, Helvetica, sans-serif;
     }
@@ -283,7 +286,7 @@ a {
       display: flex;
       flex-direction: column;
       color: rgba(255, 255, 255, 1);
-      width: 207px;
+      width: fit-content;
       margin: auto 0;
       font: 700 12px Plus Jakarta Sans, -apple-system, Roboto, Helvetica, sans-serif;
     }
@@ -456,9 +459,11 @@ a {
                 paywalled!
               </div>
               <div class="action-buttons">
-                <div class="terms-button">
-                  <div class="terms-content" tabindex="0" role="button">TERMS AND SERVICES</div>
-                </div>
+                  <a href="./dmca.html">
+                      <div class="terms-button">
+                        <div class="terms-content" tabindex="0" role="button">DMCA</div>
+                      </div>
+                  </a>
                 <div class="social-wrapper">
                   <div class="social-container">
                     <div class="social-content">
