@@ -7,18 +7,19 @@
     <link href="./assets/css/reader.css" rel="stylesheet">
         
     <script>
-    fetch('./assets/footer.html')
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok ' + response.statusText);
-            }
-            return response.text();
-        })
-        .then(data => {
-            document.getElementById('footer-content').innerHTML = data;
-        })
-        .catch(error => console.error('Error loading header:', error));
-
+    document.addEventListener('DOMContentLoaded', function() {
+        fetch('./assets/footer.html')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok ' + response.statusText);
+                }
+                return response.text();
+            })
+            .then(data => {
+                document.getElementById('footer-content').innerHTML = data;
+            })
+            .catch(error => console.error('Error loading header:', error));
+    });
     </script>
     <script src="https://cdn.jsdelivr.net/npm/axios@1.6.7/dist/axios.min.js"></script>
     <script src="./assets/js/reader.js"></script>
@@ -120,7 +121,7 @@
             </div>
         </div>
         
-        <div id="footer-content"></div>
+
         
     </div>
     <div id="fb-root"></div>
@@ -129,5 +130,6 @@
     <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
     <script id="dsq-count-scr" src="//altscan.disqus.com/count.js" async></script>
     <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v12.0"></script>
+<div id="footer-content"></div>
 </body>
 </html>
