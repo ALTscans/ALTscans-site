@@ -67,13 +67,13 @@ async function fetchLatestReleases() {
         </div>
         </div>
         <div class="chapter-container">
-        <a href="/reader.html?id=${manga}&series=${nick}&chapter=${chapterNo}" class="chapter-link">
+        <a href="/reader.html?id=${manga}&series=${nick}&chapter=${chapterNo}" class="chapter-link hvr-grow-shadow">
         <button class="chapter-btn-highlight" aria-label="Read chapter ${chapterNo}" onClick="/reader.html?id=${manga}&series=${nick}&chapter=${chapterNo}">READ CHAPTER ${chapterNo}</button>
         </a>
-        <a href="/reader.html?id=${manga}&series=${nick}&chapter=${prevChapter}" class="chapter-link">
+        <a href="/reader.html?id=${manga}&series=${nick}&chapter=${prevChapter}" class="chapter-link hvr-grow-shadow">
         <button class="chapter-btn" aria-label="Read chapter ${prevChapter}" onClick="/reader.html?id=${manga}&series=${nick}&chapter=${prevChapter}">READ CHAPTER ${prevChapter}</button>
         </a>
-        <a href="/reader.html?id=${manga}&series=${nick}&chapter=${lastChapter}" class="chapter-link">
+        <a href="/reader.html?id=${manga}&series=${nick}&chapter=${lastChapter}" class="chapter-link hvr-grow-shadow">
         <button class="chapter-btn" aria-label="Read chapter ${lastChapter}" onClick="/reader.html?id=${manga}&series=${nick}&chapter=${lastChapter}">READ CHAPTER ${lastChapter}</button>
         </a>
         </div>

@@ -54,6 +54,8 @@ document.addEventListener('DOMContentLoaded', () => {
     );
     
     document.title = `Chapter ${chapter} - ${seriesName.toUpperCase()}`;
+    currentChapterSpan.innerHTML = `${chapter}`;
+    chapterSelect.value = chapter;
   }
 
   function navigateChapter(direction) {

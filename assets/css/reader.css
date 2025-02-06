@@ -25,14 +25,6 @@ body {
     line-height: 1.5;
 }
 
-.reader-container {
-    display: flex;
-    min-height: 100vh;
-    flex-direction: column;
-    padding-top: 120px;
-    margin-top: 120px;
-}
-
 .header-grid-container {
     width: 100%;
     display: grid;
@@ -46,7 +38,7 @@ body {
 }
 
 .header {
-    position: fixed;
+    position: sticky;
     width: 100%;
     top: 0;
     z-index: 1000;
@@ -58,12 +50,28 @@ body {
     .header {
         background-color: var(--secondary-bg);
         padding: 12px 70px;
-        position: fixed;
+        position: sticky;
         top: 0;
         z-index: 100;
         text-align: center;
-        width: 60%;
+        width: 100%;
         transition: transform 0.5s ease;
+    }
+    
+    .reader-container {
+        display: flex;
+        min-height: 100vh;
+        flex-direction: column;
+    }
+    
+    .content-wrapper {
+        display: flex;
+        margin-bottom: -39px;
+        align-items: center;
+        gap: 40px 55px;
+        justify-content: center;
+        flex-direction: column;
+        width: 100%;
     }
 }
 
@@ -77,6 +85,14 @@ body {
         text-align: center;
         width: 100%;
         transition: transform 0.5s ease;
+    }
+    
+    .reader-container {
+        display: flex;
+        min-height: 100vh;
+        flex-direction: column;
+        padding-top: 120px;
+        margin-top: 120px;
     }
 }
 
@@ -192,16 +208,6 @@ body {
     justify-content: center;
     padding: 100px 70px;
     font: 700 48px Plus Jakarta Sans, -apple-system, Roboto, Helvetica, sans-serif;
-}
-
-.content-wrapper {
-    display: flex;
-    margin-bottom: -39px;
-    align-items: center;
-    gap: 40px 55px;
-    justify-content: center;
-    flex-direction: column;
-    width: 1000px;
 }
 
 .icon-button {
