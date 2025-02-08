@@ -162,7 +162,7 @@
             formData.append('totalPageNo', totalPageNo);
 
             try {
-                const response = await fetch('https://altscans-api.netlify.app/api/admin/uploadChapter', { method: 'POST', body: formData });
+                const response = await fetch('http://localhost:8888/api/admin/uploadChapter', { method: 'POST', body: formData });
                 const data = await response.json();
 
                 if (data.success) {
