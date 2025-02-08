@@ -91,6 +91,8 @@
     </div>
 
     <script>
+        const MAX_BATCH_SIZE = 4 * 1024 * 1024; // 4MB in bytes
+        const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB max per file
         const thumbnailDrop = document.getElementById('thumbnail-drop');
         const thumbnailInput = document.getElementById('thumbnail-input');
         const chapterDrop = document.getElementById('chapter-drop');
@@ -152,32 +154,128 @@
             }
         });
 
-        // Handle Chapter Form Submission
+        // Function to upload a single batch
+        async function uploadBatch(batch, formData, batchIndex) {
+            const batchFormData = new FormData();
+            
+            // Copy all other form data
+            for (let [key, value] of formData.entries()) {
+                if (key !== 'images') {
+                    batchFormData.append(key, value);
+                }
+            }
+            
+            // Append totalPageNo
+            const totalPageNo = document.getElementById('total-images').value;
+            batchFormData.append('totalPageNo', totalPageNo);
+            
+            // Add batch images
+            batch.forEach(file => {
+                batchFormData.append('images', file);
+            });
+            
+            try {
+                const response = await fetch('http://localhost:8888/api/admin/uploadChapter', {
+                    method: 'POST',
+                    body: batchFormData
+                });
+                const data = await response.json();
+                console.log(`Batch ${batchIndex + 1} uploaded:`, data);
+                return data;
+            } catch (error) {
+                console.error(`Error uploading batch ${batchIndex + 1}:`, error);
+                throw error;
+            }
+        }
+        
+        // Modify your chapter form submission handler
         document.getElementById('chapter-form').addEventListener('submit', async (event) => {
             event.preventDefault();
             const formData = new FormData(event.target);
-
-            // Append totalPageNo manually
-            const totalPageNo = totalImages.value;
-            formData.append('totalPageNo', totalPageNo);
-
+            const files = Array.from(chapterInput.files);
+            const batches = createBatches(files);
+        
             try {
-                const response = await fetch('http://localhost:8888/api/admin/uploadChapter', { method: 'POST', body: formData });
-                const data = await response.json();
-
-                if (data.success) {
-                  alert('Chapter uploaded successfully!');
-                  // Reset only the chapter input
-                  chapterInput.value = ''; // Reset file input
-                  chapterDrop.textContent = 'Drop images here'; // Reset drop zone text
-                  imageCountDisplay.textContent = 'Images Uploaded: 0'; // Reset counter
-                } else {
-                    alert('Error uploading chapter: ' + data.message);
+                let uploadedCount = 0;
+                
+                // Upload batches sequentially
+                for (let i = 0; i < batches.length; i++) {
+                    const batch = batches[i];
+                    console.log(`Uploading batch ${i + 1} of ${batches.length}...`);
+                    
+                    const result = await uploadBatch(batch, formData, i);
+                    if (result.success) {
+                        uploadedCount += batch.length;
+                        // Update progress
+                        imageCountDisplay.textContent = `Uploaded ${uploadedCount} of ${files.length} images`;
+                    }
                 }
+        
+                alert('All chapters uploaded successfully!');
+                // Reset form
+                chapterInput.value = '';
+                chapterDrop.textContent = 'Drop images here';
+                imageCountDisplay.textContent = 'Images Uploaded: 0';
             } catch (error) {
                 console.error('Upload error:', error);
+                alert('Error uploading chapters. Please try again.');
             }
         });
+        
+        // Modify your file input change handler to show batch information
+        chapterInput.addEventListener('change', (event) => {
+            const files = Array.from(event.target.files);
+            const batches = createBatches(files);
+            
+            let batchInfo = 'Files will be uploaded in the following batches:\n';
+            batches.forEach((batch, index) => {
+                const batchSize = batch.reduce((acc, file) => acc + file.size, 0);
+                batchInfo += `Batch ${index + 1}: ${batch.length} files (${(batchSize / 1024 / 1024).toFixed(2)}MB)\n`;
+            });
+        
+            imageCountDisplay.textContent = `Total Files: ${files.length}\n${batchInfo}`;
+            chapterDrop.textContent = `${files.length} files selected`;
+        });
+        
+        
+        function createBatches(files) {
+            // Sort files by name in ascending order
+            const sortedFiles = Array.from(files).sort((a, b) => {
+                // Extract numbers from filenames (assuming format like "01.png", "02.png", etc.)
+                const numA = parseInt(a.name.match(/\d+/)[0]);
+                const numB = parseInt(b.name.match(/\d+/)[0]);
+                return numA - numB;
+            });
+        
+            const batches = [];
+            let currentBatch = [];
+            let currentBatchSize = 0;
+        
+            sortedFiles.forEach(file => {
+                // Check individual file size
+                if (file.size > MAX_FILE_SIZE) {
+                    console.warn(`File ${file.name} exceeds maximum file size of ${MAX_FILE_SIZE / 1024 / 1024}MB`);
+                    return;
+                }
+        
+                if (currentBatchSize + file.size <= MAX_BATCH_SIZE) {
+                    currentBatch.push(file);
+                    currentBatchSize += file.size;
+                } else {
+                    if (currentBatch.length > 0) {
+                        batches.push(currentBatch);
+                    }
+                    currentBatch = [file];
+                    currentBatchSize = file.size;
+                }
+            });
+        
+            if (currentBatch.length > 0) {
+                batches.push(currentBatch);
+            }
+        
+            return batches;
+        }
     </script>
 </body>
 </html>
