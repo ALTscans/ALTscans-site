@@ -1,10 +1,10 @@
-const baseUrl = `https://altscans.netlify.app`;
+const baseUrl = `https://altscans-api.netlify.app`;
 
 // Function to fetch latest releases from the API
 async function fetchLatestReleases() {
   try {
     const response = await axios.get(
-      "https://altscans-api.netlify.app/api/admin/getLatestUpdate",
+      `${baseUrl}/api/admin/getLatestUpdate`,
     );
     console.log(response.data.latestReleases);
 
