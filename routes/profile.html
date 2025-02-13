@@ -3,9 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="User profile page with bookmarks and customization options">
+    <meta name="title" content="Alternative Scans">
+    <meta name="description" content="In a world where everyone is turning paid we want to become the only site that is free and maintains the quality! The alternative to every site that is pay walled! ">
+    <meta name="keywords" content="alternative scans, altscans, manhwa, manwha, scanalations, manga, AlternativeScans, Alternative Scans">
+    <meta name="robots" content="index, follow">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="language" content="English">
+    <meta name="author" content="AeolusDev">
+    <meta property="twitter:image" content="../../assets/img/favicons/favicon-96x96.png">
+    <meta property="og:image" content="../../assets/img/favicons/favicon-96x96.png">
+        
+    <link rel="canonical" href="https://alternativescans.icu">
+    <link rel="apple-touch-icon" sizes="57x57" href="assets/img/favicons/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="assets/img/favicons/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="assets/img/favicons/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="assets/img/favicons/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="assets/img/favicons/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="assets/img/favicons/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="assets/img/favicons/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="assets/img/favicons/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/img/favicons/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192"  href="assets/img/favicons/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="assets/img/favicons/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/img/favicons/favicon-16x16.png">
+    <link rel="manifest" href="assets/img/favicons/manifest.json">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+        
     <title>User Profile</title>
     <link href="../assets/css/profile.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../assets/css/hover.css">
+
 </head>
 <body>
     <main>
@@ -52,91 +82,10 @@
                     </div>
                     <button class="remove-btn" aria-label="Remove bookmark">Remove</button>
                 </div>
-
-                <div class="bookmark-item">
-                    <div class="bookmark-image">
-                        <img src="book1.jpg" alt="The Academy's Genius Tamer cover">
-                    </div>
-                    <div class="bookmark-details">
-                        <h3 class="bookmark-title">The Academy's Genius Tamer</h3>
-                        <div class="bookmark-info">Viewed: <span class="chapter-viewed">Chapter 38</span></div>
-                        <div class="bookmark-info">Current: <span class="chapter-current">Chapter 39</span></div>
-                        <div class="bookmark-info">Last updated: 4 hours ago</div>
-                    </div>
-                    <button class="remove-btn" aria-label="Remove bookmark">Remove</button>
-                </div>
-
-                <div class="bookmark-item">
-                    <div class="bookmark-image">
-                        <img src="book3.jpg" alt="Solo Leveling cover">
-                    </div>
-                    <div class="bookmark-details">
-                        <h3 class="bookmark-title">Solo Leveling</h3>
-                        <div class="bookmark-info">Viewed: <span class="chapter-viewed">Chapter 179</span></div>
-                        <div class="bookmark-info">Current: <span class="chapter-current">Chapter 179</span></div>
-                        <div class="bookmark-info">Last updated: 1 day ago</div>
-                    </div>
-                    <button class="remove-btn" aria-label="Remove bookmark">Remove</button>
-                </div>
-
-                <div class="bookmark-item">
-                    <div class="bookmark-image">
-                        <img src="book4.jpg" alt="Omniscient Reader's Viewpoint cover">
-                    </div>
-                    <div class="bookmark-details">
-                        <h3 class="bookmark-title">Omniscient Reader's Viewpoint</h3>
-                        <div class="bookmark-info">Viewed: <span class="chapter-viewed">Chapter 89</span></div>
-                        <div class="bookmark-info">Current: <span class="chapter-current">Chapter 102</span></div>
-                        <div class="bookmark-info">Last updated: 2 days ago</div>
-                    </div>
-                    <button class="remove-btn" aria-label="Remove bookmark">Remove</button>
-                </div>
             </div>
         </section>
     </main>
-
-    <script>
-        function triggerBannerUpload() {
-            document.getElementById('banner-input').click();
-        }
-
-        function triggerProfileUpload() {
-            document.getElementById('profile-input').click();
-        }
-
-        function handleBannerUpload(event) {
-            const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    document.querySelector('.banner-container').style.backgroundImage = `url(${e.target.result})`;
-                };
-                reader.readAsDataURL(file);
-            }
-        }
-
-        function handleProfileUpload(event) {
-            const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    document.getElementById('profile-image').src = e.target.result;
-                };
-                reader.readAsDataURL(file);
-            }
-        }
-
-        function saveBio() {
-            const bio = document.getElementById('profile-bio').value;
-            console.log('Bio saved:', bio);
-        }
-
-        document.querySelectorAll('.remove-btn').forEach(button => {
-            button.addEventListener('click', function() {
-                const bookmarkItem = this.closest('.bookmark-item');
-                bookmarkItem.remove();
-            });
-        });
-    </script>
+    
+    <script src="../assets/js/profile.js"></script>
 </body>
 </html>

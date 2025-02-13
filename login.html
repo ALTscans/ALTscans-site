@@ -124,6 +124,7 @@ fetch('./assets/header.html')
     </div>
 </div>
 
+<script src="./assets/js/security.js"></script>
 <script>
     function showDialog() {
         document.getElementById('dialogOverlay').classList.add('active');
@@ -133,16 +134,6 @@ fetch('./assets/header.html')
     function closeDialog() {
         document.getElementById('dialogOverlay').classList.remove('active');
         document.getElementById('forgotPwdDialog').classList.remove('active');
-    }
-
-    function handleSocialAuth(provider) {
-        const providers = {
-            google: 'https://accounts.google.com/o/oauth2/v2/auth',
-            naver: 'https://nid.naver.com/oauth2.0/authorize',
-            facebook: 'https://www.facebook.com/v12.0/dialog/oauth',
-            telegram: 'https://oauth.telegram.org/auth'
-        };
-        window.location.href = providers[provider];
     }
 
     document.getElementById('verifyForm').addEventListener('submit', function(e) {

@@ -200,9 +200,6 @@ main {
     transition: transform 0.3s ease;
 }
 
-.bookmark-item:hover {
-    transform: translateX(10px);
-}
 
 .bookmark-image {
     width: 120px;
@@ -263,7 +260,7 @@ main {
 
 .remove-btn:hover {
     background-color: #cc0000;
-    transform: scale(1.05);
+    transform: scale(1.02);
 }
 
 .visually-hidden {
@@ -289,7 +286,11 @@ main {
     }
 }
 
-@media (max-width: 768px) {
+@media (min-width: 768px) {
+    .profile-container {
+        width: 100%;
+    }
+    
     .profile-section {
         padding: 20px;
     }
@@ -307,17 +308,100 @@ main {
     .profile-username {
         font-size: 24px;
     }
+    
+    .profile-bio {
+        width: 90%;
+    }
 
     .profile-actions {
         flex-direction: column;
         gap: 10px;
     }
 
+    .banner-upload {
+        right: 5px;
+        padding: 10px 5px;
+    }
+    
     .btn {
         width: 100%;
         min-width: unset;
     }
 
+    .bookmarks-container {
+        width: 93%;
+    }
+    
+    .bookmark-item {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 15px;
+    }
+
+    .bookmark-image {
+        margin-bottom: 15px;
+        margin-right: 0;
+        height: 200px;
+    }
+
+    .bookmark-details {
+        padding-right: 0;
+        margin-bottom: 15px;
+    }
+
+    .remove-btn {
+        width: 100%;
+        text-align: center;
+    }
+
+}
+
+@media( max-width:768px){
+    .profile-container {
+        width: 90%;
+    }
+    
+    .profile-section {
+        padding: 20px;
+    }
+
+    .profile-image-container {
+        width: 120px;
+        height: 120px;
+        top: -60px;
+    }
+
+    .profile-details {
+        margin-top: 80px;
+    }
+
+    .profile-username {
+        font-size: 24px;
+    }
+    
+    .profile-bio {
+        width: 90%;
+    }
+
+    .profile-actions {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .banner-upload {
+        right: 5px;
+        padding: 10px 5px;
+    }
+    
+    .btn {
+        width: 100%;
+        min-width: unset;
+    }
+
+    .bookmarks-container {
+        width: 70%;
+    }
+    
     .bookmark-item {
         flex-direction: column;
         align-items: flex-start;

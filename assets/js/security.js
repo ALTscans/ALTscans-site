@@ -79,25 +79,6 @@ function handleCredentialResponse(response) {
 );
 }
 
-window.onload = function googleAuth() {
-  google.accounts.id.initialize({
-    client_id: "125401189899-h844luec9lsheutbgrq3hr3o3lq7n57r.apps.googleusercontent.com",
-    callback: handleCredentialResponse
-  });
-  
-  google.accounts.id.renderButton(
-    document.getElementById("googleAuth"),
-    { theme: "outline", size: "large" }  // customization attributes
-  );
-
-  google.accounts.id.prompt(); // also display the One Tap dialog
-}
-
-
-
-
-
-
 
 function showDialog() {
     document.getElementById('dialogOverlay').classList.add('active');
@@ -115,6 +96,7 @@ function handleSocialAuth(provider) {
   try {
     switch(provider) {
       case 'google':
+      window.location.href = 'https://altscans-api.netlify.app/api/auth/google';
     }
   } catch(error) {
     console.log(error);
