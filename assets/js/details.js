@@ -4,21 +4,20 @@ document.addEventListener('DOMContentLoaded', () => {
     const seriesThumbnail = document.querySelector('image-container');
     let title = document.querySelector('.title');
     
-    // Get current URL parameters
-    const urlParams = new URLSearchParams(window.location.search);
-    const nick = urlParams.get('series');
-    const seriesId = urlParams.get('id');
+    let nick, seriesId;
     
-    // Update URL to clean format without page reload
-    if (nick && seriesId) {
-      const newUrl = `/series/${nick}/${seriesId}`;
-      history.pushState({}, '', newUrl);
+    // Check if we're using the old or new URL format
+    if (window.location.search) {
+      // Old format with query parameters
+      const urlParams = new URLSearchParams(window.location.search);
+      nick = urlParams.get('series');
+      seriesId = urlParams.get('id');
+    } else {
+      // New format with path segments
+      const pathSegments = window.location.pathname.split('/');
+      nick = pathSegments[2];
+      seriesId = pathSegments[3];
     }
-    
-    // Get parameters from new URL path
-    const pathSegments = window.location.pathname.split('/');
-    const seriesNick = pathSegments[2];    // hclw
-    const seriesID = pathSegments[3];      // 249999
     
     function formatTitle(title) {
       return title
@@ -27,7 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
         .join(' ');
     }
     
-    if (!seriesNick || !seriesID) { 
+    if (!nick || !seriesId) { 
       console.log(`Error: Missing URL parameters`);
       if (title) {
         title.textContent = 'Error: Missing URL parameters';
@@ -36,7 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     
     try {
-      const response = await axios.get(`http://localhost:8888/api/admin/getSeriesDetails/${seriesID}/${seriesNick}`)
+      const response = await axios.get(`https://altscans-api/api/admin/getSeriesDetails/${seriesId}/${nick}`)
         .then(response => response.data.seriesDetails);
       
       console.log(response);
@@ -50,7 +49,4 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   handleDetails();
-  
-  // Handle browser back/forward buttons
-  window.addEventListener('popstate', handleDetails);
 });
