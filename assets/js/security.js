@@ -1,11 +1,11 @@
-const loginForm = document.querySelector('#loginForm');
+const loginForm = document.querySelector('.loginForm');
 console.log(loginForm);
 loginForm.addEventListener('submit', (e) => {
     e.preventDefault();
 
     //get User Information
-    const email = loginForm['emailField'].value;
-    const pwd = loginForm['pwdField'].value;
+    const email = loginForm['login-emailField'].value;
+    const pwd = loginForm['login-passwordField'].value;
     console.log(email + `||` + pwd);
 
     // Login User
@@ -26,7 +26,7 @@ loginForm.addEventListener('submit', (e) => {
   });
 });
 
-const signupForm = document.querySelector('#signupForm');
+const signupForm = document.querySelector('.signupForm');
 console.log(signupForm);
 signupForm.addEventListener('submit', (e) => {
     console.log(signupForm)
@@ -41,15 +41,14 @@ signupForm.addEventListener('submit', (e) => {
 
     //Send User Info
 
-    axios.post('http://localhost:3000/createUser', {
+    axios.post('http://localhost:8888/api/user/createUser', {
         username: username,
         email: email,
-        pwd: pwd
+        password: pwd
       },
       {
         headers: {
-            'Content-Type': 'application/json',
-            'x-api-key': '019417e6-a468-7c95-9e8e-2562e1b182a7'
+            'Content-Type': 'application/json'
           },
       }
     )

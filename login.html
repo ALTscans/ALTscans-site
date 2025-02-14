@@ -18,21 +18,9 @@
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="./assets/css/hover.css">
 <link rel="stylesheet" href="./assets/css/security.css">
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    fetch('./assets/footer.html')
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok ' + response.statusText);
-            }
-            return response.text();
-        })
-        .then(data => {
-            document.getElementById('footer-content').innerHTML = data;
-        })
-        .catch(error => console.error('Error loading header:', error));
-});
 
+<script src="https://cdn.jsdelivr.net/npm/axios@1.6.7/dist/axios.min.js"></script>
+<script>
 fetch('./assets/header.html')
     .then(response => {
         if (!response.ok) {
@@ -53,9 +41,9 @@ fetch('./assets/header.html')
     <main class="auth-container">
         <section class="auth-form">
             <h2 class="form-title">LOGIN</h2>
-            <form>
-                <input type="email" class="input-field" placeholder="EMAIL" required aria-label="Email">
-                <input type="password" class="input-field" placeholder="PASSWORD" required aria-label="Password">
+            <form class="loginForm">
+                <input type="email" class="input-field login-emailField" placeholder="EMAIL" required aria-label="Email">
+                <input type="password" class="input-field login-passwordField" placeholder="PASSWORD" required aria-label="Password">
                 <div class="button-group">
                     <button type="submit" class="auth-button hvr-grow hvr-underline-reveal">LOGIN</button>
                     <button type="button" class="auth-button hvr-grow hvr-underline-reveal" onclick="showDialog()">FORGOT PWD?</button>
@@ -63,11 +51,11 @@ fetch('./assets/header.html')
             </form>
 
             <h2 class="form-title">JOIN US</h2>
-            <form>
-                <input type="text" class="input-field" placeholder="USERNAME" required aria-label="Username">
-                <input type="email" class="input-field" placeholder="EMAIL" required aria-label="Email">
-                <input type="password" class="input-field" placeholder="PASSWORD" required aria-label="Password">
-                <input type="password" class="input-field" placeholder="PASSWORD AGAIN" required aria-label="Confirm password">
+            <form class="signupForm">
+                <input type="text" class="input-field signup-usernameField" id="signup-usernameField" placeholder="USERNAME" required aria-label="Username">
+                <input type="email" class="input-field signup-emailField" id="signup-emailField" placeholder="EMAIL" required aria-label="Email">
+                <input type="password" class="input-field signup-pwdField" id="signup-pwdField" placeholder="PASSWORD" required aria-label="Password">
+                <input type="password" class="input-field signup-confirmPwdField" placeholder="PASSWORD AGAIN" required aria-label="Confirm password">
                 <button type="submit" class="auth-button hvr-grow hvr-underline-reveal">CREATE ACCOUNT</button>
             </form>
         </section>
