@@ -31,3 +31,6 @@ RewriteRule ^(.*)$ $1.html [NC,L]
 # Redirect old series URL format to new format
 RewriteCond %{QUERY_STRING} ^id=(.*)&series=(.*)$
 RewriteRule ^series/?$ /series/%2/%1? [R=301,L]
+
+//Custom 400 errors
+ErrorDocument 400 /error/404.html

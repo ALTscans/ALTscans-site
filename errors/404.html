@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Alternative Scans</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="title" content="Alternative Scans">
+<meta name="description" content="In a world where everyone is turning paid we want to become the only site that is free and maintains the quality! The alternative to every site that is pay walled! ">
+<meta name="keywords" content="alternative scans, altscans, manhwa, manwha, scanalations, manga, AlternativeScans, Alternative Scans">
+<meta name="robots" content="index, follow">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="language" content="English">
+<meta name="author" content="AeolusDev">
+<meta property="twitter:image" content="/assets/img/favicons/favicon-96x96.png">
+<meta property="og:image" content="/assets/img/favicons/favicon-96x96.png">
+<link rel="canonical" href="https://alternativescans.icu">
+
+<script type="text/javascript" src="./assets/js/mobile-index.js"></script>
+<script type="text/javascript" src="./assets/js/api.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios@1.6.7/dist/axios.min.js"></script>
+
+<link rel="apple-touch-icon" sizes="57x57" href="assets/img/favicons/apple-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="assets/img/favicons/apple-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="assets/img/favicons/apple-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="assets/img/favicons/apple-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="assets/img/favicons/apple-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="assets/img/favicons/apple-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="assets/img/favicons/apple-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="assets/img/favicons/apple-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="assets/img/favicons/apple-icon-180x180.png">
+<link rel="icon" type="image/png" sizes="192x192"  href="assets/img/favicons/android-icon-192x192.png">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicons/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="96x96" href="assets/img/favicons/favicon-96x96.png">
+<link rel="icon" type="image/png" sizes="16x16" href="assets/img/favicons/favicon-16x16.png">
+<link rel="manifest" href="assets/img/favicons/manifest.json">
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+<meta name="theme-color" content="#ffffff">
+<link rel="stylesheet" href="./assets/css/index-mobile.css">
+<link rel="preload" href="/fonts/JatarkaSans-Regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.19.1/cdn/themes/light.css" />
+<link rel="stylesheet" href="./assets/css/hover.css">
+<script type="module" src="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.19.1/cdn/shoelace-autoloader.js"></script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    fetch('/assets/footer.html')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok ' + response.statusText);
+            }
+            return response.text();
+        })
+        .then(data => {
+            document.getElementById('footer-content').innerHTML = data;
+        })
+        .catch(error => console.error('Error loading header:', error));
+});
+
+fetch('/assets/header.html')
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok ' + response.statusText);
+        }
+        return response.text();
+    })
+    .then(data => {
+        document.getElementById('header-content').innerHTML = data;
+    })
+    .catch(error => console.error('Error loading header:', error));
+</script>
+<style>
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #16151d;
+}
+
+.error-container{
+    display: grid;
+    align-items: center;
+    justify-content: center;
+}
+</style>
+</head>
+<body>
+    <div id="header-content"></div>
+    
+    <div class="error-container">
+        <a href="/index">
+            <img src="/assets/img/errors/404.png" alt="ERROR 404: PAGE NOT FOUND">
+        </a>
+    </div>
+<div class="footer-content"></div>
+<script type='text/javascript' src='//pl25780717.effectiveratecpm.com/f7/86/7a/f7867a2adc70e2b7204c7bc0c87a7320.js'></script>
+<div id="footer-content"></div>
+<script src="https://cland.fyi/e3d2f9f3/1.js" async></script>
+</body>
+</html>
