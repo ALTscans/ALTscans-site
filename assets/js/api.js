@@ -1,4 +1,4 @@
-const baseUrl = `http://localhost:8888`;
+const baseUrl = `https://altscans-api.netlify.app`;
 
 // Function to fetch latest releases from the API
 async function fetchLatestReleases() {

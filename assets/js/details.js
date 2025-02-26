@@ -44,7 +44,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     try {
       const response = await axios.get(
-        `http://localhost:8888/api/admin/getSeriesDetails/${seriesId}/${nick}`,
+        `https://altscans-api.netlify.app/api/admin/getSeriesDetails/${seriesId}/${nick}`,
       );
       let series = response.data.seriesDetails;
       let releases = response.data.releases;
