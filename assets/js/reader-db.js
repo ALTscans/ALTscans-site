@@ -1,4 +1,4 @@
-let basedbUrl = "https://altscans-api.netlify.app";
+let basedbUrl = "http://localhost:8888";
 
 document.addEventListener('DOMContentLoaded', function() {
   // Get URL parameters

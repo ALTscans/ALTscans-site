@@ -193,6 +193,11 @@ main {
 
     #read-first {
         grid-column: 3;
+        cursor: pointer;
+    }
+
+    #read-last {
+        cursor: pointer;
     }
 
     .search-bar-chapter {
@@ -228,8 +233,17 @@ main {
     .chapter-image-wrap {
         grid-column: 1;
         background: var(--container);
+        width: 120px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+    }
+
+    .chapter-thumbnail {
         width: 100%;
-        height: 104px;
+        height: 100%;
+        object-fit: cover;
     }
 
     .title-container {
