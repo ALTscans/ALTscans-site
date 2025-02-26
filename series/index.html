@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<head class="head">
+<head class="main-head">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="title" content="Alternative Scans">
@@ -12,7 +12,7 @@
     <meta name="author" content="AeolusDev">
     <meta property="twitter:image" content="/assets/img/favicons/favicon-96x96.png">
     <meta property="og:image" content="/assets/img/favicons/favicon-96x96.png">
-
+    <title></title>
     <link rel="canonical" href="https://alternativescans.icu">
     <link rel="apple-touch-icon" sizes="57x57" href="/assets/img/favicons/apple-icon-57x57.png">
     <link rel="apple-touch-icon" sizes="60x60" href="/assets/img/favicons/apple-icon-60x60.png">
@@ -36,9 +36,11 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200800;1,200800&display=swap" rel="stylesheet">
 
+    <script src="/assets/js/content.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios@1.6.7/dist/axios.min.js"></script>
 </head>
 <body>
+    <div id="header-content"></div>
     <main >
         <div class="cover five-grid">
             <div class="image-container">
@@ -47,7 +49,7 @@
 
             <div class="data"> <!-- 3 COLUMNS -->
                 <div class="head">
-                    <div class="status">ONGOING</div>
+                    <div class="status"></div>
                     <h1 class="title"></h1>
                 </div>
                 <div class="tag-list">
@@ -57,7 +59,7 @@
                     <div class="tag">MARTIAL ARTS</div>
                     <div class="tag">MURIM</div>
                 </div>
-                <p class="description">[From the studio that brought you Omniscient Reader's Viewpoint and Solo Leveling.]<br><br>"He is the ruler of the Nine Heavens." Yeon Juk-Ha, the child of a concubine who has lived while being tormented by his other mother and siblings. After his father died of illness, Yeon Juk-Ha gets locked inside a storage...<br><br>After ten years inside the storage, he receives the Martial Art of an inhuman and escapes into the world! "I have quite the issue with the Yeon Family.<br><br>"The relentless travels of the sole successor Nine Heavens Swordsmaster across the Martial World begins now!</p>
+                <p class="description"></p>
             </div>
         </div>
 
@@ -71,20 +73,12 @@
             </div> <!-- 1 COLUMN -->
             <div class="publishing-data">
                 <div class="publishing-data-container">
-                    <p class="first">ARTIST</p>
-                    <p class="second">ARTIST NAME</p>
+                    <p class="author">AUTHOR</p>
+                    <p class="author-name"></p>
                 </div>
                 <div class="publishing-data-container">
-                    <p class="first">AUTHOR</p>
-                    <p class="second">AUTHOR NAME</p>
-                </div>
-                <div class="publishing-data-container">
-                    <p class="first">PUBLISHER</p>
-                    <p class="second">PUBLISHER NAME</p>
-                </div>
-                <div class="publishing-data-container">
-                    <p class="first">RELEASE</p>
-                    <p class="second">DATE</p>
+                    <p class="release">RELEASE</p>
+                    <p class="release-date"></p>
                 </div>
             </div>
             <div class="actions"> <!-- 1 COLUMN -->
@@ -98,25 +92,13 @@
     <div class="chapters">
         <div class="chapters-header five-grid">
             <h2>Chapters</h2>
-            <button class="button" id="read-first">READ FIRST</button>
-            <button class="button" id="read-last">READ LAST</button>
             <nav class="search-bar search-bar-chapter"> <!-- 2 COLUMNS -->
                 <input type="text" placeholder="SEARCH CHAPTER...">
-                <button class="icon"><img src="/assets/img/magnifying glass 1.png" alt="ICON"></button>
+                <button class="search-icon"><img src="/assets/img/magnifying glass 1.png" alt="ICON" style="height: 20px;"></button>
             </nav>
         </div>
         <!-- HERE -->
         <div class="chapter-list">
-            <div class="single-chapter five-grid">
-                <div class="chapter-image-wrap"><img src="" alt=""></div>
-                <div class="title-container">
-                    <h3>CHAPTER 3</h2>
-                    01/01/2025
-                </div>
-                <div class="button-container">
-                    <button class="icon chapter-star"><img src="/assets/img/icons/star.svg" alt="ICON"></button>
-                </div>
-            </div>
             <div class="single-chapter five-grid">
                 <div class="chapter-image-wrap"><img src="" alt=""></div>
                 <div class="title-container">
@@ -140,11 +122,8 @@
         </div>
         
     </div>
-
-    <footer>
-        <div class="focus"></div>
-        <div class="extra"></div>
-    </footer>
+    
+    <div id="footer-content"></div>
     
     <script type="text/javascript" src="/vanilla-tilt.js"></script>
     <script type="text/javascript" src="/assets/js/details.js"></script>

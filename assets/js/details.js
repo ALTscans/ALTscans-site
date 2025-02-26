@@ -1,8 +1,17 @@
 document.addEventListener('DOMContentLoaded', () => {
   async function handleDetails() {
-    const head = document.querySelector('.head');
-    const seriesThumbnail = document.querySelector('image-container');
-    let title = document.querySelector('.title');
+    const seriesThumbnail = document.querySelector('.image-container');
+    let bodyTitle = document.querySelector('h1.title'); // More specific selector for the body title
+    let status = document.querySelector('.status');
+    let tagList = document.querySelector('.tag-list');
+    let description = document.querySelector('.description');
+    let artistName = document.querySelector('.artist-name');
+    let authorName = document.querySelector('.author-name');
+    let publisherName = document.querySelector('.publisher-name');
+    let releaseDate = document.querySelector('.release-date');
+    let coverImage = document.querySelector('.image-container img'); // Add this line
+    let chapterHeader = document.querySelector('.chapters-header');
+    let chapterList = document.querySelector('.chapter-list');
     
     // Get current URL parameters
     const urlParams = new URLSearchParams(window.location.search);
@@ -12,11 +21,12 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Update URL to clean format without page reload
     if (nick && seriesId) {
-      const newUrl = `/series/?nick=${nick}&id=${seriesId}`;
+      const newUrl = `/series/?series=${nick}&id=${seriesId}`;
       history.pushState({}, '', newUrl);
     }
     
     function formatTitle(title) {
+      if (!title) return ''; // Add null check
       return title
         .split('-')
         .map(word => word.charAt(0).toUpperCase() + word.slice(1))
@@ -25,21 +35,52 @@ document.addEventListener('DOMContentLoaded', () => {
     
     if (!nick || !seriesId) { 
       console.log(`Error: Missing URL parameters`);
-      if (title) {
-        title.textContent = 'Error: Missing URL parameters';
+      if (bodyTitle) {
+        bodyTitle.textContent = 'Error: Incorrect URL Format. Please check the URL and try again.';
       }
       return;
     }
     
     try {
-      const response = await axios.get(`http://localhost:8888/api/admin/getSeriesDetails/${seriesId}/${nick}`)
-        .then(response => response.data.seriesDetails);
+      const response = await axios.get(`http://localhost:8888/api/admin/getSeriesDetails/${seriesId}/${nick}`);
+      let series = response.data.seriesDetails;
+      console.log(series);
       
-      console.log(response);
-      if (title) {
-        title.textContent = formatTitle(response.title);
+      if (series && series.title) {
+        let formattedTitle = formatTitle(series.title);
+        // Update both titles
+        if (bodyTitle) bodyTitle.textContent = formattedTitle;
+        document.title = formattedTitle; // Update page title
       }
       
+      if (authorName && series.author) authorName.textContent = formatTitle(series.author);
+      if (releaseDate && series.releaseDate) releaseDate.textContent = formatTitle(series.releaseDate);
+      if (description && series.desc) description.textContent = formatTitle(series.desc);
+      if (coverImage && series.thumbnail) coverImage.src = series.thumbnail;
+      if (status && series.manga_status) status.textContent = formatTitle(series.manga_status);
+      if (chapterHeader && series.chapterCount && chapterList) {
+        chapterHeader.innerHTML = `
+          <a href="/reader.html?id=${seriesId}&series=${nick}&chapter=1">
+            <button class="button" id="read-first">READ FIRST</button>
+          </a>
+          <a href="/reader.html?id=${seriesId}&series=${nick}&chapter=${series.chapterCount}">
+            <button class="button" id="read-last">READ LAST</button>
+          </a>
+        `;
+        
+        chapterList.innerHTML = `
+          <div class="single-chapter five-grid">
+              <div class="chapter-image-wrap"><img src="" alt=""></div>
+              <div class="title-container">
+                  <h3>CHAPTER 3</h2>
+                  01/01/2025
+              </div>
+              <div class="button-container">
+                  <button class="icon chapter-star"><img src="/assets/img/icons/star.svg" alt="ICON"></button>
+              </div>
+          </div>
+        `;
+      }
     } catch (error) {
       console.error('Error fetching series details:', error);
     }
