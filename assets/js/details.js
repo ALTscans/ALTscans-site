@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
   async function handleDetails() {
     const seriesThumbnail = document.querySelector(".image-container");
-    let bodyTitle = document.querySelector("h1.title"); // More specific selector for the body title
+    let bodyTitle = document.querySelector("h1.title"); 
     let status = document.querySelector(".status");
     let tagList = document.querySelector(".tag-list");
     let description = document.querySelector(".description");
@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let authorName = document.querySelector(".author-name");
     let publisherName = document.querySelector(".publisher-name");
     let releaseDate = document.querySelector(".release-date");
-    let coverImage = document.querySelector(".image-container img"); // Add this line
+    let coverImage = document.querySelector(".image-container img"); 
     let chapterHeader = document.querySelector(".chapters-header");
     let chapterList = document.querySelector(".chapter-list");
 
@@ -67,9 +67,13 @@ document.addEventListener("DOMContentLoaded", () => {
       if (coverImage && series.thumbnail) coverImage.src = series.thumbnail;
       if (status && series.manga_status)
         status.textContent = formatTitle(series.manga_status);
+      if(tagList && series.genre){
+        const genre = series.genre.split(',').map(tag => tag.trim());
+        tagList.innerHTML = genre.map(tag => `<div class="tag">${tag}</div>`).join(' ');
+      }
       if (chapterHeader && series.chapterCount && chapterList) {
         chapterHeader.innerHTML = `
-          <a href="/reader.html?id=${seriesId}&series=${nick}&chapter=1">
+          <a href="/reader.html?id=${seriesId}&series=${nick}&chapter=${series.chapters[0].chapterNo}">
             <button class="button" id="read-first">READ FIRST</button>
           </a>
           <a href="/reader.html?id=${seriesId}&series=${nick}&chapter=${series.chapterCount}">

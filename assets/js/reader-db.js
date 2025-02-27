@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', function() {
       }
         
       // Update the chapter information
-      chapterNoHeader.textContent = `Chapter ${chapterNo}`;
+      chapterNoHeader.textContent = `${chapterNo}`;
       chapterNameHeader.textContent = formatTitle(response.data.seriesDetails.title);
       
       let imageContainer = document.querySelector('.chapter-content');

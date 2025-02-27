@@ -102,12 +102,16 @@ body {
   }
 
   main .cover .image-container {
-    grid-column: span 1;
-    height: 300px; 
+    margin-left: 150px;
+    width: 200%;
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    justify-items: center;
+    align-content: center;
   }
 
   main .cover .data {
-    grid-column: span 2;
     gap: 16px;
   }
 
