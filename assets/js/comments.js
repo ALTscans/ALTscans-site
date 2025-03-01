@@ -1,4 +1,3 @@
-
 function toggleCommentOptions() {
     const options = document.getElementById('comment-options');
     const button = document.querySelector('.icon-button');
@@ -25,4 +24,9 @@ function switchTab(type) {
 
     selectedTab.setAttribute('aria-selected', 'true');
     selectedPanel.hidden = false; 
-};
+}
+
+// Set Disqus as the default comment section on page load
+document.addEventListener('DOMContentLoaded', () => {
+    switchTab('disqus');
+});
