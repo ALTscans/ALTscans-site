@@ -1,6 +1,16 @@
+const cookie = document.cookie;
+
+const token = cookie.split(';').find(row => row.trim().startsWith('token='));
+const userId = cookie.split(';').find(row => row.trim().startsWith('userId='));
+
+if (token && userId) {
+    window.location.href = '/routes/profile.html';
+}
+
 const loginForm = document.querySelector('.loginForm');
 
 document.querySelector('.alert-container').style.display = 'none';
+document.querySelector('.alert-container-login').style.display = 'none';
 
 loginForm.addEventListener('submit', (e) => {
     e.preventDefault();
@@ -17,7 +27,7 @@ loginForm.addEventListener('submit', (e) => {
     {
         headers: {
             'Content-Type': 'application/json',
-            'x-api-key': '019417e6-a468-7c95-9e8e-2562e1b182a7'
+            Authorization: `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjoiQyF5YjlWY0hjQm5HcWpCRVlQdzhqTnNhQG5RI3V3IiwiaWF0IjoxNzQwODEyOTE1fQ.wImh8Y-s3jZtdEIyTvl9eUEh2VgG_NcjoqX-nlW1Zso`
         },
     }).then(function (response) {
         try {
@@ -28,10 +38,10 @@ loginForm.addEventListener('submit', (e) => {
             window.location.href = '/routes/profile.html';
         } catch (error) {
             console.error('Error setting cookies:', error);
+            showAlert(error, 'login');
         }
-        
     }).catch(function (error) {
-        showAlert(error);
+        showAlert(error, 'login');
     });
 });
 
@@ -58,10 +68,12 @@ signupForm.addEventListener('submit', (e) => {
         },
     })
     .then(function (response) {
-        showAlert(response);
+        console.log(response);
+        showAlert(response, 'signup');
     })
     .catch(function (error) {
-        showAlert(error);
+        console.error('Error signing up:', error);
+        showAlert(error, 'signup');
     });
 });
 
@@ -109,20 +121,31 @@ document.getElementById('verifyForm').addEventListener('submit', function(e) {
 
 document.getElementById('dialogOverlay').addEventListener('click', closeDialog);
 
-async function showAlert(response, message) {
+async function showAlert(response, form) {
     try {
-        const alert = document.querySelector('.alert-container');
-        if(response.status === 200){
-            console.log("User Created Successfully")
-            alert.innerHTML = 'Your account has been created. You can now log in.'
-            alert.style.display = 'block';
-            alert.style.color = 'green';
-        } else {
-            alert.innerHTML = 'An error occurred while creating your account.'
+        if (form === 'signup') {
+            const alert = document.querySelector('.alert-container');
+            if (response.status === 200) {
+                console.log("User Created Successfully")
+                alert.innerHTML = 'Your account has been created. You can now log in.'
+                alert.style.display = 'block';
+                alert.style.color = 'green';
+            } else {
+                alert.innerHTML = 'An error occurred while creating your account.'
+                alert.style.display = 'block';
+                alert.style.color = 'red';
+            }
+        } else if (form === 'login') {
+            const alert = document.querySelector('.alert-container-login');
+            if (response.response && response.response.status === 401) {
+                alert.innerHTML = 'Incorrect email or password.'
+            } else {
+                alert.innerHTML = 'An error occurred while logging in.'
+            }
             alert.style.display = 'block';
             alert.style.color = 'red';
         }
-    } catch(error) {
+    } catch (error) {
         console.log(error);
     }
 }

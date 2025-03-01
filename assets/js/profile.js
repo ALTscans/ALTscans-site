@@ -26,11 +26,13 @@ if (token && userId) {
             const username = document.querySelector('.profile-username');
             const profileId = document.querySelector('.profile-id');
             const bio = document.querySelector('.profile-bio');
-            
+            const profileImageContainer = document.querySelector('.profile-image-container');
+            console.log(response.data);
             username.textContent = response.data.username;
             profileId.textContent = `ID: ${userIdValue}`;
             bio.value = response.data.bio || "";
-            
+            profileImageContainer.innerHTML = `<img src="${response.data.profilePicture}" alt="Profile Image" class="profile-image" id="profile-image">`;
+
             
         } catch (error) {
             console.error(error);
