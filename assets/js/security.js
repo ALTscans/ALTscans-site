@@ -1,83 +1,83 @@
 const loginForm = document.querySelector('.loginForm');
-console.log(loginForm);
+
+document.querySelector('.alert-container').style.display = 'none';
+
 loginForm.addEventListener('submit', (e) => {
     e.preventDefault();
 
     //get User Information
     const email = loginForm['login-emailField'].value;
     const pwd = loginForm['login-passwordField'].value;
-    console.log(email + `||` + pwd);
-
+    
     // Login User
-    axios.post('http://localhost:3000/signIn', {
-      email: email,
-      pwd: pwd
+    axios.post('https://altscans-api.netlify.app/api/auth/login', {
+        email: email,
+        password: pwd
     },
     {
-      headers: {
-        'Content-Type': 'application/json',
-        'x-api-key': '019417e6-a468-7c95-9e8e-2562e1b182a7'
-      },
-    }
-  ).then(function (response) {
-    console.log(response)
-  }).catch(function (error) {
-    console.log(error);
-  });
+        headers: {
+            'Content-Type': 'application/json',
+            'x-api-key': '019417e6-a468-7c95-9e8e-2562e1b182a7'
+        },
+    }).then(function (response) {
+        try {
+            document.cookie = `token=${response.data.token}; path=/`;
+            document.cookie = `userId=${response.data.userInfo.id}; path=/`;
+            console.log(`Cookie Created for user ${response.data.userInfo.name}: ${response.data.userInfo.id}`);
+            // Redirect to profile.html
+            window.location.href = '/routes/profile.html';
+        } catch (error) {
+            console.error('Error setting cookies:', error);
+        }
+        
+    }).catch(function (error) {
+        showAlert(error);
+    });
 });
 
 const signupForm = document.querySelector('.signupForm');
-console.log(signupForm);
 signupForm.addEventListener('submit', (e) => {
-    console.log(signupForm)
     e.preventDefault();
-        
+
     //get User Information
     const username = signupForm['signup-usernameField'].value;
     const email = signupForm['signup-emailField'].value;
     const pwd = signupForm['signup-pwdField'].value;
-    console.log(signupForm)
-    console.log(username + `||` + email + `||` + pwd);
-
+    
     //Send User Info
-
-    axios.post('http://localhost:8888/api/user/createUser', {
+    
+    axios.post('https://altscans-api.netlify.app/api/user/createUser', {
         username: username,
         email: email,
-        password: pwd
-      },
-      {
+        password: pwd,
+        type: 'emailAndPasswordAuth'
+    },
+    {
         headers: {
             'Content-Type': 'application/json'
-          },
-      }
-    )
-      .then(function (response) {
-        console.log(response);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+        },
+    })
+    .then(function (response) {
+        showAlert(response);
+    })
+    .catch(function (error) {
+        showAlert(error);
+    });
 });
 
-
-
-
 function handleCredentialResponse(response) {
-  console.log("Encoded JWT ID token: " + response.credential);
+    console.log("Encoded JWT ID token: " + response.credential);
 
-  axios.post('http://localhost:3000/oauth/google', {
-    response
-  },
-  {
-    headers: {
-        'Content-Type': 'application/json',
-        'x-api-key': '019417e6-a468-7c95-9e8e-2562e1b182a7'
-      },
-  }
-);
+    axios.post('http://localhost:3000/oauth/google', {
+        response
+    },
+    {
+        headers: {
+            'Content-Type': 'application/json',
+            'x-api-key': '019417e6-a468-7c95-9e8e-2562e1b182a7'
+        },
+    });
 }
-
 
 function showDialog() {
     document.getElementById('dialogOverlay').classList.add('active');
@@ -90,16 +90,16 @@ function closeDialog() {
 }
 
 function handleSocialAuth(provider) {
-  console.log(provider);
-  
-  try {
-    switch(provider) {
-      case 'google':
-      window.location.href = 'https://altscans-api.netlify.app/api/auth/google';
+    console.log(provider);
+
+    try {
+        switch(provider) {
+            case 'google':
+                window.location.href = 'https://altscans-api.netlify.app/api/auth/google';
+        }
+    } catch(error) {
+        console.log(error);
     }
-  } catch(error) {
-    console.log(error);
-  }
 }
 
 document.getElementById('verifyForm').addEventListener('submit', function(e) {
@@ -108,3 +108,21 @@ document.getElementById('verifyForm').addEventListener('submit', function(e) {
 });
 
 document.getElementById('dialogOverlay').addEventListener('click', closeDialog);
+
+async function showAlert(response, message) {
+    try {
+        const alert = document.querySelector('.alert-container');
+        if(response.status === 200){
+            console.log("User Created Successfully")
+            alert.innerHTML = 'Your account has been created. You can now log in.'
+            alert.style.display = 'block';
+            alert.style.color = 'green';
+        } else {
+            alert.innerHTML = 'An error occurred while creating your account.'
+            alert.style.display = 'block';
+            alert.style.color = 'red';
+        }
+    } catch(error) {
+        console.log(error);
+    }
+}

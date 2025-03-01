@@ -18,6 +18,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="./assets/css/hover.css">
 <link rel="stylesheet" href="./assets/css/security.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.19.1/cdn/themes/light.css" />
+<script type="module" src="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.19.1/cdn/shoelace-autoloader.js"></script>
 
 <script src="https://cdn.jsdelivr.net/npm/axios@1.6.7/dist/axios.min.js"></script>
 <script>
@@ -42,8 +44,8 @@ fetch('./assets/header.html')
         <section class="auth-form">
             <h2 class="form-title">LOGIN</h2>
             <form class="loginForm">
-                <input type="email" class="input-field login-emailField" placeholder="EMAIL" required aria-label="Email">
-                <input type="password" class="input-field login-passwordField" placeholder="PASSWORD" required aria-label="Password">
+                <input type="email" class="input-field login-emailField" id="login-emailField" placeholder="EMAIL" required aria-label="Email">
+                <input type="password" class="input-field login-passwordField" id="login-passwordField" placeholder="PASSWORD" required aria-label="Password">
                 <div class="button-group">
                     <button type="submit" class="auth-button hvr-grow hvr-underline-reveal">LOGIN</button>
                     <button type="button" class="auth-button hvr-grow hvr-underline-reveal" onclick="showDialog()">FORGOT PWD?</button>
@@ -58,6 +60,9 @@ fetch('./assets/header.html')
                 <input type="password" class="input-field signup-confirmPwdField" placeholder="PASSWORD AGAIN" required aria-label="Confirm password">
                 <button type="submit" class="auth-button hvr-grow hvr-underline-reveal">CREATE ACCOUNT</button>
             </form>
+            <div class="alert-container">
+                <h3 class="alert-message"></h3>
+            </div>
         </section>
 
         <section class="social-auth">

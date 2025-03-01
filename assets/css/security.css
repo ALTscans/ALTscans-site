@@ -207,6 +207,14 @@
         padding: 0.313rem;
     }
 
+    @media (max-width: 600px) {
+        .alert-container {
+         .alert-message {
+            inline-size: inherit;
+         }
+        }
+    }
+    
     @media (max-width: 991px) {
 
         .auth-container {
@@ -231,5 +239,11 @@
             height: 250px;
             bottom: 10px;
             right: 10px;
+        }
+        
+        .alert-container {
+         .alert-message {
+            inline-size: max-content;
+         }
         }
 }
