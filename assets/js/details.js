@@ -44,7 +44,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     try {
       const response = await axios.get(
-        `https://altscans-api.netlify.app/api/admin/getSeriesDetails/${seriesId}/${nick}`,
+        `${base_url}/api/admin/getSeriesDetails/${seriesId}/${nick}`,
       );
       let series = response.data.seriesDetails;
       let releases = response.data.releases;
@@ -72,8 +72,9 @@ document.addEventListener("DOMContentLoaded", () => {
         tagList.innerHTML = genre.map(tag => `<div class="tag">${tag}</div>`).join(' ');
       }
       if (chapterHeader && series.chapterCount && chapterList) {
+        const earliestAvailableChapter = Math.min(...series.chapters.map(chapter => chapter.chapterNo));
         chapterHeader.innerHTML = `
-          <a href="/reader.html?id=${seriesId}&series=${nick}&chapter=${series.chapters[0].chapterNo}">
+          <a href="/reader.html?id=${seriesId}&series=${nick}&chapter=${earliestAvailableChapter}">
             <button class="button" id="read-first">READ FIRST</button>
           </a>
           <a href="/reader.html?id=${seriesId}&series=${nick}&chapter=${series.chapterCount}">

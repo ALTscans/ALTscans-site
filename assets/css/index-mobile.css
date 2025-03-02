@@ -283,7 +283,7 @@ body {
 .popular-section {
   border-radius: 0;
   display: flex;
-  width: 100%;
+  width: 94%;
   flex-direction: column;
   margin: 0 auto;
   background-color: #212121;
@@ -307,7 +307,7 @@ body {
   border-radius: 38px;
   background-color: #342D27;
   display: flex;
-  width: 100%;
+  width: 95%;
   flex-direction: column;
   color: #FFFFFF;
   white-space: nowrap;
@@ -377,6 +377,7 @@ body {
   flex-direction: column;
   gap: 16px;
   padding: 8px 0;
+  width: 95%;
 }
 
 .item-card {
@@ -1222,7 +1223,8 @@ body {
         display:flex;
         width:95%;
         flex-direction:column;
-        padding:12px 0 20px
+        padding:12px 0 20px;
+        border-radius: 10px 10px 0 0;
     }
     
     .section-header{
@@ -1265,7 +1267,7 @@ body {
         border-radius:8px;
         gap:16px;
         width: 90%;
-        margin: 0 auto;
+        margin: 10px auto;
     }
     
     .series-info{
@@ -1480,12 +1482,13 @@ body {
     }
     
     .popular-section{
-        border-radius: 0;
+        border-radius: 0 0 10px 10px;
         display: flex;
         width: 95%;
         flex-direction: column;
         margin: 0 auto;
         background-color: #212121;
+        overflow: hidden;
     }
     
     .filter-container {
