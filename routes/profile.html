@@ -10,36 +10,64 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="language" content="English">
     <meta name="author" content="AeolusDev">
-    <meta property="twitter:image" content="../../assets/img/favicons/favicon-96x96.png">
-    <meta property="og:image" content="../../assets/img/favicons/favicon-96x96.png">
+    <meta property="twitter:image" content="/assets/img/favicons/favicon-96x96.png">
+    <meta property="og:image" content="/assets/img/favicons/favicon-96x96.png">
         
-    <link rel="canonical" href="https://alternativescans.icu">
-    <link rel="apple-touch-icon" sizes="57x57" href="../assets/img/favicons/apple-icon-57x57.png">
-    <link rel="apple-touch-icon" sizes="60x60" href="../assets/img/favicons/apple-icon-60x60.png">
-    <link rel="apple-touch-icon" sizes="72x72" href="../assets/img/favicons/apple-icon-72x72.png">
-    <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/favicons/apple-icon-76x76.png">
-    <link rel="apple-touch-icon" sizes="114x114" href="../assets/img/favicons/apple-icon-114x114.png">
-    <link rel="apple-touch-icon" sizes="120x120" href="../assets/img/favicons/apple-icon-120x120.png">
-    <link rel="apple-touch-icon" sizes="144x144" href="../assets/img/favicons/apple-icon-144x144.png">
-    <link rel="apple-touch-icon" sizes="152x152" href="../assets/img/favicons/apple-icon-152x152.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="../assets/img/favicons/apple-icon-180x180.png">
-    <link rel="icon" type="image/png" sizes="192x192"  href="../assets/img/favicons/android-icon-192x192.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="../assets/img/favicons/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="96x96" href="../assets/img/favicons/favicon-96x96.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="../assets/img/favicons/favicon-16x16.png">
-    <link rel="manifest" href="../assets/img/favicons/manifest.json">
+    <link rel="canonical" href="https:/alternativescans.icu">
+    <link rel="apple-touch-icon" sizes="57x57" href="/assets/img/favicons/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/assets/img/favicons/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/assets/img/favicons/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/assets/img/favicons/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/assets/img/favicons/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/assets/img/favicons/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/assets/img/favicons/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/assets/img/favicons/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/img/favicons/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192"  href="/assets/img/favicons/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/assets/img/favicons/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/img/favicons/favicon-16x16.png">
+    <link rel="manifest" href="/assets/img/favicons/manifest.json">
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
         
     <title>User Profile</title>
-    <link href="../assets/css/profile.css" rel="stylesheet">
-    <link rel="stylesheet" href="../../assets/css/hover.css">
+    <link href="/assets/css/profile.css" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/hover.css">
 
-    <script src="https://cdn.jsdelivr.net/npm/axios@1.6.7/dist/axios.min.js"></script>
-
+    <script src="https:/cdn.jsdelivr.net/npm/axios@1.6.7/dist/axios.min.js"></script>
+    
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        fetch('/assets/footer.html')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok ' + response.statusText);
+                }
+                return response.text();
+            })
+            .then(data => {
+                document.getElementById('footer-content').innerHTML = data;
+            })
+            .catch(error => console.error('Error loading header:', error));
+    });
+    
+    fetch('/assets/header.html')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok ' + response.statusText);
+            }
+            return response.text();
+        })
+        .then(data => {
+            document.getElementById('header-content').innerHTML = data;
+        })
+        .catch(error => console.error('Error loading header:', error));
+    </script>
 </head>
 <body>
+    <div class="header-content"></div>
     <main>
         <section class="profile-container">
             <div class="banner-container" role="img" aria-label="Profile banner">
@@ -74,7 +102,7 @@
             <div class="bookmarks-list">
                 <div class="bookmark-item">
                     <div class="bookmark-image">
-                        <img src="https://imgsrv.crunchyroll.com/cdn-cgi/image/fit=contain,format=auto,quality=85,width=480,height=720/catalog/crunchyroll/0f3c1f6c3b75aaa9b8062f19df77d5e9.jpg" alt="Highschool DxD cover">
+                        <img src="https:/imgsrv.crunchyroll.com/cdn-cgi/image/fit=contain,format=auto,quality=85,width=480,height=720/catalog/crunchyroll/0f3c1f6c3b75aaa9b8062f19df77d5e9.jpg" alt="Highschool DxD cover">
                     </div>
                     <div class="bookmark-details">
                         <h3 class="bookmark-title">Highschool DxD</h3>
@@ -88,6 +116,7 @@
         </section>
     </main>
     
+    <div class="footer-content"></div>
     <script src="/assets/js/config.js"></script>
     <script src="/assets/js/profile.js"></script>
 </body>

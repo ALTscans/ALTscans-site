@@ -20,7 +20,7 @@ if (token && userId) {
             let response = await axios.get(`${base_url}/api/user/${userIdValue}`, {
                 headers: {
                     Authorization: `${frontoken}`,
-                    Token: `${tokenValue}`
+                    'x-user-token': `${tokenValue}`
                 }
             });
             
@@ -49,7 +49,8 @@ if (token && userId) {
               bio: bio
             }, {
                 headers: {
-                    Authorization: `${frontoken}`
+                    Authorization: `${frontoken}`,
+                    'x-user-token': `${tokenValue}`
                 }
             });
 
