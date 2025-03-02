@@ -17,9 +17,10 @@ if (token && userId) {
       }
       
         try {
-            let response = await axios.get('https://altscans-api.netlify.app/api/user/' + userIdValue, {
+            let response = await axios.get(`${base_url}/api/user/${userIdValue}`, {
                 headers: {
-                    Authorization: `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjoiQyF5YjlWY0hjQm5HcWpCRVlQdzhqTnNhQG5RI3V3IiwiaWF0IjoxNzQwODEyOTE1fQ.wImh8Y-s3jZtdEIyTvl9eUEh2VgG_NcjoqX-nlW1Zso`
+                    Authorization: `${frontoken}`,
+                    Token: `${tokenValue}`
                 }
             });
             
@@ -38,9 +39,29 @@ if (token && userId) {
             console.error(error);
         }
     }
+    
+    async function updateProfile() {
+        try {
+            const bio = document.querySelector('.profile-bio').value;
 
+            let response = await axios.put(`${base_url}/api/user/${userIdValue}`, {
+              type: `user-update`,  
+              bio: bio
+            }, {
+                headers: {
+                    Authorization: `${frontoken}`
+                }
+            });
+
+            console.log(response.data);
+        } catch (error) {
+            console.error(error);
+        }
+    }
+    
+    document.querySelector('.saveBio').addEventListener('click', updateProfile);
     document.addEventListener('DOMContentLoaded', loadProfile);
 } else {
     console.error('Token or userId not found in cookies');
-    window.location.href = '/login.html';
+    window.location.href = '/login';
 }

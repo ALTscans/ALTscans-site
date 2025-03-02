@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login Successful</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+    }
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: #38261a;
+      color: #FFB300;
+      text-align: center;
+    }
+    .container {
+      background-color: #fac528;
+      color: #D2691e;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      width: 90%;
+      max-width: 600px;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+    h1 {
+      margin: 0;
+      font-size: 2em;
+    }
+    p {
+      margin: 10px 0;
+      font-size: 1.1em;
+    }
+    .loading-gif {
+      width: 100px;
+      margin-top: 20px;
+    }
+    @media (max-width: 768px) {
+      .container {
+        width: 95%;
+        padding: 15px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+      p {
+        font-size: 1em;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Login Successful!</h1>
+    <p>Google OAuth authentication complete.</p>
+    <p>Redirecting you to your dashboard...</p>
+  </div>
+  <img src="https://upload.wikimedia.org/wikipedia/commons/b/b1/Loading_icon.gif" alt="Loading..." class="loading-gif">
+  <script>
+      // Function to get query parameters from the URL
+      function getQueryParams() {
+          const params = {};
+          const queryString = window.location.search.substring(1);
+          const regex = /([^&=]+)=([^&]*)/g;
+          let m;
+          while (m = regex.exec(queryString)) {
+              params[decodeURIComponent(m[1])] = decodeURIComponent(m[2]);
+          }
+          return params;
+      }
+
+      // Get the token from the query parameters
+      const params = getQueryParams();
+      const token = params.token;
+      const userId = params.userId;
+
+      if (token && userId) {
+          // Store the token and userId in local storage or a cookie
+          document.cookie = `token=${token}; path=/`;
+          document.cookie = `userId=${userId}; path=/`;
+
+          // Redirect to the home page or dashboard
+          setTimeout(() => {
+              window.location.href = '/routes/profile';
+          }, 5000);
+      } else {
+          // Handle error
+          document.getElementById('message').innerText = 'Authentication failed. Please try again.';
+      }
+  </script>
+</body>
+</html>

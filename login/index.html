@@ -23,7 +23,7 @@
 
         <script src="https://cdn.jsdelivr.net/npm/axios@1.6.7/dist/axios.min.js"></script>
         <script>
-        fetch('./assets/header.html')
+        fetch('/assets/header.html')
           .then(response => {
             if (!response.ok) {
               throw new Error('Network response was not ok ' + response.statusText);
@@ -119,8 +119,9 @@
                 </form>
             </div>
         </div>
-    
-        <script src="./assets/js/security.js"></script>
+        
+        <script src="/assets/js/config.js"></script>
+        <script src="/assets/js/security.js"></script>
         <script>
           function showDialog() {
             document.getElementById('dialogOverlay').classList.add('active');

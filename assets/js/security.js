@@ -1,3 +1,8 @@
+// Function to set a cookie with an expiration time
+function setCookie(name, value) {
+    document.cookie = `${name}=${value}; path=/`;
+}
+
 const cookie = document.cookie;
 
 const token = cookie.split(';').find(row => row.trim().startsWith('token='));
@@ -15,33 +20,42 @@ document.querySelector('.alert-container-login').style.display = 'none';
 loginForm.addEventListener('submit', (e) => {
     e.preventDefault();
 
-    //get User Information
+    // Get User Information
     const email = loginForm['login-emailField'].value;
     const pwd = loginForm['login-passwordField'].value;
     
     // Login User
-    axios.post('https://altscans-api.netlify.app/api/auth/login', {
+    axios.post(`${base_url}/api/auth/login`, {
         email: email,
         password: pwd
     },
     {
         headers: {
             'Content-Type': 'application/json',
-            Authorization: `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjoiQyF5YjlWY0hjQm5HcWpCRVlQdzhqTnNhQG5RI3V3IiwiaWF0IjoxNzQwODEyOTE1fQ.wImh8Y-s3jZtdEIyTvl9eUEh2VgG_NcjoqX-nlW1Zso`
+            Authorization: `${frontoken}`
         },
     }).then(function (response) {
         try {
-            document.cookie = `token=${response.data.token}; path=/`;
-            document.cookie = `userId=${response.data.userInfo.id}; path=/`;
+
+            // Set cookies
+            setCookie('token', response.data.token);
+            setCookie('userId', response.data.userInfo.id);
             console.log(`Cookie Created for user ${response.data.userInfo.name}: ${response.data.userInfo.id}`);
-            // Redirect to profile.html
-            window.location.href = '/routes/profile.html';
+            
+            console.log(response.data.firebaseUser);
+            
+            //Redirect to profile.html
+            setTimeout(() => {
+              window.location.href = '/routes/profile.html';
+            }, 5000);
+            
         } catch (error) {
             console.error('Error setting cookies:', error);
             showAlert(error, 'login');
         }
     }).catch(function (error) {
         showAlert(error, 'login');
+        console.log(error);
     });
 });
 
@@ -49,14 +63,13 @@ const signupForm = document.querySelector('.signupForm');
 signupForm.addEventListener('submit', (e) => {
     e.preventDefault();
 
-    //get User Information
+    // Get User Information
     const username = signupForm['signup-usernameField'].value;
     const email = signupForm['signup-emailField'].value;
     const pwd = signupForm['signup-pwdField'].value;
     
-    //Send User Info
-    
-    axios.post('https://altscans-api.netlify.app/api/user/createUser', {
+    // Send User Info
+    axios.post(`${base_url}/api/user/createUser`, {
         username: username,
         email: email,
         password: pwd,
@@ -107,7 +120,7 @@ function handleSocialAuth(provider) {
     try {
         switch(provider) {
             case 'google':
-                window.location.href = 'https://altscans-api.netlify.app/api/auth/google';
+                window.location.href = `${base_url}/api/auth/google`;
         }
     } catch(error) {
         console.log(error);
