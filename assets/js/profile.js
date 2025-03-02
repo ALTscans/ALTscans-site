@@ -60,6 +60,19 @@ if (token && userId) {
         }
     }
     
+    async function logout() {
+        try {
+          // Delete cookies by setting expiration to past date
+            document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+            document.cookie = "userId=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+
+            window.location.href = '/login';
+        } catch (error) {
+            console.error(error);
+        }
+    }
+    
+    document.querySelector('.logout').addEventListener('click', logout);
     document.querySelector('.saveBio').addEventListener('click', updateProfile);
     document.addEventListener('DOMContentLoaded', loadProfile);
 } else {

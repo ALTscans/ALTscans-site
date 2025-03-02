@@ -168,6 +168,11 @@ main {
     color: var(--primary-bg);
 }
 
+.btn-logout {
+    background-color: var(--danger-color);
+    color: var(--text-primary);
+}
+
 .bookmarks-container {
     width: 100%;
     background-color: var(--primary-bg);
