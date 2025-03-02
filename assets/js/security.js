@@ -42,7 +42,6 @@ loginForm.addEventListener('submit', (e) => {
             setCookie('userId', response.data.userInfo.id);
             console.log(`Cookie Created for user ${response.data.userInfo.name}: ${response.data.userInfo.id}`);
             
-            console.log(response.data.firebaseUser);
             
             //Redirect to profile.html
             setTimeout(() => {
