@@ -36,8 +36,6 @@
     <link href="/assets/css/profile.css" rel="stylesheet">
     <link rel="stylesheet" href="/assets/css/hover.css">
 
-    <script src="https:/cdn.jsdelivr.net/npm/axios@1.6.7/dist/axios.min.js"></script>
-    
     <script>
     document.addEventListener('DOMContentLoaded', function() {
         fetch('/assets/footer.html')
@@ -65,9 +63,11 @@
         })
         .catch(error => console.error('Error loading header:', error));
     </script>
+    
+    <script src="https:/cdn.jsdelivr.net/npm/axios@1.6.7/dist/axios.min.js"></script>
 </head>
 <body>
-    <div class="header-content"></div>
+    <div id="header-content"></div>
     <main>
         <section class="profile-container">
             <div class="banner-container" role="img" aria-label="Profile banner">
@@ -116,7 +116,7 @@
         </section>
     </main>
     
-    <div class="footer-content"></div>
+    <div id="footer-content"></div>
     <script src="/assets/js/config.js"></script>
     <script src="/assets/js/profile.js"></script>
 </body>
