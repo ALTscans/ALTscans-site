@@ -1,4 +1,4 @@
-let basedbUrl = "https://altscans-api.netlify.app";
+let basedbUrl = base_url;
 
 document.addEventListener('DOMContentLoaded', function() {
   // Get URL parameters

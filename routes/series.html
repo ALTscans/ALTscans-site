@@ -3,130 +3,85 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Interactive Sidebar</title>
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: Arial, sans-serif;
-            background-color: #212121; 
-            color: #FFFFFF; 
-            display: flex;
-        }
-
-        .sidebar {
-            background-color: #2B2926; width: 420px; 
-            padding: 20px;
-            height: 100vh; 
-            overflow-y: auto;
-            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
-        }
-
-        .section-header {
-            background-color: #FFA21B; 
-            color: #FFFFFF; 
-            font-size: 20px;
-            font-weight: bold;
-            padding: 10px 15px;
-            border-radius: 6px;
-            margin-bottom: 15px;
-            text-align: center;
-        }
-
-        .section-title {
-            font-size: 16px;
-            font-weight: bold;
-            color: #FFA21B; 
-            margin-bottom: 10px;
-            border-bottom: 1px solid #444;
-            padding-bottom: 5px;
-        }
-
-        .category-options {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 12px;
-            font-size: 14px;
-            margin-top: 10px;
-        }
-
-        .category-options span {
-            color: #CCCCCC;
-            cursor: pointer;
-            font-size: 15px;
-        }
-
-        .category-options span:hover {
-            color: #FFA21B;         }
-
-        .checkbox-container {
-            margin-top: 10px;
-        }
-
-        .checkbox-container input {
-            margin-right: 5px;
-        }
-
-        .browse-section {
-            margin-top: 30px;
-        }
-
-        .filter-buttons {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-
-        .filter-button {
-            background-color: #342D27;
-            color: #FFFFFF;
-            border: 1px solid #444;
-            padding: 12px 15px;
-            font-size: 15px;
-            border-radius: 4px;
-            cursor: pointer;
-            position: relative;
-        }
-
-        .filter-button:hover {
-            background-color: #FFA21B;
-            color: #16151D;
-        }
-
-        .dropdown {
-            display: none;
-            position: absolute;
-            top: 100%;
-            left: 0;
-            background-color: #2B2926;
-            border: 1px solid #444;
-            width: 100%;
-            z-index: 1;
-        }
-
-        .dropdown.active {
-            display: block;
-        }
-
-        .dropdown-option {
-            padding: 10px;
-            font-size: 14px;
-            cursor: pointer;
-            color: #CCCCCC;
-        }
-
-        .dropdown-option:hover {
-            background-color: #FFA21B;
-            color: #16151D;
-        }
-
+    <meta name="title" content="Alternative Scans">
+    <meta name="description" content="In a world where everyone is turning paid we want to become the only site that is free and maintains the quality! The alternative to every site that is pay walled! ">
+    <meta name="keywords" content="alternative scans, altscans, manhwa, manwha, scanalations, manga, AlternativeScans, Alternative Scans">
+    <meta name="robots" content="index, follow">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="language" content="English">
+    <meta name="author" content="AeolusDev">
+    <meta property="twitter:image" content="/assets/img/favicons/favicon-96x96.png">
+    <meta property="og:image" content="/assets/img/favicons/favicon-96x96.png">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+    <meta name="clckd" content="14a7aaa9a3d38ac7dc35becbadcd4c7f" />
+    <meta name='admaven-placement' content=Bqdg7pja8>
         
-        .spaced-section {
-            margin-bottom: 20px;
-        }
-    </style>
+    <link rel="canonical" href="https://alternativescans.icu">
+        
+    <script src="/assets/js/config.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.6.7/dist/axios.min.js"></script>
+    <script data-cfasync="false" src="/sw.js"></script>
+    <script id="aclib" type="text/javascript" src="//acscdn.com/script/aclib.js"></script>
+    
+    
+    
+    <link rel="apple-touch-icon" sizes="57x57" href="/assets/img/favicons/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/assets/img/favicons/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/assets/img/favicons/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/assets/img/favicons/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/assets/img/favicons/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/assets/img/favicons/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/assets/img/favicons/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/assets/img/favicons/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/img/favicons/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192"  href="/assets/img/favicons/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/assets/img/favicons/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/img/favicons/favicon-16x16.png">
+    <link rel="manifest" href="/assets/img/favicons/manifest.json">
+
+    <link rel="stylesheet" href="/assets/css/browse.css">
+        
+    <link rel="preload" href="/fonts/JatarkaSans-Regular.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="/assets/css/hover.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.19.1/cdn/themes/light.css" />
+    
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.19.1/cdn/shoelace-autoloader.js"></script>
+    
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        fetch('/assets/footer.html')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok ' + response.statusText);
+                }
+                return response.text();
+            })
+            .then(data => {
+                document.getElementById('footer-content').innerHTML = data;
+            })
+            .catch(error => console.error('Error loading header:', error));
+    });
+    
+    fetch('/assets/header.html')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok ' + response.statusText);
+            }
+            return response.text();
+        })
+        .then(data => {
+            document.getElementById('header-content').innerHTML = data;
+        })
+        .catch(error => console.error('Error loading header:', error));
+</script>
 </head>
 <body>
+    
+    <div id="header-content"></div>
+    
     <div class="sidebar">
         <div class="section-header">Series Selection</div>
 
@@ -208,81 +163,11 @@
         </div>
     </div>
     
-       <div class="latest-releases-container">
+<div class="latest-releases-container">
   <div class="section-title">SERIES VIEW</div>
   <div class="grid-container">
     <div class="grid-row">
-      <div class="grid-column">
-        <div class="release-item">
-          <div class="item-header">
-            <div class="series-info">
-              <img loading="lazy" src="./assets/thumbnails/series1.jpg" class="series-thumbnail" alt="Series 1 cover image" />
-              <div class="series-title">SERIES NAME...</div>
-            </div>
-          </div>
-          <div class="series-description">
-            <div class="description-content">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-              <div class="action-buttons">
-                <button class="read-more-btn" onclick="openDialog('dialog1')">---Read more---</button>
-                <button class="bookmark-btn" onclick="toggleBookmark(this)" aria-label="Bookmark series">
-                  <svg class="bookmark-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"></path>
-                  </svg>
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="grid-column">
-        <div class="release-item">
-          <div class="item-header">
-            <div class="series-info">
-              <img loading="lazy" src="https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx150672-jguvEfP0vGfW.png" class="series-thumbnail" alt="Series 2 cover image" />
-              <div class="series-title">Oshi No Ko</div>
-            </div>
-          </div>
-          <div class="series-description">
-            <div class="description-content">
-              When a pregnant young starlet appears in Gorou Amemiya’s countryside medical clinic, the doctor takes it upon himself to safely (and secretly) deliver Ai Hoshino’s child so she can make a scandal-free return to the stage. But no good deed goes unpunished, and on the eve of her delivery, he finds himself slain at the hands of Ai’s deluded stalker — and subsequently reborn as Ai’s child, Aquamarine Hoshino! The glitz and glamor of showbiz hide the dark underbelly of the entertainment industry, threatening to dull the shine of his favorite star. Can he help his new mother rise to the top of the charts? And what will he do when unthinkable disaster strikes? 
-              <div class="action-buttons">
-                <button class="read-more-btn" onclick="openDialog('dialog2')">---Read more---</button>
-                <button class="bookmark-btn" onclick="toggleBookmark(this)" aria-label="Bookmark series">
-                  <svg class="bookmark-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"></path>
-                  </svg>
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="grid-column">
-        <div class="release-item">
-          <div class="item-header">
-            <div class="series-info">
-              <img loading="lazy" src="https://cdn.myanimelist.net/images/anime/1781/104461.jpg" class="series-thumbnail" alt="Series 3 cover image" />
-              <div class="series-title">OVERFLOW</div>
-            </div>
-          </div>
-          <div class="series-description">
-            <div class="description-content">
-              Kazushi Sudou is a university student who is visited by his two childhood friends, the sisters Ayane and Kotone Shirakawa. 
-              <div class="action-buttons">
-                <button class="read-more-btn" onclick="openDialog('dialog3')">---Read more---</button>
-                <button class="bookmark-btn" onclick="toggleBookmark(this)" aria-label="Bookmark series">
-                  <svg class="bookmark-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"></path>
-                  </svg>
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+      
 
   <dialog id="dialog1" class="description-dialog">
     <div class="dialog-content">
