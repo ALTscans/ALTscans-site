@@ -1,10 +1,4 @@
-// Cookies
-const cookie = document.cookie;
-const token = cookie.split(';').find(row => row.trim().startsWith('token='));
-const userId = cookie.split(';').find(row => row.trim().startsWith('userId='));
-
-document.addEventListener("DOMContentLoaded", () => {
-
+document.addEventListener("DOMContentLoaded", async () => {
   // Toggle "Show More" for description
   const desc = document.getElementById("description");
   const toggleBtn = document.getElementById("toggleDescription");
@@ -251,7 +245,7 @@ document.addEventListener("DOMContentLoaded", () => {
         
         // Initial render of all chapters
         renderChapters(releases);
-                
+
         // Add event listener for search input
         chapterSearch.addEventListener('input', (e) => {
           const searchValue = e.target.value.toLowerCase();
@@ -261,63 +255,18 @@ document.addEventListener("DOMContentLoaded", () => {
           );
           renderChapters(filteredChapters);
         });
-        
-        // Bookmark handler
-        bookmarkBtn.addEventListener('click', async () => {
-          const tokenValue = token.split('=')[1];
-          const userIdValue = userId.split('=')[1];
-          const seriesName = series.title;
-          const bookmarked = bookmarkBtn.classList.contains('bookmarked');
-                
-          if (bookmarked) {
-            // Remove from bookmarks
-            bookmarkBtn.classList.remove('bookmarked');
-            bookmarkBtn.setAttribute('aria-label', 'Bookmark this series');
-            alert(`Removed ${seriesName} from bookmarks.`);
-          } else {
-            // Add to bookmarks
-            let bookmarkReq = await axios.post(`${base_url}/api/user/${userIdValue}/bookmarks`, {
-              seriesId: series.id,
-              seriesName: series.title,
-              thumbnail: series.thumbnail || ''
-            }, {
-              headers: {
-                Authorization: `${frontoken}`,
-                'x-user-token': `${tokenValue}`
-              }
-            });
-                
-            if (bookmarkReq.status === 200) {
-              bookmarkBtn.classList.add('bookmarked');
-              bookmarkBtn.classList.toggle('active');
-              bookmarkBtn.setAttribute('aria-label', 'Unbookmark this series');
-              alert(`Added ${seriesName} to bookmarks.`);
-            }
-          }
-        });
-                
-        // Check if the series is already bookmarked
-        if (token && userId) {
-          const tokenValue = token.split('=')[1];
-          const userIdValue = userId.split('=')[1];
-                
-          let response = await axios.get(`${base_url}/api/user/${userIdValue}`, {
-            headers: {
-              Authorization: `${frontoken}`,
-              'x-user-token': `${tokenValue}`
-            }
-          });
-          
-          let bookmarks = response.data.bookmark || [];
-          let isBookmarked = bookmarks.some(bookmark => bookmark.series === series.title);
-          
-          if (isBookmarked) {
-            bookmarkBtn.classList.add('bookmarked');
-            bookmarkBtn.classList.add('active');
-            bookmarkBtn.setAttribute('aria-label', 'Unbookmark this series');
-          }
-        }
       }
+
+      // Bookmark handler
+      bookmarkBtn.addEventListener('click', () => handleBookmarkClick(bookmarkBtn, series));
+
+      // Check if the series is already bookmarked
+      if (await checkIfBookmarked(series)) {
+        bookmarkBtn.classList.add('bookmarked');
+        bookmarkBtn.classList.add('active');
+        bookmarkBtn.setAttribute('aria-label', 'Unbookmark this series');
+      }
+
     } catch (error) {
       console.error('Error fetching user data:', error);
     }

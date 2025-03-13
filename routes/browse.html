@@ -21,12 +21,11 @@
     <link rel="canonical" href="https://alternativescans.icu">
         
     <script src="/assets/js/config.js"></script>
-    <script type="text/javascript" src="/assets/js/browse.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios@1.6.7/dist/axios.min.js"></script>
+    <script src="/assets/js/bookmark.js"></script>
+    <script src="/assets/js/browse.js"></script>
     <script data-cfasync="false" src="/sw.js"></script>
     <script id="aclib" type="text/javascript" src="//acscdn.com/script/aclib.js"></script>
-    
-    
     
     <link rel="apple-touch-icon" sizes="57x57" href="/assets/img/favicons/apple-icon-57x57.png">
     <link rel="apple-touch-icon" sizes="60x60" href="/assets/img/favicons/apple-icon-60x60.png">
@@ -68,7 +67,7 @@
             .then(data => {
                 document.getElementById('footer-content').innerHTML = data;
             })
-            .catch(error => console.error('Error loading header:', error));
+            .catch(error => console.error('Error loading footer:', error));
     });
     
     fetch('/assets/header.html')
@@ -86,137 +85,96 @@
 </head>
 <body>
     <div id="header-content"></div>
-  <div class="content-wrapper">
-    <aside class="sidebar" aria-label="Series Selection">
-      <div class="section-header">Series Selection</div>
-      <div class="spaced-section">
-        <div class="section-title">View Options:</div>
-        <div class="category-options">
-          <span>• Latest</span>
-          <span>• Newest</span>
-          <span>• Top View</span>
-        </div>
-        <div class="checkbox-container">
-          <input type="checkbox" id="all-checkbox" checked>
-          <label for="all-checkbox">ALL</label>
-        </div>
-        <div class="checkbox-container">
-          <input type="checkbox" id="completed-checkbox">
-          <label for="completed-checkbox">Completed</label>
-          <input type="checkbox" id="ongoing-checkbox">
-          <label for="ongoing-checkbox">Ongoing</label>
-        </div>
-      </div>
-      <div class="spaced-section">
-        <div class="section-title">Genres:</div>
-        <div class="category-options">
-          <span>• Adventure</span>
-          <span>• Comedy</span>
-          <span>• Drama</span>
-          <span>• Ecchi</span>
-          <span>• Fantasy</span>
-          <span>• Gender Bend...</span>
-          <span>• Harem</span>
-          <span>• Historical</span>
-          <span>• Horror</span>
-          <span>• Isekai</span>
-          <span>• Manga</span>
-          <span>• Manhwa</span>
-          <span>• Mature</span>
-          <span>• Manhua</span>
-          <span>• Mystery</span>
-          <span>• Psychological</span>
-          <span>• Romance</span>
-          <span>• Sci-Fi</span>
-          <span>• Shoujo</span>
-          <span>• Shounen</span>
-          <span>• Slice of Life</span>
-          <span>• Sports</span>
-          <span>• Supernatural</span>
-          <span>• Yuri</span>
-        </div>
-      </div>
-      <div class="browse-section">
-        <div class="section-title">Browse:</div>
-        <div class="filter-buttons">
-          <div class="filter-button" id="sort-order-button">
-            Sort Order
-            <div class="dropdown" id="sort-order-dropdown">
-              <div class="dropdown-option">Ascending</div>
-              <div class="dropdown-option">Descending</div>
-            </div>
+    <div class="content-wrapper">
+      <aside class="sidebar" aria-label="Series Selection">
+        <div class="section-header">Series Selection</div>
+        <div class="spaced-section">
+          <div class="section-title">View Options:</div>
+          <div class="category-options">
+            <span>• Latest</span>
+            <span>• Newest</span>
+            <span>• Top View</span>
           </div>
-          <div class="filter-button" id="year-filter-button">
-            Year Filter
-            <div class="dropdown" id="year-filter-dropdown">
-              <div class="dropdown-option">2020</div>
-              <div class="dropdown-option">2021</div>
-              <div class="dropdown-option">2022</div>
-            </div>
+          <div class="checkbox-container">
+            <input type="checkbox" id="all-checkbox" checked>
+            <label for="all-checkbox">ALL</label>
           </div>
-          <div class="filter-button" id="status-filter-button">
-            Status Filter
-            <div class="dropdown" id="status-filter-dropdown">
-              <div class="dropdown-option">Completed</div>
-              <div class="dropdown-option">Ongoing</div>
-            </div>
+          <div class="checkbox-container">
+            <input type="checkbox" id="completed-checkbox">
+            <label for="completed-checkbox">Completed</label>
+            <input type="checkbox" id="ongoing-checkbox">
+            <label for="ongoing-checkbox">Ongoing</label>
           </div>
         </div>
-      </div>
-    </aside>
+        <div class="spaced-section">
+          <div class="section-title">Genres:</div>
+          <div class="category-options">
+            <span>• Adventure</span>
+            <span>• Comedy</span>
+            <span>• Drama</span>
+            <span>• Ecchi</span>
+            <span>• Fantasy</span>
+            <span>• Gender Bend...</span>
+            <span>• Harem</span>
+            <span>• Historical</span>
+            <span>• Horror</span>
+            <span>• Isekai</span>
+            <span>• Manga</span>
+            <span>• Manhwa</span>
+            <span>• Mature</span>
+            <span>• Manhua</span>
+            <span>• Mystery</span>
+            <span>• Psychological</span>
+            <span>• Romance</span>
+            <span>• Sci-Fi</span>
+            <span>• Shoujo</span>
+            <span>• Shounen</span>
+            <span>• Slice of Life</span>
+            <span>• Sports</span>
+            <span>• Supernatural</span>
+            <span>• Yuri</span>
+          </div>
+        </div>
+        <div class="browse-section">
+          <div class="section-title">Browse:</div>
+          <div class="filter-buttons">
+            <div class="filter-button" id="sort-order-button">
+              Sort Order
+              <div class="dropdown" id="sort-order-dropdown">
+                <div class="dropdown-option">Ascending</div>
+                <div class="dropdown-option">Descending</div>
+              </div>
+            </div>
+            <div class="filter-button" id="year-filter-button">
+              Year Filter
+              <div class="dropdown" id="year-filter-dropdown">
+                <div class="dropdown-option">2020</div>
+                <div class="dropdown-option">2021</div>
+                <div class="dropdown-option">2022</div>
+              </div>
+            </div>
+            <div class="filter-button" id="status-filter-button">
+              Status Filter
+              <div class="dropdown" id="status-filter-dropdown">
+                <div class="dropdown-option">Completed</div>
+                <div class="dropdown-option">Ongoing</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </aside>
     <main id="main-content" role="main">
-        
-        <div class="card-container">
-            <div class="grid-row">
-            
-                
-                <div class="grid-column">
-                  <div class="release-item">
-                    <div class="item-header">
-                      <div class="series-info">
-                        <img loading="lazy" src="https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx150672-jguvEfP0vGfW.png" class="series-thumbnail" alt="Series 2 cover image" />
-                        <div class="series-title">Oshi No Ko</div>
-                      </div>
-                    </div>
-                    <div class="series-description">
-                      <div class="description-content">
-                        When a pregnant young starlet appears in Gorou Amemiya’s countryside medical clinic, the doctor takes it upon himself to safely (and secretly) deliver Ai Hoshino’s child so she can make a scandal-free return to the stage. But no good deed goes unpunished, and on the eve of her delivery, he finds himself slain at the hands of Ai’s deluded stalker — and subsequently reborn as Ai’s child, Aquamarine Hoshino! The glitz and glamor of showbiz hide the dark underbelly of the entertainment industry, threatening to dull the shine of his favorite star. Can he help his new mother rise to the top of the charts? And what will he do when unthinkable disaster strikes? 
-                        <div class="action-buttons">
-                          <button class="read-more-btn" onclick="openDialog('dialog2')">---Read more---</button>
-                          <button class="bookmark-btn" onclick="toggleBookmark(this)" aria-label="Bookmark series">
-                            <svg class="bookmark-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                              <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"></path>
-                            </svg>
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                
+        <h2>Series Details</h2>
+        <section class="series-container">
+        </section>
+        <div class="dialog-overlay" id="description-dialog">
+            <div class="dialog-box">
+                <p id="full-description"></p>
+                <button id="close-dialog">Close</button>
             </div>
-        </div>
-        
-        <div class="dialog-container">
-        
         </div>
     </main>
-  </div>
+    </div>
   <div id="footer-content"></div>
-  <script>
-    document.querySelector('.search-form').addEventListener('submit', function(e) {
-      e.preventDefault();
-      const searchTerm = document.querySelector('.search-input').value.trim();
-      if (searchTerm) {
-        window.location.href = `/search?q=${encodeURIComponent(searchTerm)}`;
-      }
-    });
-    document.querySelectorAll('.filter-button').forEach(button => {
-      button.addEventListener('click', function () {
-        const dropdown = this.querySelector('.dropdown');
-        dropdown.classList.toggle('active');
-      });
-    });
-  </script>
 </body>
 </html>

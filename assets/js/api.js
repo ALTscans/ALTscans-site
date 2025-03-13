@@ -98,6 +98,3 @@ async function fetchLatestReleases() {
 // Call the function to fetch and display the latest releases after the DOM is fully loaded
 document.addEventListener("DOMContentLoaded", fetchLatestReleases);
 
-function openSeries(manga, nick) {
-  window.location.href = `/series/?series=${nick}&id=${manga}`;
-}
