@@ -35,6 +35,14 @@ async function checkIfBookmarked(series) {
   const tokenValue = getTokenValue();
   const userIdValue = getUserIdValue();
 
+  if(tokenValue === null){
+    return null;
+  }
+  
+  if(userIdValue === null){
+    return null;
+  }
+  
   let response = await axios.get(`${base_url}/api/user/${userIdValue}`, {
     headers: {
       Authorization: `${frontoken}`,
@@ -44,16 +52,4 @@ async function checkIfBookmarked(series) {
 
   let bookmarks = response.data.bookmark || [];
   return bookmarks.some(bookmark => bookmark.series === series.title);
-}
-
-function getTokenValue() {
-  const cookie = document.cookie;
-  const token = cookie.split(';').find(row => row.trim().startsWith('token='));
-  return token ? token.split('=')[1] : null;
-}
-
-function getUserIdValue() {
-  const cookie = document.cookie;
-  const userId = cookie.split(';').find(row => row.trim().startsWith('userId='));
-  return userId ? userId.split('=')[1] : null;
 }

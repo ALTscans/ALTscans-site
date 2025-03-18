@@ -70,7 +70,7 @@ if (token && userId) {
 
             let response = await axios.put(`${base_url}/api/user/${userIdValue}`, {
               type: `user-update`,  
-              bio: bio
+              bio: escapeHtml(bio)
             }, {
                 headers: {
                     Authorization: `${frontoken}`,

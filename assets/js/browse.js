@@ -91,19 +91,3 @@ async function getSeries() {
   }
 }
 
-function escapeHtml(unsafe) {
-  return unsafe
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#039;");
-}
-
-function truncateDescription(desc, wordLimit) {
-  const words = desc.split(' ');
-  if (words.length > wordLimit) {
-    return words.slice(0, wordLimit).join(' ') + '...';
-  }
-  return desc;
-}

@@ -1,3 +1,13 @@
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/service-worker.js').then((registration) => {
+      console.log('ServiceWorker registration successful with scope: ', registration.scope);
+    }).catch((error) => {
+      console.log('ServiceWorker registration failed: ', error);
+    });
+  });
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   const urlParams = new URLSearchParams(window.location.search);
   const chapterSelect = document.querySelector('.chapter-select');
@@ -21,11 +31,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  
   async function updateChapterUI(chapter) {
     const chapterData = await loadChapterContent(chapter);
     if (!chapterData) return;
-
 
     // Update navigation buttons
     const maxChapter = chapterData.seriesDetails.maxChaptersUploaded;
@@ -39,6 +47,7 @@ document.addEventListener('DOMContentLoaded', () => {
         alt="Chapter ${chapter} Page ${index + 1}" 
         class="chapter-image"
         loading="${index === 0 ? 'eager' : 'lazy'}"
+        onload="window.cacheImage('${imgUrl}', '${seriesId}', '${chapter}')"
       >
     `).join('');
     
@@ -56,6 +65,21 @@ document.addEventListener('DOMContentLoaded', () => {
     document.title = `Chapter ${chapter} - ${seriesName.toUpperCase()}`;
     currentChapterSpan.innerHTML = `${chapter}`;
     chapterSelect.value = chapter;
+  }
+
+  window.cacheImage = function(url, seriesId, chapter) {
+    if ('caches' in window) {
+      caches.open('image-cache').then((cache) => {
+        cache.match(url).then((response) => {
+          if (!response) {
+            fetch(url).then((networkResponse) => {
+              cache.put(url, networkResponse.clone());
+              console.log(`Cached image for series ID: ${seriesId}, chapter: ${chapter}`);
+            }).catch(error => console.error('Error caching image:', error));
+          }
+        }).catch(error => console.error('Error matching cache:', error));
+      }).catch(error => console.error('Error opening cache:', error));
+    }
   }
 
   function navigateChapter(direction) {
@@ -110,3 +134,4 @@ document.addEventListener('DOMContentLoaded', () => {
     })
     .catch(error => console.error('Error initializing reader:', error));
 });
+

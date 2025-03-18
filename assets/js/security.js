@@ -50,8 +50,8 @@ loginForm.addEventListener('submit', (e) => {
     if (usernameField.style.display === 'block') {
         // Login User with username
         axios.post(`${base_url}/api/auth/login`, {
-            username: username,
-            password: pwd
+            username: escapeHtml(username),
+            password: escapeHtml(pwd)
         },
         {
             headers: {
@@ -81,8 +81,8 @@ loginForm.addEventListener('submit', (e) => {
     } else {
         // Login User with email
         axios.post(`${base_url}/api/auth/login`, {
-            email: email,
-            password: pwd
+            email: escapeHtml(email),
+            password: escapeHtml(pwd)
         },
         {
             headers: {
@@ -129,9 +129,9 @@ signupForm.addEventListener('submit', (e) => {
 
     // Send User Info
     axios.post(`${base_url}/api/user/createUser`, {
-        username: username,
-        email: email,
-        password: pwd,
+        username: escapeHtml(username),
+        email: escapeHtml(email),
+        password: escapeHtml(pwd),
         type: 'emailAndPasswordAuth'
     },
     {
