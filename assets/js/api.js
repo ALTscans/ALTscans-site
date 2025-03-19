@@ -4,7 +4,6 @@ const baseUrl = base_url;
 async function fetchLatestReleases() {
   try {
     const response = await axios.get(`${baseUrl}/api/admin/getLatestUpdate`);
-    console.log(response.data.latestReleases);
 
     // Check if the response is an array
     if (!Array.isArray(response.data.latestReleases)) {
@@ -38,7 +37,6 @@ async function fetchLatestReleases() {
       const lastChapter = prevChapter - 1 || "0";
       const manga = release.manga || "0";
 
-      console.log(release);
       // Create a grid item for each release
       const gridItem = document.createElement("div");
       gridItem.className = "releases-grid";

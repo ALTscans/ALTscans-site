@@ -38,7 +38,11 @@
     <script src="/assets/js/reader-db.js"></script>
 </head>
 <body>
-    <div id="fb-root"></div>    
+    <div id="fb-root"></div>
+    <!-- Elfsight Back to Top | Untitled Back to Top -->
+    <script src="https://static.elfsight.com/platform/platform.js" async></script>
+    <div class="elfsight-app-b0ef455c-4775-4756-87cc-6044275e4858" data-elfsight-app-lazy></div>
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v22.0"></script>   
     <div class="reader-container">
         <div class="header-grid-container">
             <header class="header">
@@ -110,6 +114,16 @@
                     >
                         Facebook
                     </button>
+                    <button
+                        role="tab" 
+                        aria-selected="false"
+                        aria-controls="graphcomment-panel"
+                        id="graphcomment-tab"
+                        class="tab-button"
+                        onclick="switchTab('graphcomment')"
+                    >
+                        Graph
+                    </button>
                 </div>
 
                 <div 
@@ -128,19 +142,25 @@
                     class="comment-panel"
                     hidden
                 >
-                    <div class="fb-comments" data-href="https://alternativescans.icu" data-width="1000px" data-colorscheme="dark"></div>
+                    <div class="fb-comments" data-href="" data-width="800" data-numposts="50"></div>
+                </div>
+                
+                <div
+                    id="graphcomment-panel"
+                    role="tabpanel" 
+                    aria-labelledby="graphcomment-tab"
+                    class="comment-panel"
+                    hidden
+                >
+                    <div id="graphcomment"></div>
                 </div>
             </div>
         </div>
-        
-
-        
     </div>
     <div id="fb-root"></div>
     <script src="/assets/js/comments.js"></script>
     <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
     <script id="dsq-count-scr" src="//altscan.disqus.com/count.js" async></script>
-    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
 <div id="footer-content"></div>
 </body>
 </html>

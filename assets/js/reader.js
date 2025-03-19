@@ -33,6 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   async function updateChapterUI(chapter) {
     const chapterData = await loadChapterContent(chapter);
+
     if (!chapterData) return;
 
     // Update navigation buttons
@@ -65,6 +66,26 @@ document.addEventListener('DOMContentLoaded', () => {
     document.title = `Chapter ${chapter} - ${seriesName.toUpperCase()}`;
     currentChapterSpan.innerHTML = `${chapter}`;
     chapterSelect.value = chapter;
+    
+    // Update comments section
+    updateCommentsSection(chapter);
+
+    /* - - - CONFIGURATION VARIABLES - - - */
+    var __semio__params = {
+      graphcommentId: "Alternative-Scans",
+      behaviour: {
+        uid: `${window.location.href}`, // uniq identifer for the comments thread on your page (ex: your page id)
+      },
+    
+        // configure your variables here
+    
+      }
+    
+      /* - - - DON'T EDIT BELOW THIS LINE - - - */
+    
+      function __semio__onload() {
+        __semio__gc_graphlogin(__semio__params)
+      }
   }
 
   window.cacheImage = function(url, seriesId, chapter) {
@@ -87,6 +108,58 @@ document.addEventListener('DOMContentLoaded', () => {
     currentChapter = newChapter;
     updateChapterUI(newChapter);
     window.scrollTo({top: 0, behavior: 'smooth'});
+  }
+
+  function updateCommentsSection(chapter) {
+    // Update Disqus configuration
+    var disqus_config = function () {
+      this.page.url = window.location.href;  // Use current page URL
+      this.page.identifier = `${seriesName}-chapter-${chapter}`; // Create unique identifier based on series and chapter
+    };
+
+    // Reload Disqus script
+    (function() {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://altscan.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+
+    // Update Facebook comments
+    document.querySelector('.fb-comments').setAttribute('data-href', window.location.href);
+    FB.XFBML.parse(); // Reparse the Facebook comments plugin
+
+    // Clear and reload GraphComment
+    const graphCommentContainer = document.getElementById('graphcomment');
+    if (graphCommentContainer) {
+      graphCommentContainer.innerHTML = ''; // Clear existing comments
+    }
+
+    var __semio__params = {
+      graphcommentId: "altscans",
+      behaviour: {
+        uid: `${window.location.href}`, // uniq identifer for the comments thread on your page (ex: your page id)
+      },
+    };
+
+    function __semio__onload() {
+      __semio__gc_graphlogin(__semio__params);
+    }
+
+    // Remove existing GraphComment script if it exists
+    const existingScript = document.querySelector('script[src*="gc_graphlogin.js"]');
+    if (existingScript) {
+      existingScript.remove();
+    }
+
+    // Append new GraphComment script
+    var gc = document.createElement('script'); 
+    gc.type = 'text/javascript'; 
+    gc.async = true;
+    gc.onload = __semio__onload; 
+    gc.defer = true; 
+    gc.src = 'https://integration.graphcomment.com/gc_graphlogin.js?' + Date.now();
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(gc);
   }
 
   // Initial load
@@ -134,4 +207,3 @@ document.addEventListener('DOMContentLoaded', () => {
     })
     .catch(error => console.error('Error initializing reader:', error));
 });
-
