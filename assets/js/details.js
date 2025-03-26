@@ -298,6 +298,8 @@ async function getSeriesInfo(seriesId, nick) {
   
   let series = response.data.seriesDetails;
   let releases = response.data.releases;
+  
+  console.log(response);
   console.log(series);
   console.log(releases);
   

@@ -1,17 +1,19 @@
-   <div class="carousel-container" role="region" aria-label="Image carousel">
-    <div class="carousel-slide" aria-hidden="true" tabindex="0">
-        <div style="width: 100%; height: 100%; background-color: #000000;">
-        <img src="https://static.wikia.nocookie.net/hardcorelevelingwarrior/images/0/0d/Hardcore_Leveling_Warrior_Earth_Game_Webtoon_Front_Page_Advert_WEBTOON_app.png/revision/latest/scale-to-width-down/670?cb=20240103180600">
+<div class="carousel-container" role="region" aria-label="Image carousel">
+    <div class="carousel-track">
+        <div class="carousel-slide active" aria-hidden="false" tabindex="0">
+            <div style="width: 100%; height: 100%; background-color: #000000;">
+            <img src="https://static.wikia.nocookie.net/hardcorelevelingwarrior/images/0/0d/Hardcore_Leveling_Warrior_Earth_Game_Webtoon_Front_Page_Advert_WEBTOON_app.png">
+            </div>
         </div>
-    </div>
-    <div class="carousel-slide" aria-hidden="true" tabindex="0">
-        <div style="width: 100%; height: 100%; background-color: #000000;">
-        <img src="./assets/img/carousel/orv.png">
+        <div class="carousel-slide" aria-hidden="true" tabindex="0">
+            <div style="width: 100%; height: 100%; background-color: #000000;">
+            <img src="./assets/img/carousel/orv.png">
+            </div>
         </div>
-    </div>
-    <div class="carousel-slide" aria-hidden="true" tabindex="0">
-        <div style="width: 100%; height: 100%; background-color: #000000;">
-        <img src="./assets/img/carousel/hclw.png">
+        <div class="carousel-slide" aria-hidden="true" tabindex="0">
+            <div style="width: 100%; height: 100%; background-color: #000000;">
+            <img src="./assets/img/carousel/hclw.png">
+            </div>
         </div>
     </div>
 
@@ -23,18 +25,19 @@
     </button>
 
     <div class="carousel-navigation" role="tablist">
-        <button class="carousel-dot" role="tab" aria-label="Go to slide 1"></button>
-        <button class="carousel-dot" role="tab" aria-label="Go to slide 2"></button>
-        <button class="carousel-dot" role="tab" aria-label="Go to slide 3"></button>
+        <button class="carousel-dot active" role="tab" aria-label="Go to slide 1" aria-selected="true"></button>
+        <button class="carousel-dot" role="tab" aria-label="Go to slide 2" aria-selected="false"></button>
+        <button class="carousel-dot" role="tab" aria-label="Go to slide 3" aria-selected="false"></button>
     </div>
-    
+</div>
+
 <script>
 document.addEventListener('DOMContentLoaded', function() {
   const track = document.querySelector('.carousel-track');
   const slides = document.querySelectorAll('.carousel-slide');
-  const indicators = document.querySelectorAll('.indicator');
-  const prevButton = document.querySelector('.prev');
-  const nextButton = document.querySelector('.next');
+  const dots = document.querySelectorAll('.carousel-dot');
+  const prevButton = document.querySelector('.carousel-button-prev');
+  const nextButton = document.querySelector('.carousel-button-next');
   let currentSlide = 0;
   const slideCount = slides.length;
   let autoplayInterval;
@@ -49,27 +52,18 @@ document.addEventListener('DOMContentLoaded', function() {
 
     setTimeout(() => {
       currentSlideElement.classList.remove('active', 'fade-out');
+      currentSlideElement.setAttribute('aria-hidden', 'true');
+      
       currentSlide = index;
       
-      track.style.transform = `translateX(-${index * 25}%)`;
+      track.style.transform = `translateX(-${index * 100}%)`;
       slides[index].classList.add('active');
+      slides[index].setAttribute('aria-hidden', 'false');
       
-      slides.forEach((slide, i) => {
-        slide.setAttribute('aria-hidden', i !== index);
+      dots.forEach((dot, i) => {
+        dot.classList.toggle('active', i === index);
+        dot.setAttribute('aria-selected', i === index);
       });
-      
-      indicators.forEach((indicator, i) => {
-        indicator.classList.toggle('active', i === index);
-        indicator.setAttribute('aria-selected', i === index);
-      });
-
-      if (direction) {
-        const button = direction === 'prev' ? prevButton : nextButton;
-        button.style.transform = 'translateY(-50%) scale(1.2)';
-        setTimeout(() => {
-          button.style.transform = 'translateY(-50%) scale(1)';
-        }, 200);
-      }
 
       setTimeout(() => {
         isTransitioning = false;
@@ -79,39 +73,28 @@ document.addEventListener('DOMContentLoaded', function() {
 
   function nextSlide() {
     const newIndex = (currentSlide + 1) % slideCount;
-    updateSlide(newIndex, 'next');
+    updateSlide(newIndex);
   }
 
   function prevSlide() {
     const newIndex = (currentSlide - 1 + slideCount) % slideCount;
-    updateSlide(newIndex, 'prev');
+    updateSlide(newIndex);
   }
 
   function startAutoplay() {
-    autoplayInterval = setInterval(nextSlide, 3000);
+    autoplayInterval = setInterval(nextSlide, 5000);
   }
 
   function stopAutoplay() {
     clearInterval(autoplayInterval);
   }
 
-  indicators.forEach((indicator, index) => {
-    indicator.addEventListener('click', () => {
+  dots.forEach((dot, index) => {
+    dot.addEventListener('click', () => {
       if (index !== currentSlide) {
         updateSlide(index);
         stopAutoplay();
         startAutoplay();
-      }
-    });
-
-    indicator.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        if (index !== currentSlide) {
-          updateSlide(index);
-          stopAutoplay();
-          startAutoplay();
-        }
       }
     });
   });
@@ -128,23 +111,74 @@ document.addEventListener('DOMContentLoaded', function() {
     startAutoplay();
   });
 
-  track.addEventListener('mouseenter', stopAutoplay);
-  track.addEventListener('mouseleave', startAutoplay);
-  track.addEventListener('touchstart', stopAutoplay);
-  track.addEventListener('touchend', startAutoplay);
-
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'ArrowLeft') {
-      prevSlide();
-      stopAutoplay();
-      startAutoplay();
-    } else if (e.key === 'ArrowRight') {
-      nextSlide();
-      stopAutoplay();
-      startAutoplay();
-    }
-  });
-
   startAutoplay();
 });
 </script>
+
+<style>
+.carousel-container {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+}
+
+.carousel-track {
+    display: flex;
+    transition: transform 0.5s ease;
+}
+
+.carousel-slide {
+    min-width: 100%;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.carousel-slide.active {
+    opacity: 1;
+}
+
+.carousel-slide.fade-out {
+    opacity: 0;
+}
+
+.carousel-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0,0,0,0.5);
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.carousel-button-prev {
+    left: 10px;
+}
+
+.carousel-button-next {
+    right: 10px;
+}
+
+.carousel-navigation {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 10px;
+}
+
+.carousel-dot {
+    width: 10px;
+    height: 10px;
+    background: rgba(255,255,255,0.5);
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+}
+
+.carousel-dot.active {
+    background: white;
+}
+</style>

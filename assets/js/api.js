@@ -1,9 +1,6 @@
-const baseUrl = base_url;
-
-// Function to fetch latest releases from the API
 async function fetchLatestReleases() {
   try {
-    const response = await axios.get(`${baseUrl}/api/admin/getLatestUpdate`);
+    const response = await axios.get(`${base_url}/api/admin/getLatestUpdate`);
 
     // Check if the response is an array
     if (!Array.isArray(response.data.latestReleases)) {
@@ -11,88 +8,141 @@ async function fetchLatestReleases() {
     }
 
     const latestReleases = response.data.latestReleases; // Adjust this based on the actual structure of your API response
+    console.log(latestReleases);
 
-    // Get the container where the latest releases will be displayed
-    const releasesContainer = document.querySelector(".latest-releases-container");
-
-    // Clear any existing content
-    releasesContainer.innerHTML = "";
-    releasesContainer.innerHTML = `<div class="section-header"><h2 class="section-title">LATEST RELEASES</h2></div>`;
-
-    // Loop through the latest releases and create HTML elements
-    latestReleases.forEach((release) => {
-      function formatTitle(title) {
-        return title
-          .split("-")
-          .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-          .join(" ");
+    // Group the releases by series titles
+    const groupedReleases = latestReleases.reduce((acc, release) => {
+      if (!acc[release.title]) {
+        acc[release.title] = [];
       }
+      acc[release.title].push(release);
+      return acc;
+    }, {});
 
-      // Ensure the release object has the expected properties
-      const thumbnail = release.thumbnail || "default-thumbnail.jpg"; // Fallback image
-      const name = formatTitle(release.title) || "Unknown Title"; // Fallback title
-      const nick = release.nick || `Unknown Nickname`;
-      const chapterNo = release.chapterNo || "0";
-      const prevChapter = release.previousChapter || "0";
-      const lastChapter = prevChapter - 1 || "0";
-      const manga = release.manga || "0";
-
-      // Create a grid item for each release
-      const gridItem = document.createElement("div");
-      gridItem.className = "releases-grid";
-
-      const itemContent = `
-        <div class="release-card">
-          <div class="card-content">
-            <div class="series-info">
-              <div class="cover-container">
-                <img src="${thumbnail}" alt="${name}" class="cover-upload" />
-                <button class="like-button" data-liked="false" aria-label="Like series" aria-pressed="false">♡</button>
-              </div>
-              <div class="series-details">
-                <div class="series-title">${name}</div>
-                <div class="star-rating" role="group" aria-label="Rate this series">
-                  <button class="star" data-active="false" aria-label="Rate 1 star" aria-pressed="false">★</button>
-                  <button class="star" data-active="false" aria-label="Rate 2 stars" aria-pressed="false">★</button>
-                  <button class="star" data-active="false" aria-label="Rate 3 stars" aria-pressed="false">★</button>
-                  <button class="star" data-active="false" aria-label="Rate 4 stars" aria-pressed="false">★</button>
-                  <button class="star" data-active="false" aria-label="Rate 5 stars" aria-pressed="false">★</button>
-                </div>
-              </div>
-            </div>
-            <div class="chapter-container">
-              <a href="/reader.html?id=${manga}&series=${nick}&chapter=${chapterNo}" class="chapter-link hvr-grow-shadow">
-                <button class="chapter-btn-highlight" aria-label="Read chapter ${chapterNo}">READ CHAPTER ${chapterNo}</button>
-              </a>
-              <a href="/reader.html?id=${manga}&series=${nick}&chapter=${prevChapter}" class="chapter-link hvr-grow-shadow">
-                <button class="chapter-btn" aria-label="Read chapter ${prevChapter}">READ CHAPTER ${prevChapter}</button>
-              </a>
-              <a href="/reader.html?id=${manga}&series=${nick}&chapter=${lastChapter}" class="chapter-link hvr-grow-shadow">
-                <button class="chapter-btn" aria-label="Read chapter ${lastChapter}">READ CHAPTER ${lastChapter}</button>
-              </a>
-            </div>
-          </div>
-        </div>
-      `;
-
-      gridItem.innerHTML = itemContent;
-      releasesContainer.appendChild(gridItem);
-
-      // Add event listeners for redirection
-      const coverContainer = gridItem.querySelector(".cover-container");
-      const seriesTitle = gridItem.querySelector(".series-title");
-
-      coverContainer.addEventListener("click", () => openSeries(manga, nick));
-      seriesTitle.addEventListener("click", () => openSeries(manga, nick));
-    });
+    // Render the latest releases for mobile and desktop
+    renderMobile(groupedReleases);
+    renderDesktop(groupedReleases);
   } catch (error) {
     console.error("Error fetching latest releases:", error);
     // Optionally, display an error message to the user
-    const releasesContainer = document.getElementById("latest-releases");
-    releasesContainer.innerHTML = "<p>Error loading latest releases. Please try again later.</p>";
+    const releasesContainerMobile = document.getElementById('latest-release-mobile');
+    const releasesContainerDesktop = document.getElementById('latest-release-desktop');
+    if (releasesContainerMobile) {
+      releasesContainerMobile.innerHTML = "<p>Error loading latest releases. Please try again later.</p>";
+    }
+    if (releasesContainerDesktop) {
+      releasesContainerDesktop.innerHTML = "<p>Error loading latest releases. Please try again later.</p>";
+    }
   }
+}
+
+function renderMobile(groupedData) {
+  const container = document.getElementById('latest-release-mobile');
+  container.innerHTML = '<h2 class="section-title-mobile">LATEST RELEASES</h2>';
+  Object.keys(groupedData).forEach(seriesTitle => {
+    const series = groupedData[seriesTitle];
+    series.sort((a, b) => b.chapterNo - a.chapterNo); // Sort chapters by chapter number in descending order
+    const el = document.createElement('div');
+    el.className = 'series-container';
+    el.dataset.id = series[0]._id;
+    el.innerHTML = `
+      <div class="left">
+        <img src="${series[0].thumbnail}" alt="Thumbnail" class="thumbnail">
+        <div class="series-info">
+          <div class="series-title">${formatTitle(seriesTitle)}</div>
+          <div class="rating">
+            <span data-value="1">&#9733;</span>
+            <span data-value="2">&#9733;</span>
+            <span data-value="3">&#9733;</span>
+            <span data-value="4">&#9733;</span>
+            <span data-value="5">&#9733;</span>
+          </div>
+        </div>
+      </div>
+      <div class="chapters">
+      <button class="chapter newest hvr-grow" onClick="readChapter(${series[0].manga}, '${series[0].nick}', ${series[0].chapterNo})" data-chapter="${series[0].chapterNo}">READ CHAP ${series[0].chapterNo}</button>
+      ${
+        series[0].previousChapter > 0 ? `<button class="chapter hvr-grow" onClick="readChapter(${series[0].manga}, '${series[0].nick}', ${series[0].previousChapter})" data-chapter="${series[0].previousChapter}">READ CHAP ${series[0].previousChapter}</button>` : ''
+      }
+      <button class="chapter hvr-grow" data-chapter="${series[series.length - 1].chapterNo}" onClick="readChapter(${series[series.length - 1].manga}, '${series[series.length - 1].nick}', ${series[series.length - 1].chapterNo})">READ CHAP ${series[series.length - 1].chapterNo}</button>
+      </div>
+    `;
+    container.appendChild(el);
+  });
+}
+
+// Function to render the latest releases for desktop view
+function renderDesktop(groupedData) {
+  const container = document.getElementById('latest-release-desktop');
+  container.innerHTML = `
+    <div class="latest-releases-container">
+      <h2 class="section-title-desktop">LATEST RELEASES</h2>
+      <div class="desktop-grid" id="desktopGrid"></div>
+    </div>
+  `;
+  const grid = document.getElementById('desktopGrid');
+  Object.keys(groupedData).forEach(seriesTitle => {
+    const series = groupedData[seriesTitle];
+    series.sort((a, b) => b.chapterNo - a.chapterNo); // Sort chapters by chapter number in descending order
+    const item = document.createElement('div');
+    item.className = 'release-item';
+    item.dataset.id = series[0]._id;
+    item.innerHTML = `
+      <div class="series-thumbnail">
+        <img src="${series[0].thumbnail}" alt="${formatTitle(seriesTitle)} thumbnail">
+        <button class="heart-button">
+          <svg class="heart-icon empty" viewBox="0 0 24 24">
+            <path d="M12 21.35l-1.45-1.32C5.4
+              15.36 2 12.28 2 8.5 2 5.42
+              4.42 3 7.5 3c1.74 0 3.41.81
+              4.5 2.09C13.09 3.81 14.76 3
+              16.5 3 19.58 3 22 5.42
+              22 8.5c0 3.78-3.4 6.86-8.55
+              11.54L12 21.35z" fill="none"
+              stroke="white" stroke-width="2"/>
+          </svg>
+          <svg class="heart-icon filled" viewBox="0 0 24 24">
+            <path d="M12 21.35l-1.45-1.32C5.4
+              15.36 2 12.28 2 8.5 2 5.42
+              4.42 3 7.5 3c1.74 0 3.41.81
+              4.5 2.09C13.09 3.81 14.76 3
+              16.5 3 19.58 3 22 5.42
+              22 8.5c0 3.78-3.4 6.86-8.55
+              11.54L12 21.35z" fill="white"/>
+          </svg>
+        </button>
+      </div>
+      <div class="series-info">
+        <div class="series-title">${formatTitle(seriesTitle)}</div>
+        <div class="rating-container" data-rating="0">
+          <div class="stars">
+            ${[5, 4, 3, 2, 1].map(star => `
+              <input type="radio"
+                id="star${star}-series${series[0]._id}"
+                name="rating-series${series[0]._id}"
+                value="${star}"
+                class="star-input"/>
+              <label for="star${star}-series${series[0]._id}" class="star-label">
+                <svg viewBox="0 0 24 24">
+                  <path d="M12 17.27L18.18 21l-1.64-7.03
+                    L22 9.24l-7.19-.61L12 2
+                    9.19 8.63 2 9.24l5.46 4.73
+                    L5.82 21z"/>
+                </svg>
+              </label>
+            `).join('')}
+          </div>
+        </div>
+      </div>
+      <button class="chapter newest hvr-grow" onClick="readChapter(${series[0].manga}, '${series[0].nick}', ${series[0].chapterNo})" data-chapter="${series[0].chapterNo}">READ CHAP ${series[0].chapterNo}</button>
+      ${
+        series[0].previousChapter > 0 ? `<button class="chapter hvr-grow" onClick="readChapter(${series[0].manga}, '${series[0].nick}', ${series[0].previousChapter})" data-chapter="${series[0].previousChapter}">READ CHAP ${series[0].previousChapter}</button>` : ''
+      }
+      <button class="chapter hvr-grow" data-chapter="${series[series.length - 1].chapterNo}" onClick="readChapter(${series[series.length - 1].manga}, '${series[series.length - 1].nick}', ${series[series.length - 1].chapterNo})">READ CHAP ${series[series.length - 1].chapterNo}</button>
+    `;
+    grid.appendChild(item);
+  });
 }
 
 // Call the function to fetch and display the latest releases after the DOM is fully loaded
 document.addEventListener("DOMContentLoaded", fetchLatestReleases);
-
