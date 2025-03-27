@@ -98,7 +98,40 @@
     </head>
 <body>
     <div id="header-content"></div>
-    <div id="carousel-content"></div>
+    <div class="carousel-container" role="region" aria-label="Hero Image Carousel">
+      <button class="carousel-button prev" aria-label="Previous slide">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+          <path d="M15 18L9 12L15 6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+      <button class="carousel-button next" aria-label="Next slide">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+          <path d="M9 18L15 12L9 6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+      <div class="carousel-track">
+        <div class="carousel-slide active" aria-hidden="false">
+          <div class="hero-container">
+            <img loading="lazy"
+                 src="./assets/img/carousel/hclw.png"
+                 class="hero-background"
+                 alt="Hero background slide 1"/>
+            <div class="content-wrapper">
+              <div class="icon-container">
+              </div>
+<!--              <h1 class="hero-title">Hardcore Leveling Warrior: Earth Game</h1>-->
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="carousel-indicators" role="tablist">
+        <button class="indicator active" role="tab" aria-label="Slide 1" aria-selected="true"></button>
+        <button class="indicator" role="tab" aria-label="Slide 2" aria-selected="false"></button>
+        <button class="indicator" role="tab" aria-label="Slide 3" aria-selected="false"></button>
+        <button class="indicator" role="tab" aria-label="Slide 4" aria-selected="false"></button>
+      </div>
+    </div>
+
   <section class="trending-section">
     <div class="trending-badge">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
@@ -255,7 +288,74 @@
 	document.head.appendChild(importFAB);
   }
   </script>
-
+  
+  <script>
+    document.addEventListener('DOMContentLoaded',function(){
+      const track=document.querySelector('.carousel-track');
+      const slides=document.querySelectorAll('.carousel-slide');
+      const indicators=document.querySelectorAll('.indicator');
+      const prevButton=document.querySelector('.prev');
+      const nextButton=document.querySelector('.next');
+      let currentSlide=0, slideCount=slides.length, autoplayInterval, isTransitioning=false;
+      function updateSlide(index,direction=null){
+        if(isTransitioning)return;
+        isTransitioning=true;
+        let current=slides[currentSlide];
+        current.classList.add('fade-out');
+        setTimeout(()=>{
+          current.classList.remove('active','fade-out');
+          currentSlide=index;
+          track.style.transform=`translateX(-${index*25}%)`;
+          slides[index].classList.add('active');
+          slides.forEach((s,i)=>s.setAttribute('aria-hidden',i!==index));
+          indicators.forEach((ind,i)=>{
+            ind.classList.toggle('active',i===index);
+            ind.setAttribute('aria-selected',i===index);
+          });
+          if(direction){
+            let btn=direction==='prev'?prevButton:nextButton;
+            btn.style.transform='translateY(-50%) scale(1.2)';
+            setTimeout(()=>{btn.style.transform='translateY(-50%) scale(1)';},200);
+          }
+          setTimeout(()=>{isTransitioning=false;},500);
+        },500);
+      }
+      function nextSlide(){ updateSlide((currentSlide+1)%slideCount,'next'); }
+      function prevSlide(){ updateSlide((currentSlide-1+slideCount)%slideCount,'prev'); }
+      function startAutoplay(){ autoplayInterval=setInterval(nextSlide,3000); }
+      function stopAutoplay(){ clearInterval(autoplayInterval); }
+      indicators.forEach((ind,i)=>{
+        ind.addEventListener('click',()=>{
+          if(i!==currentSlide){ updateSlide(i); stopAutoplay(); startAutoplay(); }
+        });
+        ind.addEventListener('keydown',(e)=>{
+          if(e.key==='Enter'||e.key===' '){
+            e.preventDefault();
+            if(i!==currentSlide){ updateSlide(i); stopAutoplay(); startAutoplay(); }
+          }
+        });
+      });
+      prevButton.addEventListener('click',()=>{
+        prevSlide();
+        stopAutoplay();
+        startAutoplay();
+      });
+      nextButton.addEventListener('click',()=>{
+        nextSlide();
+        stopAutoplay();
+        startAutoplay();
+      });
+      track.addEventListener('mouseenter',stopAutoplay);
+      track.addEventListener('mouseleave',startAutoplay);
+      track.addEventListener('touchstart',stopAutoplay);
+      track.addEventListener('touchend',startAutoplay);
+      document.addEventListener('keydown',(e)=>{
+        if(e.key==='ArrowLeft'){ prevSlide(); stopAutoplay(); startAutoplay(); }
+        else if(e.key==='ArrowRight'){ nextSlide(); stopAutoplay(); startAutoplay(); }
+      });
+      startAutoplay();
+    });
+  </script>
   <script>
     document.addEventListener('DOMContentLoaded',function(){
     function initGlobalButtonAnimations(){
