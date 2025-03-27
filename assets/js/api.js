@@ -60,11 +60,11 @@ function renderMobile(groupedData) {
         </div>
       </div>
       <div class="chapters">
-      <button class="chapter newest hvr-grow" onClick="readChapter(${series[0].manga}, '${series[0].nick}', ${series[0].chapterNo})" data-chapter="${series[0].chapterNo}">READ CHAP ${series[0].chapterNo}</button>
+      <button class="chapter newest hvr-grow" onClick="readChapter(${series[0].manga}, '${series[0].nick}', ${series[0].chapterNo})" data-chapter="${series[0].chapterNo}">READ CHAPTER ${series[0].chapterNo}</button>
       ${
-        series[0].previousChapter > 0 ? `<button class="chapter hvr-grow" onClick="readChapter(${series[0].manga}, '${series[0].nick}', ${series[0].previousChapter})" data-chapter="${series[0].previousChapter}">READ CHAP ${series[0].previousChapter}</button>` : ''
+        series[0].previousChapter > 0 ? `<button class="chapter hvr-grow" onClick="readChapter(${series[0].manga}, '${series[0].nick}', ${series[0].previousChapter})" data-chapter="${series[0].previousChapter}">READ CHAPTER ${series[0].previousChapter}</button>` : ''
       }
-      <button class="chapter hvr-grow" data-chapter="${series[series.length - 1].chapterNo}" onClick="readChapter(${series[series.length - 1].manga}, '${series[series.length - 1].nick}', ${series[series.length - 1].chapterNo})">READ CHAP ${series[series.length - 1].chapterNo}</button>
+      <button class="chapter hvr-grow" data-chapter="${series[series.length - 1].chapterNo}" onClick="readChapter(${series[series.length - 1].manga}, '${series[series.length - 1].nick}', ${series[series.length - 1].chapterNo})">READ CHAPTER ${series[series.length - 1].chapterNo}</button>
       </div>
     `;
     container.appendChild(el);
@@ -134,11 +134,11 @@ function renderDesktop(groupedData) {
           </div>
         </div>
       </div>
-      <button class="chapter newest hvr-grow" onClick="readChapter(${series[0].manga}, '${series[0].nick}', ${series[0].chapterNo})" data-chapter="${series[0].chapterNo}">READ CHAP ${series[0].chapterNo}</button>
+      <button class="chapter newest hvr-grow" onClick="readChapter(${series[0].manga}, '${series[0].nick}', ${series[0].chapterNo})" data-chapter="${series[0].chapterNo}">READ CHAPTER ${series[0].chapterNo}</button>
       ${
-        series[0].previousChapter > 0 ? `<button class="chapter hvr-grow" onClick="readChapter(${series[0].manga}, '${series[0].nick}', ${series[0].previousChapter})" data-chapter="${series[0].previousChapter}">READ CHAP ${series[0].previousChapter}</button>` : ''
+        series[0].previousChapter > 0 ? `<button class="chapter hvr-grow" onClick="readChapter(${series[0].manga}, '${series[0].nick}', ${series[0].previousChapter})" data-chapter="${series[0].previousChapter}">READ CHAPTER ${series[0].previousChapter}</button>` : ''
       }
-      <button class="chapter hvr-grow" data-chapter="${series[series.length - 1].chapterNo}" onClick="readChapter(${series[series.length - 1].manga}, '${series[series.length - 1].nick}', ${series[series.length - 1].chapterNo})">READ CHAP ${series[series.length - 1].chapterNo}</button>
+      <button class="chapter hvr-grow" data-chapter="${series[series.length - 1].chapterNo}" onClick="readChapter(${series[series.length - 1].manga}, '${series[series.length - 1].nick}', ${series[series.length - 1].chapterNo})">READ CHAPTER ${series[series.length - 1].chapterNo}</button>
     `;
     grid.appendChild(item);
   });

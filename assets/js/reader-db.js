@@ -83,13 +83,14 @@ document.addEventListener('DOMContentLoaded', function() {
       imageContainer.innerHTML = imagesHTML;
     })
     .catch(function (error) {
-      console.log(`error: `, error);
-      let errorRes = error.response.request.response;
-      
+      console.log(`error: `, error.response);
+      let errorRes = error.response.data;
       if (errorRes) {
         let header = document.querySelector('.chapter-title');
         if (header) {
-          header.textContent = `Error: An Error Has Occured. Error: ${errorRes}`;
+          if (errorRes.error === "No chapter images found") {
+            header.textContent = `Chapter ${chapterNo} Not Found`;
+          }
         }
       }
     });
