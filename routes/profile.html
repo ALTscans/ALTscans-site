@@ -75,14 +75,13 @@
                 <button class="banner-upload" onclick="triggerBannerUpload()" aria-label="Upload banner image">
                     Change Banner
                 </button>
-                <input type="file" id="banner-input" class="visually-hidden" accept="image/*" onchange="handleBannerUpload(event)">
+                <input type="file" id="banner-input" class="visually-hidden" accept="image/jpeg,image/png,image/gif" onchange="handleBannerUpload(event)">
             </div>
-
             <div class="profile-section">
-                <div class="profile-image-container" onclick="triggerProfileUpload()" role="button" aria-label="Change profile picture">
-                    
-                    <input type="file" id="profile-input" class="visually-hidden" accept="image/*" onchange="handleProfileUpload(event)">
+                <div class="profile-image-container" onclick="triggerProfileUpload()" role="button" aria-label="Change profile picture">                    
                 </div>
+
+                <input type="file" class="profile-input" accept="image/jpeg,image/png,image/gif" onchange="handleProfileUpload(event)">
 
                 <div class="profile-details">
                     <h1 class="profile-username"></h1>

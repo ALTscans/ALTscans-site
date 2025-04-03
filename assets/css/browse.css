@@ -223,6 +223,13 @@
     .spaced-section {
       margin-bottom: 20px;
     }
+    
+    .genre-option.selected {
+        background-color: var(--accent-color);
+        color: white;
+        border-radius: 4px;
+    }
+    
     @media (max-width: 991px) {
       .header-content {
         flex-direction: column;

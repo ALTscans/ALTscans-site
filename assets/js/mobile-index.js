@@ -14,3 +14,4 @@ function setActiveFilter(element){
   document.querySelectorAll('.filter-option').forEach(btn=>btn.classList.remove('active'));
   element.classList.add('active');
 }
+

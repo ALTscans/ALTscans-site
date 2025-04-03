@@ -1,5 +1,5 @@
 //Final Commit For Month - March 2025
-const base_url = `https://altscans-api.netlify.app`;
+const base_url = `http://localhost:8888`;
 const frontoken = `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjoiQyF5YjlWY0hjQm5HcWpCRVlQdzhqTnNhQG5RI3V3IiwiaWF0IjoxNzQwODEyOTE1fQ.wImh8Y-s3jZtdEIyTvl9eUEh2VgG_NcjoqX-nlW1Zso`
 
 
@@ -64,3 +64,22 @@ function getUserIdValue() {
     return null;
   }
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+  const backToTopButton = document.getElementById("backToTopBtn");
+  
+  window.addEventListener("scroll", () => {
+    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+      backToTopButton.style.display = "flex";
+    } else {
+      backToTopButton.style.display = "none";
+    }
+  });
+  
+  backToTopButton.addEventListener("click", () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  });
+});

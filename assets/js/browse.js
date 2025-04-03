@@ -3,7 +3,9 @@ document.addEventListener('DOMContentLoaded', async () => {
   const dialogFullDesc = document.getElementById('full-description');
   const closeDialogBtn = document.getElementById('close-dialog');
   const seriesContainer = document.querySelector('.series-container');
-
+  
+  let genreSelection = []
+  
   try {
     let getSeriesRes = await getSeries();
     console.log(getSeriesRes);
@@ -65,6 +67,53 @@ document.addEventListener('DOMContentLoaded', async () => {
         await handleBookmarkClick(bookmarkBtn, series);
       });
     });
+
+    let genreSelection = [];
+    
+    // Add genre selection functionality
+    document.querySelectorAll('.genre-option').forEach(genre => {
+        genre.addEventListener('click', function() {
+            const genreValue = this.getAttribute('data-genre');
+            
+            // Toggle selected class
+            this.classList.toggle('selected');
+            
+            if (this.classList.contains('selected')) {
+                // Add genre to selection if not already present
+                if (!genreSelection.includes(genreValue)) {
+                    genreSelection.push(genreValue);
+                }
+            } else {
+                // Remove genre from selection
+                genreSelection = genreSelection.filter(genre => genre !== genreValue);
+            }
+            
+            console.log('Selected genres:', genreSelection);
+            // You can call a function here to filter series based on selected genres
+            filterSeriesByGenres();
+        });
+    });
+
+    // Function to filter series based on selected genres
+    function filterSeriesByGenres() {
+        const seriesBoxes = document.querySelectorAll('.series-box');
+        
+        if (genreSelection.length === 0) {
+            // Show all series if no genres are selected
+            seriesBoxes.forEach(box => box.style.display = 'block');
+            return;
+        }
+
+        seriesBoxes.forEach((box, index) => {
+            const series = getSeriesRes[index];
+            // Assuming series.genres is an array of genres for the series
+            const hasSelectedGenres = genreSelection.every(genre => 
+                series.genre.includes(genre)
+            );
+            
+            box.style.display = hasSelectedGenres ? 'block' : 'none';
+        });
+    }
 
   } catch (error) {
     console.error(error);

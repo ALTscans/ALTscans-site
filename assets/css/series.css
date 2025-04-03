@@ -203,6 +203,25 @@
       font-size: 14px;
       font-style: italic;
     }
+    
+    .ad-section {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+    
+    .ad-div {
+        width: 80%;
+        max-width: 1200px;
+        margin: var(--spacing-lg) auto;
+        min-height: clamp(120px, 25vw, 300px);
+        background-color: transparent;
+        border: 2px dashed rgba(52, 45, 39, 1);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 40px;
+    }
 
     /* ======= Chapter Navigation Container ======= */
     .chapter-container {
