@@ -1,4 +1,15 @@
 document.addEventListener('DOMContentLoaded', async () => {
+  const seriesBoxes = document.querySelectorAll('.series-box');
+  const nothingFound = document.querySelector('.error-msg');
+  
+  nothingFound.style.display = 'none';
+  
+  if(seriesBoxes.forEach(box => box.style.display = 'none')) {
+    nothingFound.style.display = 'flex';
+  }
+  
+  
+  
   const dialogOverlay = document.getElementById('description-dialog');
   const dialogFullDesc = document.getElementById('full-description');
   const closeDialogBtn = document.getElementById('close-dialog');
@@ -97,22 +108,88 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Function to filter series based on selected genres
     function filterSeriesByGenres() {
         const seriesBoxes = document.querySelectorAll('.series-box');
+        let visibleCount = 0;
         
         if (genreSelection.length === 0) {
             // Show all series if no genres are selected
-            seriesBoxes.forEach(box => box.style.display = 'block');
+            seriesBoxes.forEach(box => {
+                box.style.display = 'block';
+            });
+            nothingFound.style.display = 'none';
             return;
         }
-
+    
         seriesBoxes.forEach((box, index) => {
             const series = getSeriesRes[index];
-            // Assuming series.genres is an array of genres for the series
             const hasSelectedGenres = genreSelection.every(genre => 
                 series.genre.includes(genre)
             );
             
             box.style.display = hasSelectedGenres ? 'block' : 'none';
+            if (hasSelectedGenres) {
+                visibleCount++;
+            }
         });
+        
+        // Show/hide nothing found message based on visible count
+        nothingFound.style.display = visibleCount === 0 ? 'flex' : 'none';
+    }
+    
+    
+    
+    let yearFilter = "";
+    
+    // Add year selection functionality
+    document.querySelectorAll('.year-option').forEach(year => {
+        year.addEventListener('click', function() {
+            const yearValue = this.getAttribute('data-year');
+            
+            // Remove 'selected' class from all year options
+            document.querySelectorAll('.year-option').forEach(y => {
+                y.classList.remove('selected');
+            });
+            
+            // If clicking the same year that's already selected, clear the filter
+            if (yearFilter === yearValue) {
+                yearFilter = "";
+            } else {
+                // Add selected class to clicked year and update yearFilter
+                this.classList.add('selected');
+                yearFilter = yearValue;
+            }
+            
+            console.log('Selected year:', yearFilter);
+            filterSeriesByYear();
+        });
+    });
+    
+    // Function to filter series based on selected year
+    function filterSeriesByYear() {
+        const seriesBoxes = document.querySelectorAll('.series-box');
+        let visibleCount = 0;
+        
+        if (yearFilter === "") {
+            // Show all series if no year is selected
+            seriesBoxes.forEach(box => {
+                box.style.display = 'block';
+            });
+            nothingFound.style.display = 'none';
+            return;
+        }
+    
+        seriesBoxes.forEach((box, index) => {
+            const series = getSeriesRes[index];
+            const releaseYear = new Date(series.releaseDate).getFullYear().toString();
+            
+            const isVisible = (releaseYear === yearFilter);
+            box.style.display = isVisible ? 'block' : 'none';
+            if (isVisible) {
+                visibleCount++;
+            }
+        });
+        
+        // Show/hide nothing found message based on visible count
+        nothingFound.style.display = visibleCount === 0 ? 'flex' : 'none';
     }
 
   } catch (error) {
