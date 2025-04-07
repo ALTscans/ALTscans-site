@@ -2,6 +2,11 @@ document.addEventListener("DOMContentLoaded", async () => {
   // Toggle "Show More" for description
   const desc = document.getElementById("description");
   const toggleBtn = document.getElementById("toggleDescription");
+  const chaptersRead = localStorage.getItem('chaptersRead') ? JSON.parse(localStorage.getItem('chaptersRead')) : [];
+  
+  console.log(chaptersRead);
+
+  
   toggleBtn.addEventListener("click", () => {
     desc.classList.toggle("expanded");
     toggleBtn.textContent = desc.classList.contains("expanded") ? "SHOW LESS" : "SHOW MORE";
@@ -199,6 +204,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         // Function to render chapters
         function renderChapters(chapters) {
           chapterListContainer.innerHTML = ''; // Clear existing chapters
+          
           chapters.forEach(release => {
             const chapterItem = document.createElement('div');
             chapterItem.classList.add('chapter-item', 'hover-grow');
@@ -229,6 +235,10 @@ document.addEventListener("DOMContentLoaded", async () => {
                 </button>
               </div>
             `;
+            
+            if(chaptersRead.seriesId.includes(release.chapterNo)) {
+              chapterItem.classList.add('read');
+            }
             
             // Add hover event listeners
             chapterItem.addEventListener('mouseenter', () => {

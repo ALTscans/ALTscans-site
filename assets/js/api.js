@@ -1,5 +1,7 @@
 async function fetchLatestReleases() {
   try {
+    
+    
     const response = await axios.get(`${base_url}/api/admin/getLatestUpdate`);
 
     // Check if the response is an array
@@ -37,8 +39,11 @@ async function fetchLatestReleases() {
 }
 
 function renderMobile(groupedData) {
+  const chaptersRead = localStorage.getItem('chaptersRead') ? JSON.parse(localStorage.getItem('chaptersRead')) : [];
   const container = document.getElementById('latest-release-mobile');
+  
   container.innerHTML = '<h2 class="section-title-mobile">LATEST RELEASES</h2>';
+  
   Object.keys(groupedData).forEach(seriesTitle => {
     const series = groupedData[seriesTitle];
     series.sort((a, b) => b.chapterNo - a.chapterNo); // Sort chapters by chapter number in descending order
@@ -47,7 +52,7 @@ function renderMobile(groupedData) {
     el.dataset.id = series[0]._id;
     el.innerHTML = `
       <div class="left">
-        <img src="${series[0].thumbnail}" alt="Thumbnail" class="thumbnail">
+        <img src="${series[0].seriesThumbnail}" alt="Thumbnail" class="thumbnail">
         <div class="series-info">
           <div class="series-title">${formatTitle(seriesTitle)}</div>
           <div class="rating">
@@ -89,7 +94,7 @@ function renderDesktop(groupedData) {
     item.dataset.id = series[0]._id;
     item.innerHTML = `
       <div class="series-thumbnail">
-        <img src="${series[0].thumbnail}" alt="${formatTitle(seriesTitle)} thumbnail">
+        <img src="${series[0].seriesThumbnail}" alt="${formatTitle(seriesTitle)} thumbnail">
         <button class="heart-button">
           <svg class="heart-icon empty" viewBox="0 0 24 24">
             <path d="M12 21.35l-1.45-1.32C5.4

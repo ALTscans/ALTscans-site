@@ -237,10 +237,18 @@
     .error-msg {
         display: flex;
         justify-content: center;
-        font-size: 50px;
-        margin-top: 100px;
+        margin-top: 50px;
     }
     
+    .error-msg .img {
+        width: 50%;
+    }
+    
+    
+    .chapter-item.read {
+        background-color: #3a2f235e;
+        color: #DC582A;
+    }
     
     @media (max-width: 991px) {
       .header-content {

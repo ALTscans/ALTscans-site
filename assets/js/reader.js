@@ -8,7 +8,10 @@ if ('serviceWorker' in navigator) {
   });
 }
 
+
 document.addEventListener('DOMContentLoaded', () => {
+  const chaptersRead = localStorage.getItem('chaptersRead') ? JSON.parse(localStorage.getItem('chaptersRead')) : [];
+
   const urlParams = new URLSearchParams(window.location.search);
   const chapterSelect = document.querySelector('.chapter-select');
   const prevButtons = document.querySelectorAll('.prev-chapter');
@@ -206,4 +209,23 @@ document.addEventListener('DOMContentLoaded', () => {
       updateChapterUI(currentChapter);
     })
     .catch(error => console.error('Error initializing reader:', error));
+  
+  window.addEventListener('scroll', () => {
+    if ((window.innerHeight + window.scrollY) >= document.documentElement.scrollHeight) {
+      console.log('User has scrolled to the bottom of the page');
+
+      const chaptersReadFormat = {
+        [seriesId]: {
+          chapter: currentChapter,
+          date: new Date().toISOString(),
+          status: 'completed'
+        }
+      };
+      
+      // Save chapters read format to local storage
+      localStorage.setItem('chaptersRead', JSON.stringify(chaptersReadFormat));
+      
+    }
+  });
+
 });
