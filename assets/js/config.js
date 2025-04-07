@@ -1,10 +1,15 @@
 //Final Commit For Month - March 2025
-const base_url = `http://localhost:8888`;
+const base_url = `https://altscans-api.netlify.app`;
 const frontoken = `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjoiQyF5YjlWY0hjQm5HcWpCRVlQdzhqTnNhQG5RI3V3IiwiaWF0IjoxNzQwODEyOTE1fQ.wImh8Y-s3jZtdEIyTvl9eUEh2VgG_NcjoqX-nlW1Zso`
 
 
 
 // Common Functions
+// Function to set a cookie with an expiration time
+function setCookie(name, value) {
+    document.cookie = `${name}=${value}; path=/`;
+}
+
 function openSeries(manga, nick) {
   window.location.href = `/series/?series=${nick}&id=${manga}`;
 }
@@ -65,7 +70,7 @@ function getUserIdValue() {
   }
 }
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
   const backToTopButton = document.getElementById("backToTopBtn");
   
   window.addEventListener("scroll", () => {
@@ -82,4 +87,95 @@ document.addEventListener('DOMContentLoaded', () => {
       behavior: 'smooth'
     });
   });
+  
+  async function fetchUserProfile() {
+      const token = getTokenValue();
+      const userId = getUserIdValue();
+      if (!token || !userId) return null;
+  
+      try {
+          const response = await axios.get(`${base_url}/api/user/${userId}`, {
+              headers: {
+                Authorization: `${frontoken}`,
+                'x-user-token': `${token}`
+              },
+          });
+          
+          console.log(response.data);
+          if (response.status === 200) {
+              return response.data;
+          } else {
+              console.error('Failed to fetch user profile');
+              return null;
+          }
+      } catch (error) {
+          console.error('Error fetching user profile:', error);
+          return null;
+      }
+  }
+  
+  // Function to check if the account exists and verify it if needed
+   async function checkAndVerifyAccount() {
+      const token = getTokenValue();
+      const userId = getUserIdValue();
+      const lastVerified = localStorage.getItem('lastVerified');
+      console.log('Checking account...');
+      if (token && userId) {
+          const currentTime = new Date().getTime();
+          const lastVerifiedTime = lastVerified ? new Date(lastVerified).getTime() : 0;
+          const twentyFourHours = 24 * 60 * 60 * 1000;
+
+          // If more than 24 hours have passed since the last verification
+          if (currentTime - lastVerifiedTime > twentyFourHours) {
+              try {
+                  console.log('Verifying account...');
+                  const response = await axios.post(`${base_url}/api/auth/verifySession`, {
+                      userId: userId,
+                      token: token
+                  }, {
+                      headers: {
+                          'Content-Type': 'application/json',
+                          Authorization: `${token}`
+                      },
+                  });
+
+                  if (response.status === 200) {
+                      setCookie('lastVerified', new Date().toISOString());
+                      console.log('Account verified successfully');
+                  } else {
+                      console.error('Account verification failed');
+                  }
+              } catch (error) {
+                  console.error('Error verifying account:', error);
+              }
+          }
+      }
+  }
+
+  // Function to set up background verification every 24 hours
+  function setupBackgroundVerification() {
+      setInterval(checkAndVerifyAccount, 24 * 60 * 60 * 1000); // 24 hours in milliseconds
+  }
+
+  // Fetch and display user profile information
+  async function displayUserProfile() {
+      const userProfile = await fetchUserProfile();
+      console.log(userProfile);
+      if (userProfile) {
+          const userProfileDiv = document.getElementById('user-profile');
+          const profile = document.querySelector('.profile');
+          const loginBtn = document.querySelector('.login-btn');
+          
+          profile.innerHTML = `
+              <img src="${userProfile.profilePicture}" alt="${userProfile.username}" style="height: 30px; border-radius: 50%;">
+          `;
+      }
+  }
+  // Call checkAndVerifyAccount function
+  await checkAndVerifyAccount();
+  setupBackgroundVerification(); // Set up background verification
+  await displayUserProfile(); // Display user profile information
+  
 });
+
+

@@ -152,10 +152,9 @@
         display: block;
       }
     }
-  </style>
-</head>
-<body>
-  <header class="top-bar">
+</style>
+
+<header class="top-bar">
     <nav class="links">
       <a href="/index" class="logo hvr-grow">
         <img src="/assets/img/favicons/android-icon-72x72.png" alt="Logo">
@@ -175,25 +174,24 @@
     </nav>
 
     <nav class="actions">
-      <button class="icon" >
-          <sl-icon-button name="person-circle" label="Search" href="/login" style="height:30px;"></sl-icon-button>     
+      <button class="icon profile">
+          <sl-icon-button class="login-btn" name="person-circle" label="Search" href="/login" style="height:30px;"></sl-icon-button>     
       </button>
     </nav>
-  </header>
+</header>
 
-  <script>
-        function toggleMenu() {
-      document.getElementById("nav-menu").classList.toggle("show");
-    }
-
-    // JavaScript to toggle orange square inside text
-    const navLinks = document.querySelectorAll(".nav a");
-
-    navLinks.forEach(link => {
-      link.addEventListener("click", function () {
-                navLinks.forEach(item => item.classList.remove("active"));
-
-                this.classList.add("active");
+<script>
+      function toggleMenu() {
+          document.getElementById("nav-menu").classList.toggle("show");
+      }
+  
+      // JavaScript to toggle orange square inside text
+      const navLinks = document.querySelectorAll(".nav a");
+  
+      navLinks.forEach(link => {
+          link.addEventListener("click", function () {
+              navLinks.forEach(item => item.classList.remove("active"));
+              this.classList.add("active");
+          });
       });
-    });
-  </script>
+</script>

@@ -1,8 +1,3 @@
-// Function to set a cookie with an expiration time
-function setCookie(name, value) {
-    document.cookie = `${name}=${value}; path=/`;
-}
-
 // Function to get a cookie by name
 function getCookie(name) {
     const cookie = document.cookie.split(';').find(row => row.trim().startsWith(`${name}=`));
@@ -130,7 +125,15 @@ async function registerForDiscord(code) {
         type: 'discord'
     })
     
-    console.log(`Discord response.data: ${response.data}`);
+    console.log(`Discord response.data: ${JSON.stringify(response.data)}`);
+    
+    setCookie('token', response.data.token);
+    setCookie('userId', response.data.id);
+    
+    setCookie('userEmail', response.data.email);
+    
+    redirectToProfileIfLoggedIn();
+    
   }catch(error){
     console.error('Error exchanging code for token:', error);
   }
