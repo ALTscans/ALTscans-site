@@ -3,120 +3,63 @@ function setCookie(name, value) {
     document.cookie = `${name}=${value}; path=/`;
 }
 
-const cookie = document.cookie;
-
-const token = cookie.split(';').find(row => row.trim().startsWith('token='));
-const userId = cookie.split(';').find(row => row.trim().startsWith('userId='));
-
-if (token && userId) {
-    window.location.href = '/routes/profile.html';
+// Function to get a cookie by name
+function getCookie(name) {
+    const cookie = document.cookie.split(';').find(row => row.trim().startsWith(`${name}=`));
+    return cookie ? cookie.split('=')[1] : null;
 }
 
-const loginForm = document.querySelector('.loginForm');
+// Function to redirect to profile page if user is logged in
+function redirectToProfileIfLoggedIn() {
+    const token = getCookie('token');
+    const userId = getCookie('userId');
+    if (token && userId) {
+        window.location.href = '/routes/profile.html';
+    }
+}
 
-document.querySelector('.alert-container').style.display = 'none';
-document.querySelector('.alert-container-login').style.display = 'none';
+// Function to get URL parameter by name
+function getUrlParameter(name) {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get(name);
+}
 
-// Add event listeners to the login type buttons
-const nonAnonymousLoginButton = document.getElementById('nonAnonymousLogin');
-const anonymousLoginButton = document.getElementById('anonymousLogin');
-const usernameField = document.getElementById('login-usernameField');
-const emailField = document.getElementById('login-emailField');
-
-usernameField.style.display = 'none';
-    
-nonAnonymousLoginButton.addEventListener('click', () => {
-    usernameField.style.display = 'none';
-    emailField.style.display = 'block';
-    emailField.setAttribute('required', 'required');
-    usernameField.removeAttribute('required');
-});
-
-anonymousLoginButton.addEventListener('click', () => {
-    emailField.style.display = 'none';
-    usernameField.style.display = 'block';
-    usernameField.setAttribute('required', 'required');
-    emailField.removeAttribute('required');
-});
-
-loginForm.addEventListener('submit', (e) => {
+// Function to handle login form submission
+async function handleLoginFormSubmit(e) {
     e.preventDefault();
 
-    // Get User Information
     const username = loginForm['login-usernameField'].value;
     const email = loginForm['login-emailField'].value;
     const pwd = loginForm['login-passwordField'].value;
 
-    if (usernameField.style.display === 'block') {
-        // Login User with username
-        axios.post(`${base_url}/api/auth/login`, {
-            username: escapeHtml(username),
-            password: escapeHtml(pwd)
-        },
-        {
-            headers: {
-                'Content-Type': 'application/json',
-                Authorization: `${frontoken}`
-            },
-        }).then(function (response) {
-            try {
-                // Set cookies
-                setCookie('token', response.data.token);
-                setCookie('userId', response.data.userInfo.id);
-                console.log(`Cookie Created for user ${response.data.userInfo.name}: ${response.data.userInfo.id}`);
-                
-                //Redirect to profile.html
-                setTimeout(() => {
-                    window.location.href = '/routes/profile.html';
-                }, 5000);
-                
-            } catch (error) {
-                console.error('Error setting cookies:', error);
-                showAlert(error, 'login');
-            }
-        }).catch(function (error) {
-            showAlert(error, 'login');
-            console.log(error);
-        });
-    } else {
-        // Login User with email
-        axios.post(`${base_url}/api/auth/login`, {
-            email: escapeHtml(email),
-            password: escapeHtml(pwd)
-        },
-        {
-            headers: {
-                'Content-Type': 'application/json',
-                Authorization: `${frontoken}`
-            },
-        }).then(function (response) {
-            try {
-                // Set cookies
-                setCookie('token', response.data.token);
-                setCookie('userId', response.data.userInfo.id);
-                console.log(`Cookie Created for user ${response.data.userInfo.name}: ${response.data.userInfo.id}`);
-                
-                //Redirect to profile.html
-                setTimeout(() => {
-                    window.location.href = '/routes/profile.html';
-                }, 5000);
-                
-            } catch (error) {
-                console.error('Error setting cookies:', error);
-                showAlert(error, 'login');
-            }
-        }).catch(function (error) {
-            showAlert(error, 'login');
-            console.log(error);
-        });
-    }
-});
+    const loginData = usernameField.style.display === 'block' ? { username, password: pwd } : { email, password: pwd };
+    const loginUrl = `${base_url}/api/auth/login`;
 
-const signupForm = document.querySelector('.signupForm');
-signupForm.addEventListener('submit', (e) => {
+    try {
+        const response = await axios.post(loginUrl, escapeHtml(loginData), {
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `${frontoken}`
+            },
+        });
+
+        setCookie('token', response.data.token);
+        setCookie('userId', response.data.userInfo.id);
+        console.log(`Cookie Created for user ${response.data.userInfo.name}: ${response.data.userInfo.id}`);
+
+        setTimeout(() => {
+            window.location.href = '/routes/profile.html';
+        }, 5000);
+    } catch (error) {
+        console.error('Error logging in:', error);
+        showAlert(error, 'login');
+    }
+}
+
+// Function to handle signup form submission
+async function handleSignupFormSubmit(e) {
     e.preventDefault();
 
-    // Get User Information
     const username = signupForm['signup-usernameField'].value;
     const email = signupForm['signup-emailField'].value;
     const pwd = signupForm['signup-pwdField'].value;
@@ -127,116 +70,122 @@ signupForm.addEventListener('submit', (e) => {
         return;
     }
 
-    // Send User Info
-    axios.post(`${base_url}/api/user/createUser`, {
-        username: escapeHtml(username),
-        email: escapeHtml(email),
-        password: escapeHtml(pwd),
-        type: 'emailAndPasswordAuth'
-    },
-    {
-        headers: {
-            'Content-Type': 'application/json'
-        },
-    })
-    .then(function (response) {
+    try {
+        const response = await axios.post(`${base_url}/api/user/createUser`, {
+            username: escapeHtml(username),
+            email: escapeHtml(email),
+            password: escapeHtml(pwd),
+            type: 'emailAndPasswordAuth'
+        }, {
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        });
+
         console.log(response);
         showAlert(response, 'signup');
-    })
-    .catch(function (error) {
+    } catch (error) {
         console.error('Error signing up:', error);
         showAlert(error.message, 'signup', error.message);
-    });
-});
-
-function handleCredentialResponse(response) {
-    console.log("Encoded JWT ID token: " + response.credential);
-
-    axios.post('http://localhost:3000/oauth/google', {
-        response
-    },
-    {
-        headers: {
-            'Content-Type': 'application/json',
-            'x-api-key': '019417e6-a468-7c95-9e8e-2562e1b182a7'
-        },
-    });
+    }
 }
 
-function showDialog(dialogId) {
-    document.getElementById('dialogOverlay').classList.add('active');
-    document.getElementById(dialogId).classList.add('active');
-}
-
-function closeDialog() {
-    document.getElementById('dialogOverlay').classList.remove('active');
-    document.querySelectorAll('.forgot-pwd-dialog, .anonymous-user-info').forEach(dialog => {
-        dialog.classList.remove('active');
-    });
-}
-
+// Function to handle social authentication
 async function handleSocialAuth(provider) {
-    console.log(provider);
-
     try {
-        switch(provider) {
+        switch (provider) {
             case 'google':
                 window.location.href = `${base_url}/api/auth/google`;
                 break;
-            
+
             case 'anonymous':
-                let user = await axios.post(`${base_url}/api/user/anonymous`);
-                
+                const user = await axios.post(`${base_url}/api/user/anonymous`);
                 const anonUserInfoContent = `
                     <p>Anonymous User: ${user.data.username}</p>
                     <p>Password: ${user.data.password}</p>
                 `;
-                
                 document.getElementById('anonUserInfoContent').innerHTML = anonUserInfoContent;
                 showDialog('anonUserInfo');
                 console.log(user);
                 break;
-            
+
+            case 'discord':
+                window.location.href = `https://discord.com/oauth2/authorize?client_id=1326916685655052369&response_type=code&redirect_uri=http%3A%2F%2Flocalhost%3A6556%2Flogin&scope=identify+email`;
+                break;
+
             default:
                 throw new Error('Invalid provider');
         }
-    } catch(error) {
+    } catch (error) {
         console.error(error);
     }
 }
 
-document.getElementById('verifyForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    closeDialog();
-});
-
-document.getElementById('dialogOverlay').addEventListener('click', closeDialog);
-
-async function showAlert(response, form, err) {
-    try {
-        if (form === 'signup') {
-            const alert = document.querySelector('.alert-container');
-            if (response.status === 200) {
-                console.log("User Created Successfully")
-                alert.innerHTML = 'Your account has been created. You can now log in.'
-                alert.style.display = 'block';
-                alert.style.color = 'green';
-            } else {
-                alert.innerHTML = err || 'An error occurred while creating your account.'
-                alert.style.display = 'block';
-                alert.style.color = 'red';
-            }
-        } else if (form === 'login') {
-            const alert = document.querySelector('.alert-container-login');
-            if (response.response && response.response.status === 401) {
-                alert.innerHTML = 'Incorrect email or password.'
-            } else {
-                alert.innerHTML = 'An error occurred while logging in.'
-            }
-            alert.style.display = 'block';
-            alert.style.color = 'red';
-        }
-    } catch (error) {
-        console.log(error);
-    }
+// Function to exchange authorization code for access token
+async function registerForDiscord(code) {
+  try {
+    console.log(code)
+    const response = await axios.post(`${base_url}/api/auth/discord`, {
+        code: code,
+        type: 'discord'
+    })
+    
+    console.log(`Discord response.data: ${response.data}`);
+  }catch(error){
+    console.error('Error exchanging code for token:', error);
+  }
 }
+
+// Function to show alert messages
+function showAlert(response, form, err) {
+    const alert = form === 'signup' ? document.querySelector('.alert-container') : document.querySelector('.alert-container-login');
+    const message = form === 'signup' ? 'Your account has been created. You can now log in.' : 'An error occurred while logging in.';
+
+    alert.innerHTML = response.status === 200 ? message : err || message;
+    alert.style.display = 'block';
+    alert.style.color = response.status === 200 ? 'green' : 'red';
+}
+
+// Event listeners
+document.addEventListener('DOMContentLoaded', () => {
+    redirectToProfileIfLoggedIn();
+
+    const code = getUrlParameter('code');
+    if (code) {
+        registerForDiscord(code);
+    }
+
+    const loginForm = document.querySelector('.loginForm');
+    loginForm.addEventListener('submit', handleLoginFormSubmit);
+
+    const signupForm = document.querySelector('.signupForm');
+    signupForm.addEventListener('submit', handleSignupFormSubmit);
+
+    document.getElementById('verifyForm').addEventListener('submit', (e) => {
+        e.preventDefault();
+        closeDialog();
+    });
+
+    document.getElementById('dialogOverlay').addEventListener('click', closeDialog);
+
+    const nonAnonymousLoginButton = document.getElementById('nonAnonymousLogin');
+    const anonymousLoginButton = document.getElementById('anonymousLogin');
+    const usernameField = document.getElementById('login-usernameField');
+    const emailField = document.getElementById('login-emailField');
+
+    usernameField.style.display = 'none';
+
+    nonAnonymousLoginButton.addEventListener('click', () => {
+        usernameField.style.display = 'none';
+        emailField.style.display = 'block';
+        emailField.setAttribute('required', 'required');
+        usernameField.removeAttribute('required');
+    });
+
+    anonymousLoginButton.addEventListener('click', () => {
+        emailField.style.display = 'none';
+        usernameField.style.display = 'block';
+        usernameField.setAttribute('required', 'required');
+        emailField.removeAttribute('required');
+    });
+});
