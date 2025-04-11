@@ -105,7 +105,7 @@ async function handleSocialAuth(provider) {
                 break;
 
             case 'discord':
-                window.location.href = `https://discord.com/oauth2/authorize?client_id=1326916685655052369&response_type=code&redirect_uri=http%3A%2F%2Flocalhost%3A6556%2Flogin&scope=identify+email`;
+                window.location.href = `${discordUrl}`;
                 break;
 
             default:

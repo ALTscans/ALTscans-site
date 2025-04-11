@@ -12,16 +12,18 @@ a {
         display: grid;
         align-items: center;
         justify-items: center;
+        padding-bottom: 10px;
     }
     
     .footer-container {
       background-color: rgba(33, 33, 33, 1);
       display: flex;
       margin-top: 8px;
-      width: 85.5%;
+      width: 85%;
       flex-direction: column;
       align-items: start;
       padding: 24px 70px 0;
+      border-radius: 20px;
     }
     .footer-wrapper {
       width: 100%;
@@ -70,10 +72,26 @@ a {
       margin: auto 0;
       font: 700 12px Plus Jakarta Sans, -apple-system, Roboto, Helvetica, sans-serif;
     }
+    .doc-wrapper {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+    }
+    .socials {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        width: 100%;
+    }
     .terms-content {
       border-radius: 20px;
       background-color: rgba(52, 45, 39, 1);
-      padding: 13px 21px;
+      padding: 10px 20px;
       border: 1px solid rgba(0, 0, 0, 0.5);
     }
     .social-wrapper {
@@ -157,22 +175,17 @@ a {
       display: flex;
       flex-direction: column;
       line-height: normal;
-      width: 37%;
-      margin-left: 20px;
+      padding-bottom: 5px;
     }
     .donation-wrapper {
-      border-radius: 14px 14px 0 0;
+      border-radius: 20px;
       background-color: rgba(52, 45, 39, 1);
-      display: grid;
+      display: flex;
       align-items: center;
       justify-items: center;
-      flex-grow: 1;
       flex-direction: column;
       color: rgba(255, 255, 255, 1);
-      width: 100%;
-      padding: 26px 0 0 26px;
-      right: 34px;
-      position: relative;
+      padding: 24px;
       font: 700 24px Plus Jakarta Sans, -apple-system, Roboto, Helvetica, sans-serif;
     }
     .donation-text {
@@ -194,10 +207,13 @@ a {
     }
     .footer-wrapper {
       max-width: 100%;
+      padding-bottom: 10px;
     }
     .footer-content {
       align-items: stretch;
       gap: 0;
+      display: flex;
+      flex-direction: column;
     }
     .left-column {
       width: 100%;
@@ -208,9 +224,6 @@ a {
     }
     .mission-text {
       max-width: 100%;
-    }
-    .terms-content {
-      padding: 0 20px;
     }
     .right-column {
       width: 100%;
@@ -233,23 +246,21 @@ a {
     
     .footer-container {
       background-color: rgba(33, 33, 33, 1);
-      display: grid;
+      display: flex;
       justify-items: center;
       align-items: center;
       margin-top: 8px;
-      width: 85.5%;
+      width: 85%;
       flex-direction: column;
-      align-items: start;
       padding: 24px 70px 0;
-      border-radius: 10px 10px 0 0;
+      border-radius: 20px;
     }
     .footer-wrapper {
       width: 100%;
-      max-width: 1010px;
+      max-width: 80%;
     }
     .footer-content {
-        width: 100%;
-      gap: 20px;
+      width: 100%;
       display: flex;
       justify-content: space-between;
     }
@@ -257,14 +268,13 @@ a {
       display: flex;
       flex-direction: column;
       line-height: normal;
-      width: 63%;
+      width: 100%;
       margin-left: 0;
     }
     .mission-wrapper {
       display: flex;
-      margin-top: 38px;
-      width: 100%;
       flex-direction: column;
+      width: 100%;
     }
     .mission-text {
       color: rgba(255, 255, 255, 1);
@@ -376,22 +386,15 @@ a {
       display: flex;
       flex-direction: column;
       line-height: normal;
-      width: 37%;
-      margin-left: auto;
-      position: relative;
     }
     .donation-wrapper {
-      border-radius: 14px 14px 0 0;
+      border-radius: 20px;
       background-color: rgba(52, 45, 39, 1);
       display: grid;
       align-items: center;
       justify-items: center;
-      flex-grow: 1;
       flex-direction: column;
       color: rgba(255, 255, 255, 1);
-      width: 100%;
-      padding: 26px 0 0 26px;
-      position: revert;
       font: 700 24px Plus Jakarta Sans, -apple-system, Roboto, Helvetica, sans-serif;
     }
     .donation-text {
@@ -458,55 +461,59 @@ a {
                 paywalled!
               </div>
               <div class="action-buttons">
-                  <a href="/documents/dmca">
-                      <div class="terms-button hvr-grow-shadow">
-                        <div class="terms-content" tabindex="0" role="button">DMCA</div>
+                  <div class="doc-wrapper">
+                      <a href="/documents/dmca">
+                          <div class="terms-button hvr-grow-shadow">
+                            <div class="terms-content" tabindex="0" role="button">DMCA</div>
+                          </div>
+                      </a>
+                      <a href="/documents/privacy-policy">
+                          <div class="terms-button hvr-grow-shadow">
+                            <div class="terms-content" tabindex="0" role="button">Privacy Policy</div>
+                          </div>
+                      </a>
+                  </div>
+                  <div class="socials">
+                      <div class="social-wrapper hvr-grow-shadow">
+                        <div class="social-container">
+                          <div class="social-content">
+                            <div class="social-text">FOLLOW US</div>
+                            <div class="social-icons">
+                              <img
+                                loading="lazy"
+                                src="https://cdn.builder.io/api/v1/image/assets/TEMP/402f15e4c8679df15d20ad5808e71d4e7758da3f37f4d80022526142f2b0a954?placeholderIfAbsent=true&apiKey=8e442171329c45b7b66ad2e988bbd377"
+                                class="social-icon"
+                                alt="Social media icon"
+                              />
+                              <img
+                                loading="lazy"
+                                src="https://cdn.builder.io/api/v1/image/assets/TEMP/690aa8ae4f90b6a8c055baa4da24752d54fe28e66dec2f435b112bc1fb7e5ea8?placeholderIfAbsent=true&apiKey=8e442171329c45b7b66ad2e988bbd377"
+                                class="social-icon"
+                                alt="Social media icon"
+                              />
+                            </div>
+                          </div>
+                        </div>
                       </div>
-                  </a>
-                  <a href="/documents/privacy-policy">
-                      <div class="terms-button hvr-grow-shadow">
-                        <div class="terms-content" tabindex="0" role="button">Privacy Policy</div>
-                      </div>
-                  </a>
-                <div class="social-wrapper hvr-grow-shadow">
-                  <div class="social-container">
-                    <div class="social-content">
-                      <div class="social-text">FOLLOW US</div>
-                      <div class="social-icons">
-                        <img
-                          loading="lazy"
-                          src="https://cdn.builder.io/api/v1/image/assets/TEMP/402f15e4c8679df15d20ad5808e71d4e7758da3f37f4d80022526142f2b0a954?placeholderIfAbsent=true&apiKey=8e442171329c45b7b66ad2e988bbd377"
-                          class="social-icon"
-                          alt="Social media icon"
-                        />
-                        <img
-                          loading="lazy"
-                          src="https://cdn.builder.io/api/v1/image/assets/TEMP/690aa8ae4f90b6a8c055baa4da24752d54fe28e66dec2f435b112bc1fb7e5ea8?placeholderIfAbsent=true&apiKey=8e442171329c45b7b66ad2e988bbd377"
-                          class="social-icon"
-                          alt="Social media icon"
-                        />
+                      <div class="server-wrapper hvr-grow-shadow">
+                        <div class="server-container">
+                            <a href="https://discord.gg/Rr5HWHuk7Y">
+                                <div class="server-content">
+                                  <div class="server-text">JOIN SERVER</div>
+                                  <img
+                                    loading="lazy"
+                                    src="https://cdn.builder.io/api/v1/image/assets/TEMP/ba4dce101ceb0ac703c64c0e015b0d0095c971dab91700642901ab91a63a8aeb?placeholderIfAbsent=true&apiKey=8e442171329c45b7b66ad2e988bbd377"
+                                    class="social-icon"
+                                    alt="Server join icon"
+                                  />
+                                </div>
+                            </a>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
-                <div class="server-wrapper hvr-grow-shadow">
-                  <div class="server-container">
-                      <a href="https://discord.gg/Rr5HWHuk7Y">
-                          <div class="server-content">
-                            <div class="server-text">JOIN SERVER</div>
-                            <img
-                              loading="lazy"
-                              src="https://cdn.builder.io/api/v1/image/assets/TEMP/ba4dce101ceb0ac703c64c0e015b0d0095c971dab91700642901ab91a63a8aeb?placeholderIfAbsent=true&apiKey=8e442171329c45b7b66ad2e988bbd377"
-                              class="social-icon"
-                              alt="Server join icon"
-                            />
-                          </div>
-                      </a>
-                  </div>
                 </div>
-              </div>
-            </div>
-          </div>
           <div class="right-column">
               <a href="https://www.paypal.com/paypalme/cloudyhermit">
                   <div class="donation-wrapper">

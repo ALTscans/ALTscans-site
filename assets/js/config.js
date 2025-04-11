@@ -1,7 +1,9 @@
 //Final Commit For Month - March 2025
 const base_url = `https://altscans-api.netlify.app`;
 const frontoken = `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjoiQyF5YjlWY0hjQm5HcWpCRVlQdzhqTnNhQG5RI3V3IiwiaWF0IjoxNzQwODEyOTE1fQ.wImh8Y-s3jZtdEIyTvl9eUEh2VgG_NcjoqX-nlW1Zso`
-
+const discordUrl = `https://discord.com/oauth2/authorize?client_id=1326916685655052369&response_type=code&redirect_uri=https%3A%2F%2Faltscans.netlify.app%2Flogin&scope=identify+email`
+//For dev
+//const discordUrl = `https://discord.com/oauth2/authorize?client_id=1326916685655052369&response_type=code&redirect_uri=http%3A%2F%2Flocalhost%3A6556%2Flogin&scope=identify+email`
 
 
 // Common Functions
@@ -101,7 +103,6 @@ document.addEventListener('DOMContentLoaded', async () => {
               },
           });
           
-          console.log(response.data);
           if (response.status === 200) {
               return response.data;
           } else {
@@ -160,15 +161,18 @@ document.addEventListener('DOMContentLoaded', async () => {
   // Fetch and display user profile information
   async function displayUserProfile() {
       const userProfile = await fetchUserProfile();
-      console.log(userProfile);
       if (userProfile) {
           const userProfileDiv = document.getElementById('user-profile');
           const profile = document.querySelector('.profile');
           const loginBtn = document.querySelector('.login-btn');
           
           profile.innerHTML = `
-              <img src="${userProfile.profilePicture}" alt="${userProfile.username}" style="height: 30px; border-radius: 50%;">
+              <img class="hvr-grow" src="${userProfile.profilePicture}" alt="${userProfile.username}" style="height: 30px; border-radius: 50%;">
           `;
+          
+          profile.addEventListener('click', () => {
+            window.location.href = '/routes/profile';
+          });
       }
   }
   // Call checkAndVerifyAccount function

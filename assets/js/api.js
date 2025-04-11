@@ -73,6 +73,16 @@ function renderMobile(groupedData) {
       </div>
     `;
     container.appendChild(el);
+    
+    const thumbnail = el.querySelector('.thumbnail');
+    const title = el.querySelector('.series-title');
+    thumbnail.addEventListener('click', () => {
+      openSeries(series[0].manga, series[0].nick);
+    });
+    title.addEventListener('click', () => {
+      openSeries(series[0].manga, series[0].nick);
+    });
+    
   });
 }
 
@@ -145,7 +155,18 @@ function renderDesktop(groupedData) {
       }
       <button class="chapter hvr-grow" data-chapter="${series[series.length - 1].chapterNo}" onClick="readChapter(${series[series.length - 1].manga}, '${series[series.length - 1].nick}', ${series[series.length - 1].chapterNo})">READ CHAPTER ${series[series.length - 1].chapterNo}</button>
     `;
+
     grid.appendChild(item);
+    
+    const thumbnail = item.querySelector('.series-thumbnail img');
+    const title = item.querySelector('.series-title');
+    thumbnail.addEventListener('click', () => {
+      openSeries(series[0].manga, series[0].nick);
+    });
+    title.addEventListener('click', () => {
+      openSeries(series[0].manga, series[0].nick);
+    });
+    
   });
 }
 

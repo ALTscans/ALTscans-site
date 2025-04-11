@@ -236,9 +236,9 @@ document.addEventListener("DOMContentLoaded", async () => {
               </div>
             `;
             
-            if(chaptersRead.seriesId.includes(release.chapterNo)) {
-              chapterItem.classList.add('read');
-            }
+            // if(chaptersRead.seriesId.includes(release.chapterNo)) {
+            //   chapterItem.classList.add('read');
+            // };
             
             // Add hover event listeners
             chapterItem.addEventListener('mouseenter', () => {
