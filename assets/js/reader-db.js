@@ -57,9 +57,9 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     // If not cached, fetch from API
-    axios
-      .get(`${basedbUrl}/api/admin/getSeries/${seriesId}/${seriesName}/${chapterNo}`, {})
+    axios.get(`${basedbUrl}/api/admin/getSeries/${seriesId}/${seriesName}/${chapterNo}`, {})
       .then(async function (response) {
+        console.log(response);
         const rawImages = response.data.resources.split('?')[0];
         const filteredImages = rawImages.filter((img) => !img.endsWith('.bzEmpty'));
 
