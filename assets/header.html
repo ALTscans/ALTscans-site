@@ -152,6 +152,31 @@
         display: block;
       }
     }
+    
+    .notice {
+        height: 80px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        background-color: red;
+        align-content: center;
+        align-items: center;
+        color: white;
+        text-shadow: 5px black;
+        margin-bottom: 5px;
+        
+        a {
+            color: yellow;
+        }
+        
+        p {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+    }
 </style>
 
 <header class="top-bar">
@@ -179,7 +204,9 @@
       </button>
     </nav>
 </header>
-
+<div class="notice">
+    <p>This site is currently under development, please report any bugs or errors in our <a href="https://discord.gg/Rr5HWHuk7Y">discord server</a>Please support us cause Darkside got scammed off $3 while making our site </p>
+</div>
 <script>
       function toggleMenu() {
           document.getElementById("nav-menu").classList.toggle("show");
