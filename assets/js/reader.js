@@ -94,12 +94,13 @@ document.addEventListener('DOMContentLoaded', () => {
     nextButtons.forEach(button => button.disabled = chapter >= maxChapter);
     
     // Populate chapter select
-    const chapters = Array.from({length: maxChapter}, (_, i) => i + 1);
-    chapterSelect.innerHTML = chapters.map(chapter => `
-      <option value="${chapter}" ${chapter == currentChapter ? 'selected' : ''}>
-        Chapter ${chapter}
-      </option>
-    `).join('');
+    const chapters = Array.from({length: maxChapter}, (_, i) => 
+      chapterSelect.innerHTML = `
+        <option value="${i + 1}" ${i + 1 == currentChapter ? 'selected' : ''}>
+          Chapter ${i + 1}
+        </option>
+      `);
+
 
     // Update chapter images
     const images = chapterData.resources.map((imgUrl, index) => `
