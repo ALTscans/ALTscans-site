@@ -97,7 +97,7 @@ document.addEventListener('DOMContentLoaded', () => {
     nextButtons.forEach(button => button.disabled = chapter >= maxChapter);
     
     // Populate chapter select
-    const chapters = Array.from({ length: maxChapter }, (_, i) => `
+    const chapters = Array.from({ length: maxChapter + 1 }, (_, i) => `
       <option value="${i + 1}" ${i + 1 == currentChapter ? 'selected' : ''}>
         Chapter ${i + 1}
       </option>
