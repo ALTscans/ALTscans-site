@@ -129,7 +129,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     document.title = `Chapter ${chapter} - ${seriesName.toUpperCase()}`;
     currentChapterSpan.innerHTML = `${chapter}`;
-    currentChapterName.innerHTML = `<a href="${window.location.hostname}/series/?series=${seriesName}&id=${seriesId}">${formatTitle(chapterData.seriesDetails.title)}</a>`;
+    currentChapterName.innerHTML = `<a href="/series/?series=${seriesName}&id=${seriesId}">${formatTitle(chapterData.seriesDetails.title)}</a>`;
     chapterSelect.value = chapter;
     
     // Update comments section
