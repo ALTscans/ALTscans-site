@@ -89,7 +89,10 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!chapterData) return;
 
     // Update navigation buttons
-    const maxChapter = chapterData.seriesDetails.maxChaptersUploaded;
+    const maxChapter = await axios.get(`${basedbUrl}/api/admin/getSeriesDetails/${seriesId}/${seriesName}`).then(response => {
+      return response.data.seriesDetails.maxChaptersUploaded
+    });
+    
     prevButtons.forEach(button => button.disabled = chapter <= 1);
     nextButtons.forEach(button => button.disabled = chapter >= maxChapter);
     
