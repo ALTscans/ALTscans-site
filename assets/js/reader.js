@@ -129,7 +129,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     document.title = `Chapter ${chapter} - ${seriesName.toUpperCase()}`;
     currentChapterSpan.innerHTML = `${chapter}`;
-    currentChapterName.innerHTML = `${formatTitle(chapterData.seriesDetails.title)}`;
+    currentChapterName.innerHTML = `<a href="${window.location.hostname}/series/?series=${seriesName}&id=${seriesId}">${formatTitle(chapterData.seriesDetails.title)}</a>`;
     chapterSelect.value = chapter;
     
     // Update comments section
@@ -180,12 +180,118 @@ document.addEventListener('DOMContentLoaded', () => {
       s.setAttribute('data-timestamp', +new Date());
       (d.head || d.body).appendChild(s);
     })();
-
-    // Update Facebook comments
-    document.querySelector('.fb-comments').setAttribute('data-href', window.location.href);
-    FB.XFBML.parse(); // Reparse the Facebook comments plugin
+    
+    
+    /* - - - CONFIGURATION VARIABLES - - - */
+  
+    var __semio__params = {
+      graphcommentId: "Alternative-Scans", // make sure the id is yours
+  
+      behaviour: {
+        // HIGHLY RECOMMENDED
+         uid: `${seriesName} - ${chapter}`, // uniq identifer for the comments thread on your page (ex: your page id)
+      },
+  
+      // configure your variables here
+  
+    }
+  
+    /* - - - DON'T EDIT BELOW THIS LINE - - - */
+  
+    function __semio__onload() {
+      __semio__gc_graphlogin(__semio__params)
+    }
+  
+  
+    (function() {
+      var gc = document.createElement('script'); gc.type = 'text/javascript'; gc.async = true;
+      gc.onload = __semio__onload; gc.defer = true; gc.src = 'https://integration.graphcomment.com/gc_graphlogin.js?' + Date.now();
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(gc);
+    })();
   }
 
+  // Function to toggle comment options visibility
+  function toggleCommentOptions() {
+    const commentOptions = document.getElementById('comment-options');
+    const isHidden = commentOptions.hidden;
+    
+    commentOptions.hidden = !isHidden;
+    
+    // Update the aria-expanded attribute
+    const iconButton = document.querySelector('.icon-button');
+    iconButton.setAttribute('aria-expanded', !isHidden);
+    
+    // Hide tooltip when options are visible
+    const tooltipContainer = document.querySelector('.tooltip-container');
+    tooltipContainer.style.display = isHidden ? 'none' : 'flex';
+  }
+  
+  // Function to switch between comment tabs
+  function switchTab(commentSystem) {
+    // Get all tab panels
+    const panels = [
+      document.getElementById('disqus-panel'),
+      document.getElementById('facebook-panel'),
+      document.getElementById('graphcomment-panel')
+    ];
+    
+    // Get all tab buttons
+    const tabs = [
+      document.getElementById('disqus-tab'),
+      document.getElementById('facebook-tab'),
+      document.getElementById('graphcomment-tab')
+    ];
+    
+    // Hide all panels first
+    panels.forEach(panel => {
+      panel.hidden = true;
+    });
+    
+    // Update aria-selected state for all tabs
+    tabs.forEach(tab => {
+      tab.setAttribute('aria-selected', 'false');
+    });
+    
+    // Show the selected panel and update its tab button
+    switch(commentSystem) {
+      case 'disqus':
+        document.getElementById('disqus-panel').hidden = false;
+        document.getElementById('disqus-tab').setAttribute('aria-selected', 'true');
+        
+        // Reload Disqus if needed
+        if (typeof DISQUS !== 'undefined') {
+          DISQUS.reset({
+            reload: true,
+            config: function () {
+              this.page.identifier = `${seriesName} - ${chapter}`;
+              this.page.url = window.location.href;
+            }
+          });
+        }
+        break;
+        
+      case 'facebook':
+        document.getElementById('facebook-panel').hidden = false;
+        document.getElementById('facebook-tab').setAttribute('aria-selected', 'true');
+        
+        // Refresh Facebook comments
+        if (typeof FB !== 'undefined') {
+          FB.XFBML.parse();
+        }
+        break;
+        
+      case 'graphcomment':
+        document.getElementById('graphcomment-panel').hidden = false;
+        document.getElementById('graphcomment-tab').setAttribute('aria-selected', 'true');
+        
+        // Refresh GraphComment if needed
+        if (window.__semio__gc_graphlogin && window.__semio__params) {
+          window.__semio__gc_graphlogin(window.__semio__params);
+        }
+        break;
+    }
+  }
+  
   // Initial load
   loadChapter(seriesId, seriesName, currentChapter);
 
