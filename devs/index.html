@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>Alternative Scans - Devs</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="title" content="Alternative Scans">
+        <meta name="description" content="In a world where everyone is turning paid we want to become the only site that is free and maintains the quality! The alternative to every site that is pay walled! ">
+        <meta name="keywords" content="alternative scans, altscans, manhwa, manwha, scanalations, manga, AlternativeScans, Alternative Scans">
+        <meta name="robots" content="index, follow">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <meta name="language" content="English">
+        <meta name="author" content="AeolusDev">
+        <meta property="twitter:image" content="/assets/img/favicons/favicon-96x96.png">
+        <meta property="og:image" content="/assets/img/favicons/favicon-96x96.png">
+            
+        <link rel="canonical" href="https://alternativescans.icu">
+            
+        <script src="/assets/js/config.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/axios@1.6.7/dist/axios.min.js"></script>
+        
+        <link rel="apple-touch-icon" sizes="57x57" href="assets/img/favicons/apple-icon-57x57.png">
+        <link rel="apple-touch-icon" sizes="60x60" href="assets/img/favicons/apple-icon-60x60.png">
+        <link rel="apple-touch-icon" sizes="72x72" href="assets/img/favicons/apple-icon-72x72.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="assets/img/favicons/apple-icon-76x76.png">
+        <link rel="apple-touch-icon" sizes="114x114" href="assets/img/favicons/apple-icon-114x114.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="assets/img/favicons/apple-icon-120x120.png">
+        <link rel="apple-touch-icon" sizes="144x144" href="assets/img/favicons/apple-icon-144x144.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="assets/img/favicons/apple-icon-152x152.png">
+        <link rel="apple-touch-icon" sizes="180x180" href="assets/img/favicons/apple-icon-180x180.png">
+        <link rel="icon" type="image/png" sizes="192x192"  href="assets/img/favicons/android-icon-192x192.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicons/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="96x96" href="assets/img/favicons/favicon-96x96.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="assets/img/favicons/favicon-16x16.png">
+        <link rel="manifest" href="assets/img/favicons/manifest.json">
+        <meta name="msapplication-TileColor" content="#ffffff">
+        <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+        <meta name="theme-color" content="#ffffff">
+        <link rel="stylesheet" href="./devs.css">
+        <link rel="preload" href="/fonts/JatarkaSans-Regular.woff2" as="font" type="font/woff2" crossorigin>
+        <link rel="stylesheet" href="./assets/css/hover.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.19.1/cdn/themes/light.css" />
+        <script type="module" src="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.19.1/cdn/shoelace-autoloader.js"></script>
+
+        <style>
+        :root {
+          --primary-bg: rgba(22, 21, 29, 1);
+          --secondary-bg: #2B2926;
+          --accent-bg: #342D27;
+          --primary-text: #FFFFFF;
+          --accent-color: #FFA21B;
+          --border-color: #444;
+          --muted-text: #CCCCCC;
+          --border-radius-lg: 56px;
+          --border-radius-md: 46px;
+          --border-radius-sm: 9px;
+          --spacing-xs: 8px;
+          --spacing-sm: 12px;
+          --spacing-md: 20px;
+          --spacing-lg: 40px;
+        }
+        * {
+          margin: 0;
+          padding: 0;
+          box-sizing: border-box;
+        }
+        
+        html {
+          background-color: var(--primary-bg);
+        }
+        
+        body {
+          font-family: 'Plus Jakarta Sans', sans-serif;
+          background-color: var(--primary-bg);
+          color: var(--primary-text);
+          line-height: 1.5;
+          display: flex;
+          flex-direction: column;
+          min-height: 100vh;
+        }
+        
+        .main {
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            height: 100%;
+            background-color: rgb(22, 21, 29);
+            justify-content: center;
+        }
+        
+        .container {
+            display: flex;
+            flex-direction: row;
+            width: 95%;
+            margin: 20px;
+            justify-content: center;
+            gap: 10%;
+        }
+        
+        img {
+            width: 40%;
+            border-radius: 100%;
+            margin-top: 20px;
+        }
+        
+        .username {
+            margin-top: 20px;
+            font-size: 300%;
+            width: 90%;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+        }
+        
+        .aeolus {
+        background-color: var(--accent-bg);
+        display: flex;
+        flex-direction: column;
+        width: 30%;
+        height: 500px;
+        align-items: center;
+        border-radius: 20px;
+        border-color: #FFA21B;
+        border-style: groove;
+        box-shadow: 0px 0px 20px #FFA21B;
+        }
+        
+        .darkside {
+        background-color: var(--accent-bg);
+        display: flex;
+        flex-direction: column;
+        width: 30%;
+        height: 500px;
+        align-items: center;
+        border-radius: 20px;
+        border-color: #FFA21B;
+        border-style: groove;
+        box-shadow: 0px 0px 20px #FFA21B;
+        }
+        
+        .website {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-content: center;
+            justify-items: center;
+            align-items: center;
+            
+            p {
+                margin-left: 5px;
+            }
+            
+            a {
+              margin-left: 5px;  
+              color: var(--accent-color);
+            }
+        }
+        
+        .discord {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-content: center;
+            justify-items: center;
+            align-items: center;
+            
+            p {
+                margin-left: 5px;
+            }
+            
+            a {
+              margin-left: 5px;  
+              color: var(--accent-color);
+            }
+        }
+        </style>
+        
+        <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            fetch('./assets/footer.html')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok ' + response.statusText);
+                    }
+                    return response.text();
+                })
+                .then(data => {
+                    document.getElementById('footer-content').innerHTML = data;
+                })
+                .catch(error => console.error('Error loading Footer:', error));
+        });
+        
+        fetch('./assets/header.html')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok ' + response.statusText);
+                }
+                return response.text();
+            })
+            .then(data => {
+                document.getElementById('header-content').innerHTML = data;
+            })
+            .catch(error => console.error('Error loading header:', error));
+        </script>
+    </head>
+    <body>
+        <div id="header-content"></div>
+        <section class="main">
+            <div class="container">
+                <div class="aeolus">
+                    <img src="https://avatars.githubusercontent.com/u/79212359?v=4">
+                    <h1 class="username">AeolusDev</h1>
+                    
+                    <div class="info">
+                        <div class="website">
+                            <sl-icon name="globe"></sl-icon> <p> Website: </p> <a href="https://aeolusweb.pages.dev"> https://aeolusweb.pages.dev</a>
+                        </div>
+                        <div class="discord">
+                            <sl-icon name="discord"></sl-icon> <p> Discord: </p> <a href="https://discord.com/users/596293027627270155">captaincool6333</a>
+                        </div>
+                    </div>
+                    
+                </div>
+                
+                <div class="darkside">
+                    <img src="https://cdn.discordapp.com/avatars/837365566838276136/1529db6fc1498c9ba691788bbbf5a86f.png">
+                    <h1 class="username">Darkside</h1>
+                    
+                    <div class="info">
+                        <div class="website">
+                            <sl-icon name="globe"></sl-icon> <p> Website: </p> <a href=""></a>
+                        </div>
+                        <div class="discord">
+                            <sl-icon name="discord"></sl-icon> <p> Discord: </p> <a href="https://discord.com/users/837365566838276136">darksidegamerthelolislayer</a>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </section>
+        <div id="footer-content"></div>
+    </body>
+</html>

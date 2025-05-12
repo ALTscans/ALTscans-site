@@ -250,6 +250,29 @@
         color: #DC582A;
     }
     
+    .bow-container {
+        position: absolute;
+        width: 80%;
+        height: 4rem;
+        overflow: hidden;
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
+    }
+    
+    .bow {
+        position: absolute;
+        top: 3rem;
+        left: -2rem;
+        width: 8rem;
+        transform: rotate(-35deg);
+        transform-origin: 0 0;
+        display: flex;
+        justify-content: center;
+        color: var(--accent-color);
+        background-color: var(--border-color);
+        padding: 0.25rem 0px;
+    } 
+    
     @media (max-width: 991px) {
       .header-content {
         flex-direction: column;
@@ -376,7 +399,7 @@
     min-height: 420px;
   }
   .series-thumbnail {
-    height: 220px;
+    height: fit-content;
   }
 }
 .dialog-overlay {

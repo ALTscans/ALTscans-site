@@ -153,6 +153,30 @@ body {
 .indicator.active {
   background: white;
 }
+
+.backdrop-blur {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    z-index: 200000;
+    position: absolute;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    backdrop-filter: blur(20px);
+}
+
+.notice-container {
+    width: 70%;
+    height: 40%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    color: var(--primary-color);
+}
+
 @media (max-width:991px) {
   .hero-container {
     padding: 0 20px;
@@ -229,17 +253,28 @@ body {
 #latest-release-desktop {
   display: none;
 }
-.series-container {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background: var(--mobile-bg);
-  padding: var(--spacing);
-  border-radius: 10px;
-  margin: var(--spacing) auto;
-  max-width: 800px;
-  width: 85%;
+
+@media(min-width: 768px) {
+    .series-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--mobile-bg);
+      padding: var(--spacing);
+      border-radius: 10px;
+      margin: var(--spacing) auto;
+      max-width: 800px;
+      width: 85%;
+    }
+    
+    .chapters {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      margin-right: -15px;
+    }
 }
+
 .left {
   display: flex;
   align-items: center;
@@ -273,12 +308,7 @@ body {
 .rating span.filled {
   color: gold;
 }
-.chapters {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  margin-right: -15px;
-}
+
 .chapter {
   background: transparent;
   border: 1px solid #fff;
@@ -699,5 +729,23 @@ body {
   }
   .arrow-up {
     font-size: 20px;
+  }
+  
+  
+  .series-container {
+    background: var(--mobile-bg);
+    padding: var(--spacing);
+    border-radius: 10px;
+    margin: var(--spacing) auto;
+    max-width: 800px;
+    width: 85%;
+  }
+  
+  .chapters {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    gap: 10px;
+    margin-top: 10px;
   }
 }

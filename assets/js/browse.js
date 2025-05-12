@@ -20,13 +20,26 @@ document.addEventListener('DOMContentLoaded', async () => {
   try {
     let getSeriesRes = await getSeries();
     console.log(getSeriesRes);
-
+    
     getSeriesRes.forEach((series, index) => {
-      seriesContainer.innerHTML += `
-        <div class="series-box" data-index="${index}">
+      console.log(series.manga_status);
+      
+      const seriesBox = document.createElement('div');
+      seriesBox.classList.add('series-box');
+      seriesBox.setAttribute('data-index', index);
+      
+      const bowContainer = series.manga_status === 'dropped' ? `
+        <div class="bow-container">
+          <p class="bow">Dropped</p>
+        </div>
+      ` : '';
+      
+      seriesBox.innerHTML += `
+          ${bowContainer}
           <div class="series-thumbnail">
             <img src="${series.thumbnail}" alt="${formatTitle(series.title)}">
           </div>
+          
           <h3><strong>${formatTitle(series.title)}</strong></h3>
           <br/>
           <p class="series-description">
@@ -41,8 +54,9 @@ document.addEventListener('DOMContentLoaded', async () => {
               <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/>
             </svg>
           </span>
-        </div>
       `;
+      
+      seriesContainer.appendChild(seriesBox);
     });
 
     // Attach event listeners after elements are added to the DOM
