@@ -178,7 +178,7 @@
         
         <script>
         document.addEventListener('DOMContentLoaded', function() {
-            fetch('./assets/footer.html')
+            fetch('../assets/footer.html')
                 .then(response => {
                     if (!response.ok) {
                         throw new Error('Network response was not ok ' + response.statusText);
@@ -191,7 +191,7 @@
                 .catch(error => console.error('Error loading Footer:', error));
         });
         
-        fetch('./assets/header.html')
+        fetch('../assets/header.html')
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Network response was not ok ' + response.statusText);
