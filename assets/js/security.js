@@ -23,15 +23,19 @@ function getUrlParameter(name) {
 async function handleLoginFormSubmit(e) {
     e.preventDefault();
 
+    const loginForm = document.querySelector('.loginForm');
+    const usernameField = document.querySelector('.login-usernameField');
     const username = loginForm['login-usernameField'].value;
     const email = loginForm['login-emailField'].value;
     const pwd = loginForm['login-passwordField'].value;
 
-    const loginData = usernameField.style.display === 'block' ? { username, password: pwd } : { email, password: pwd };
+    const loginData = usernameField.style.display === 'block' 
+        ? { username: escapeHtml(username), password: escapeHtml(pwd) } 
+        : { email: escapeHtml(email), password: escapeHtml(pwd) };
     const loginUrl = `${base_url}/api/auth/login`;
 
     try {
-        const response = await axios.post(loginUrl, escapeHtml(loginData), {
+        const response = await axios.post(loginUrl, loginData, {
             headers: {
                 'Content-Type': 'application/json',
                 Authorization: `${frontoken}`
@@ -55,6 +59,7 @@ async function handleLoginFormSubmit(e) {
 async function handleSignupFormSubmit(e) {
     e.preventDefault();
 
+    const signupForm = document.querySelector('.signupForm');
     const username = signupForm['signup-usernameField'].value;
     const email = signupForm['signup-emailField'].value;
     const pwd = signupForm['signup-pwdField'].value;
