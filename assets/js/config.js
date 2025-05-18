@@ -7,6 +7,7 @@ const discordUrl = `https://discord.com/oauth2/authorize?client_id=1326916685655
 
 
 // Common Functions
+
 // Function to set a cookie with an expiration time
 function setCookie(name, value) {
     document.cookie = `${name}=${value}; path=/`;
