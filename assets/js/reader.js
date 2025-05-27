@@ -389,7 +389,7 @@ document.addEventListener('DOMContentLoaded', () => {
       showKeyboardShortcutsHelp();
     }
   });
-
+  
   window.addEventListener('popstate', (e) => {
     if (e.state && typeof e.state.chapter === 'number') {
       currentChapter = e.state.chapter;
@@ -420,8 +420,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
   
-  // Function to show keyboard shortcuts help - defined globally
-  window.showKeyboardShortcutsHelp = function() {
+  
+  // Function to show keyboard shortcuts help
+  function showKeyboardShortcutsHelp() {
     // Create modal if it doesn't exist
     let modal = document.getElementById('keyboard-shortcuts-modal');
     
@@ -478,7 +479,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <td>Show this help menu</td>
           </tr>
         </table>
-        <div style="text-align: center; margin-top: 15px;">
+        <div style="text-align: center;">
           <button id="close-shortcuts-modal">Close</button>
         </div>
       `;

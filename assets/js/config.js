@@ -67,7 +67,7 @@ function getTokenValue() {
   const cookie = document.cookie;
   const token = cookie
     .split(";")
-    .find((row) => row.trim().startsWith("token="));
+    .find((row) => row.trim().startsWith("token=")) || "";
   
   if (token === null || token.split("=")[1] === null || token.split("=")[1] === "" || token.split("=")[1] === undefined) {
     console.log("No user token found. User not logged in.");
