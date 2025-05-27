@@ -8,18 +8,75 @@ document.addEventListener('DOMContentLoaded', async () => {
     nothingFound.style.display = 'flex';
   }
   
+  // Get search query from URL if it exists
+  const urlParams = new URLSearchParams(window.location.search);
+  const searchQuery = urlParams.get('search');
   
+  // Update page title and header if this is a search
+  if (searchQuery) {
+    document.title = `Search: ${searchQuery} - ALTscans`;
+    const pageHeader = document.querySelector('main h2');
+    if (pageHeader) {
+      pageHeader.textContent = `Search Results: "${searchQuery}"`;
+    }
+    
+    // If we have a search input in the header, populate it with the search query
+    setTimeout(() => {
+      const searchInput = document.querySelector('.search-bar input') || document.querySelector('.search-input');
+      if (searchInput) {
+        searchInput.value = searchQuery;
+      }
+    }, 500); // Small delay to ensure the header has loaded
+  }
   
   const dialogOverlay = document.getElementById('description-dialog');
   const dialogFullDesc = document.getElementById('full-description');
   const closeDialogBtn = document.getElementById('close-dialog');
   const seriesContainer = document.querySelector('.series-container');
   
-  let genreSelection = []
-  
   try {
     let getSeriesRes = await getSeries();
     console.log(getSeriesRes);
+    
+    // If search query exists, filter the series
+    if (searchQuery) {
+      console.log('Searching for:', searchQuery);
+      
+      // More comprehensive search that checks multiple fields
+      getSeriesRes = getSeriesRes.filter(series => {
+        const title = series.title.toLowerCase();
+        const description = series.desc ? series.desc.toLowerCase() : '';
+        const genres = Array.isArray(series.genre) ? series.genre.join(' ').toLowerCase() : '';
+        const authorInfo = series.author ? series.author.toLowerCase() : '';
+        
+        const query = searchQuery.toLowerCase();
+        
+        return (
+          title.includes(query) || 
+          description.includes(query) || 
+          genres.includes(query) ||
+          authorInfo.includes(query)
+        );
+      });
+      
+      if (getSeriesRes.length === 0) {
+        nothingFound.style.display = 'flex';
+        
+        // Update error message to show search term
+        const errorMsg = document.querySelector('.error-msg');
+        if (errorMsg) {
+          const img = errorMsg.querySelector('img');
+          errorMsg.innerHTML = '';
+          if (img) errorMsg.appendChild(img);
+          
+          const message = document.createElement('p');
+          message.style.textAlign = 'center';
+          message.style.marginTop = '20px';
+          message.innerHTML = `No results found for <strong>"${searchQuery}"</strong>.<br>Try different keywords or browse our catalog.`;
+          errorMsg.appendChild(message);
+        }
+      }
+    }
     
     getSeriesRes.forEach((series, index) => {
       console.log(series.manga_status);
@@ -124,8 +181,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         const seriesBoxes = document.querySelectorAll('.series-box');
         let visibleCount = 0;
         
-        if (genreSelection.length === 0) {
-            // Show all series if no genres are selected
+        if (genreSelection.length === 0 && !searchQuery) {
+            // Show all series if no genres are selected and no search query
             seriesBoxes.forEach(box => {
                 box.style.display = 'block';
             });
@@ -135,12 +192,22 @@ document.addEventListener('DOMContentLoaded', async () => {
     
         seriesBoxes.forEach((box, index) => {
             const series = getSeriesRes[index];
-            const hasSelectedGenres = genreSelection.every(genre => 
-                series.genre.includes(genre)
-            );
             
-            box.style.display = hasSelectedGenres ? 'block' : 'none';
-            if (hasSelectedGenres) {
+            // If series.genre is not an array, handle it gracefully
+            const seriesGenres = Array.isArray(series.genre) ? series.genre : 
+                                (typeof series.genre === 'string' ? [series.genre] : []);
+            
+            const hasSelectedGenres = genreSelection.length === 0 || 
+                                     genreSelection.every(genre => seriesGenres.includes(genre));
+            
+            // If we have a search query, only show if it matches the search AND genre filters
+            const matchesSearch = !searchQuery || 
+                                 (series.title.toLowerCase().includes(searchQuery.toLowerCase()));
+            
+            const shouldDisplay = hasSelectedGenres && matchesSearch;
+            
+            box.style.display = shouldDisplay ? 'block' : 'none';
+            if (shouldDisplay) {
                 visibleCount++;
             }
         });
@@ -182,8 +249,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         const seriesBoxes = document.querySelectorAll('.series-box');
         let visibleCount = 0;
         
-        if (yearFilter === "") {
-            // Show all series if no year is selected
+        if (yearFilter === "" && !searchQuery) {
+            // Show all series if no year is selected and no search query
             seriesBoxes.forEach(box => {
                 box.style.display = 'block';
             });
@@ -193,9 +260,22 @@ document.addEventListener('DOMContentLoaded', async () => {
     
         seriesBoxes.forEach((box, index) => {
             const series = getSeriesRes[index];
-            const releaseYear = new Date(series.releaseDate).getFullYear().toString();
             
-            const isVisible = (releaseYear === yearFilter);
+            // Handle potential invalid dates
+            let releaseYear;
+            try {
+                releaseYear = series.releaseDate ? new Date(series.releaseDate).getFullYear().toString() : "";
+            } catch (e) {
+                releaseYear = "";
+            }
+            
+            // If we have a search query, only show if it matches the search AND year filters
+            const matchesSearch = !searchQuery || 
+                                 (series.title.toLowerCase().includes(searchQuery.toLowerCase()));
+            
+            const matchesYear = (yearFilter === "") || (releaseYear === yearFilter);
+            
+            const isVisible = matchesYear && matchesSearch;
             box.style.display = isVisible ? 'block' : 'none';
             if (isVisible) {
                 visibleCount++;
@@ -203,7 +283,29 @@ document.addEventListener('DOMContentLoaded', async () => {
         });
         
         // Show/hide nothing found message based on visible count
-        nothingFound.style.display = visibleCount === 0 ? 'flex' : 'none';
+        if (visibleCount === 0) {
+            nothingFound.style.display = 'flex';
+            
+            // Update error message if this is a search with no results
+            if (searchQuery) {
+                const errorMsg = document.querySelector('.error-msg');
+                if (errorMsg) {
+                    const img = errorMsg.querySelector('img');
+                    errorMsg.innerHTML = '';
+                    if (img) errorMsg.appendChild(img);
+                    
+                    const message = document.createElement('p');
+                    message.style.textAlign = 'center';
+                    message.style.marginTop = '20px';
+                    message.innerHTML = `No results found for <strong>"${searchQuery}"</strong> with the selected filters.<br>Try different keywords or adjust your filters.`;
+                    errorMsg.appendChild(message);
+                }
+            } else {
+                nothingFound.style.display = 'flex';
+            }
+        } else {
+            nothingFound.style.display = 'none';
+        }
     }
 
   } catch (error) {
@@ -227,7 +329,42 @@ async function getSeries() {
     const response = await axios.get(`${base_url}/api/admin/getAllSeries`);
     return response.data.series[0].mangas;
   } catch (error) {
-    console.error(error);
+    console.error("Error fetching series:", error);
+    // Show error message to user
+    const errorMsg = document.querySelector('.error-msg');
+    if (errorMsg) {
+      errorMsg.style.display = 'flex';
+      const img = errorMsg.querySelector('img');
+      errorMsg.innerHTML = '';
+      if (img) errorMsg.appendChild(img);
+      
+      const message = document.createElement('p');
+      message.style.textAlign = 'center';
+      message.style.marginTop = '20px';
+      message.innerHTML = 'Unable to load series data. Please try again later.';
+      errorMsg.appendChild(message);
+    }
+    return [];
   }
+}
+
+// Helper function for search
+function seriesMatchesSearch(series, query) {
+  if (!query) return true;
+  
+  query = query.toLowerCase();
+  
+  const title = (series.title || '').toLowerCase();
+  const description = (series.desc || '').toLowerCase();
+  const genres = Array.isArray(series.genre) ? series.genre.join(' ').toLowerCase() : 
+               (typeof series.genre === 'string' ? series.genre.toLowerCase() : '');
+  const author = (series.author || '').toLowerCase();
+  
+  return (
+    title.includes(query) || 
+    description.includes(query) || 
+    genres.includes(query) ||
+    author.includes(query)
+  );
 }
 

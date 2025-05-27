@@ -199,9 +199,9 @@
       </div>
     </nav>
 
-    <nav class="search-bar">
-      <input type="text" placeholder="SEARCH...">
-      <button class="icon">
+    <nav class="search-bar" id="search-form">
+      <input class="search-input" type="text" placeholder="SEARCH... (Ctrl+K)">
+      <button class="icon" id="search-button">
           <sl-icon-button name="search" label="Search" style="height:30px;"></sl-icon-button>
       </button>
     </nav>
@@ -227,6 +227,48 @@
           link.addEventListener("click", function () {
               navLinks.forEach(item => item.classList.remove("active"));
               this.classList.add("active");
+          });
+      });
+      
+      async function getSeries() {
+        try {
+          const response = await axios.get(`${base_url}/api/admin/getAllSeries`);
+          return response.data.series[0].mangas;
+        } catch (error) {
+          console.error(error);
+        }
+      }
+      
+      // Search functionality
+      document.addEventListener("DOMContentLoaded", () => {
+          const searchForm = document.getElementById("search-form");
+          const searchInput = document.querySelector(".search-input");
+          const searchButton = document.getElementById("search-button");
+          
+          function handleSearch(e) {
+              if (e) e.preventDefault();
+              const query = searchInput.value.trim();
+              
+              if (query.length > 0) {
+                  window.location.href = `/routes/browse?search=${encodeURIComponent(query)}`;
+              } else {
+                  searchInput.focus();
+              }
+          }
+          
+          if (searchForm && searchInput) {
+              searchForm.addEventListener("submit", handleSearch);
+              if (searchButton) {
+                  searchButton.addEventListener("click", handleSearch);
+              }
+          }
+          
+          // Add keyboard shortcut (Ctrl+K or Cmd+K on Mac)
+          document.addEventListener('keydown', (e) => {
+              if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+                  e.preventDefault();
+                  searchInput.focus();
+              }
           });
       });
 </script>

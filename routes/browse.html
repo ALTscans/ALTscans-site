@@ -24,6 +24,7 @@
     <script src="https://cdn.jsdelivr.net/npm/axios@1.6.7/dist/axios.min.js"></script>
     <script src="/assets/js/bookmark.js"></script>
     <script src="/assets/js/browse.js"></script>
+    <script src="/assets/js/search-browse.js"></script>
     <script data-cfasync="false" src="/sw.js"></script>
     <script id="aclib" type="text/javascript" src="//acscdn.com/script/aclib.js"></script>
     
@@ -57,18 +58,31 @@
     
     <script>
     document.addEventListener('DOMContentLoaded', function() {
-        fetch('/assets/footer.html')
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok ' + response.statusText);
-                }
-                return response.text();
-            })
-            .then(data => {
-                document.getElementById('footer-content').innerHTML = data;
-            })
-            .catch(error => console.error('Error loading footer:', error));
-    });
+            // Set focus to search input if this is a search page
+            const urlParams = new URLSearchParams(window.location.search);
+            const searchQuery = urlParams.get('search');
+        
+            if (searchQuery) {
+                setTimeout(() => {
+                    const searchInput = document.querySelector('.search-bar input') || document.querySelector('.search-input');
+                    if (searchInput) {
+                        searchInput.value = searchQuery;
+                    }
+                }, 500);
+            }
+        
+            fetch('/assets/footer.html')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok ' + response.statusText);
+                    }
+                    return response.text();
+                })
+                .then(data => {
+                    document.getElementById('footer-content').innerHTML = data;
+                })
+                .catch(error => console.error('Error loading footer:', error));
+        });
     
     fetch('/assets/header.html')
         .then(response => {
@@ -81,13 +95,15 @@
             document.getElementById('header-content').innerHTML = data;
         })
         .catch(error => console.error('Error loading header:', error));
+    
+    
     </script>
 </head>
 <body>
     <div id="header-content"></div>
     <div class="content-wrapper">
       <aside class="sidebar" aria-label="Series Selection">
-        <div class="section-header">Series Selection</div>
+          <div class="section-header" id="sidebar-header">Series Selection</div>
         <div class="spaced-section">
           <div class="section-title">View Options:</div>
           <div class="category-options">
@@ -167,10 +183,11 @@
         </div>
       </aside>
     <main id="main-content" role="main">
-        <h2>Series Details</h2>
+        <h2 id="page-header">Series Details</h2>
         
         <div class="error-msg">
             <img class="img" src="/assets/img/errors/nothingfound.png" alt="Nothing Found">
+            <p style="text-align: center; margin-top: 20px;" id="search-error-message"></p>
         </div>
         <section class="series-container">
         </section>

@@ -310,9 +310,84 @@ document.addEventListener('DOMContentLoaded', () => {
     button.addEventListener('click', () => navigateChapter(1));
   });
 
+  // Keyboard shortcuts handler
   document.addEventListener('keydown', (e) => {
+    // Prevent default behavior for our keyboard shortcuts
+    if (['ArrowLeft', 'ArrowRight', 'Home', 'End', 'f', 'F', 'h', 'H', 
+         'PageUp', 'PageDown', ' ', '?'].includes(e.key) || 
+        (e.key >= '0' && e.key <= '9')) {
+      // Don't prevent default if user is typing in a form element
+      if (e.target.tagName !== 'INPUT' && e.target.tagName !== 'TEXTAREA' && !e.target.isContentEditable) {
+        e.preventDefault();
+      } else {
+        return; // Skip shortcuts when typing
+      }
+    }
+
+    // Chapter navigation
     if (e.key === 'ArrowLeft') navigateChapter(-1);
     else if (e.key === 'ArrowRight') navigateChapter(1);
+    
+    // Jump to first or last chapter
+    else if (e.key === 'Home') {
+      currentChapter = 1;
+      loadChapter(seriesId, seriesName, currentChapter);
+      window.scrollTo({top: 0, behavior: 'smooth'});
+    }
+    else if (e.key === 'End') {
+      axios.get(`${basedbUrl}/api/admin/getSeriesDetails/${seriesId}/${seriesName}`)
+        .then(response => {
+          const maxChapter = response.data.seriesDetails.maxChaptersUploaded;
+          currentChapter = maxChapter;
+          loadChapter(seriesId, seriesName, currentChapter);
+          window.scrollTo({top: 0, behavior: 'smooth'});
+        })
+        .catch(error => console.error('Error fetching max chapter:', error));
+    }
+    
+    // Scrolling controls
+    else if (e.key === 'PageDown' || e.key === ' ') {
+      window.scrollBy({top: window.innerHeight * 0.9, behavior: 'smooth'});
+    }
+    else if (e.key === 'PageUp') {
+      window.scrollBy({top: -window.innerHeight * 0.9, behavior: 'smooth'});
+    }
+    
+    // Toggle fullscreen
+    else if (e.key === 'f' || e.key === 'F') {
+      toggleFullscreen();
+    }
+    
+    // Return to home/index
+    else if (e.key === 'h' || e.key === 'H') {
+      window.location.href = '/';
+    }
+    
+    // Direct chapter selection with number keys (0-9)
+    else if (e.key >= '0' && e.key <= '9') {
+      const digit = parseInt(e.key);
+      axios.get(`${basedbUrl}/api/admin/getSeriesDetails/${seriesId}/${seriesName}`)
+        .then(response => {
+          const maxChapter = response.data.seriesDetails.maxChaptersUploaded;
+          // Calculate chapter based on percentage
+          // 0 = 10% of max chapters, 9 = 90% of max chapters, etc.
+          // 0 key means 10th segment (100%)
+          const segment = digit === 0 ? 10 : digit;
+          const targetChapter = Math.max(1, Math.min(maxChapter, Math.ceil((segment / 10) * maxChapter)));
+          
+          if (targetChapter !== currentChapter) {
+            currentChapter = targetChapter;
+            loadChapter(seriesId, seriesName, currentChapter);
+            window.scrollTo({top: 0, behavior: 'smooth'});
+          }
+        })
+        .catch(error => console.error('Error fetching max chapter:', error));
+    }
+    
+    // Show keyboard shortcuts help
+    else if (e.key === '?') {
+      showKeyboardShortcutsHelp();
+    }
   });
 
   window.addEventListener('popstate', (e) => {
@@ -321,4 +396,116 @@ document.addEventListener('DOMContentLoaded', () => {
       loadChapter(seriesId, seriesName, currentChapter);
     }
   });
+  
+  // Function to toggle fullscreen mode
+  function toggleFullscreen() {
+    if (!document.fullscreenElement) {
+      // Enter fullscreen
+      if (document.documentElement.requestFullscreen) {
+        document.documentElement.requestFullscreen();
+      } else if (document.documentElement.webkitRequestFullscreen) { /* Safari */
+        document.documentElement.webkitRequestFullscreen();
+      } else if (document.documentElement.msRequestFullscreen) { /* IE11 */
+        document.documentElement.msRequestFullscreen();
+      }
+    } else {
+      // Exit fullscreen
+      if (document.exitFullscreen) {
+        document.exitFullscreen();
+      } else if (document.webkitExitFullscreen) { /* Safari */
+        document.webkitExitFullscreen();
+      } else if (document.msExitFullscreen) { /* IE11 */
+        document.msExitFullscreen();
+      }
+    }
+  }
+  
+  // Function to show keyboard shortcuts help - defined globally
+  window.showKeyboardShortcutsHelp = function() {
+    // Create modal if it doesn't exist
+    let modal = document.getElementById('keyboard-shortcuts-modal');
+    
+    if (!modal) {
+      modal = document.createElement('div');
+      modal.id = 'keyboard-shortcuts-modal';
+      
+      // Modal content
+      modal.innerHTML = `
+        <h2>Keyboard Shortcuts</h2>
+        <table>
+          <tr>
+            <th>Key</th>
+            <th>Action</th>
+          </tr>
+          <tr>
+            <td>← (Left Arrow)</td>
+            <td>Previous chapter</td>
+          </tr>
+          <tr>
+            <td>→ (Right Arrow)</td>
+            <td>Next chapter</td>
+          </tr>
+          <tr>
+            <td>Home</td>
+            <td>Go to first chapter</td>
+          </tr>
+          <tr>
+            <td>End</td>
+            <td>Go to last chapter</td>
+          </tr>
+          <tr>
+            <td>Space / Page Down</td>
+            <td>Scroll down</td>
+          </tr>
+          <tr>
+            <td>Page Up</td>
+            <td>Scroll up</td>
+          </tr>
+          <tr>
+            <td>F</td>
+            <td>Toggle fullscreen</td>
+          </tr>
+          <tr>
+            <td>H</td>
+            <td>Return to home page</td>
+          </tr>
+          <tr>
+            <td>0-9</td>
+            <td>Jump to chapter (1=10%, 5=50%, 0=100%)</td>
+          </tr>
+          <tr>
+            <td>?</td>
+            <td>Show this help menu</td>
+          </tr>
+        </table>
+        <div style="text-align: center; margin-top: 15px;">
+          <button id="close-shortcuts-modal">Close</button>
+        </div>
+      `;
+      
+      document.body.appendChild(modal);
+      
+      // Close button event listener
+      document.getElementById('close-shortcuts-modal').addEventListener('click', () => {
+        modal.style.display = 'none';
+      });
+      
+      // Close modal when clicking outside
+      document.addEventListener('click', (e) => {
+        if (e.target !== modal && !modal.contains(e.target)) {
+          modal.style.display = 'none';
+        }
+      });
+      
+      // Close modal when pressing Escape
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modal.style.display !== 'none') {
+          modal.style.display = 'none';
+        }
+      });
+    } else {
+      // Toggle visibility if modal already exists
+      modal.style.display = modal.style.display === 'none' ? 'block' : 'none';
+    }
+  }
 });

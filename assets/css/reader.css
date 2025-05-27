@@ -193,6 +193,18 @@ body {
     cursor: not-allowed;
 }
 
+.keyboard-shortcuts {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    background-color: var(--accent-color);
+}
+
+.keyboard-shortcuts:hover,
+.keyboard-shortcuts:focus {
+    background-color: #e08600;
+}
+
 .reader-content {
     flex: 1;
     display: flex;
@@ -565,6 +577,61 @@ body {
   align-items: center;
   justify-content: center;
   display: none;
+}
+
+#keyboard-shortcuts-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: var(--secondary-bg);
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+  z-index: 10000;
+  max-width: 500px;
+  width: 90%;
+  max-height: 80vh;
+  overflow: auto;
+  color: var(--primary-text);
+  border: 2px solid var(--accent-color);
+}
+
+#keyboard-shortcuts-modal h2 {
+  color: var(--accent-color);
+  margin-top: 0;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+#keyboard-shortcuts-modal table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+#keyboard-shortcuts-modal th,
+#keyboard-shortcuts-modal td {
+  text-align: left;
+  padding: 8px;
+  border-bottom: 1px solid #444;
+}
+
+#keyboard-shortcuts-modal th {
+  color: var(--accent-color);
+}
+
+#keyboard-shortcuts-modal button {
+  padding: 8px 16px;
+  cursor: pointer;
+  background-color: var(--accent-color);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  margin-top: 15px;
+}
+
+#keyboard-shortcuts-modal button:hover {
+  background-color: #e08600;
 }
 
 .arrow-up {
