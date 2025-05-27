@@ -1,5 +1,5 @@
 //Final Commit For Month - March 2025
-const base_url = `https://api.alternativescans.icu/`;
+const base_url = `https://api.alternativescans.icu`;
 const frontoken = `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjoiQyF5YjlWY0hjQm5HcWpCRVlQdzhqTnNhQG5RI3V3IiwiaWF0IjoxNzQwODEyOTE1fQ.wImh8Y-s3jZtdEIyTvl9eUEh2VgG_NcjoqX-nlW1Zso`;
 const discordUrl = `https://discord.com/oauth2/authorize?client_id=1326916685655052369&response_type=code&redirect_uri=https%3A%2F%2Faltscans.netlify.app%2Flogin&scope=identify+email`;
 //For dev
