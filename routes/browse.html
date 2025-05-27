@@ -23,8 +23,8 @@
     <script src="/assets/js/config.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios@1.6.7/dist/axios.min.js"></script>
     <script src="/assets/js/bookmark.js"></script>
-    <script src="/assets/js/browse.js"></script>
     <script src="/assets/js/search-browse.js"></script>
+    <script src="/assets/js/browse.js"></script>
     <script data-cfasync="false" src="/sw.js"></script>
     <script id="aclib" type="text/javascript" src="//acscdn.com/script/aclib.js"></script>
     
@@ -53,50 +53,69 @@
     
     <script src="https://kit.fontawesome.com/4a4b4241b1.js" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
-    <script src="https://cdn.jsdelivr.net/npm/axios@1.6.7/dist/axios.min.js"></script>
     <script type="module" src="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.19.1/cdn/shoelace-autoloader.js"></script>
     
     <script>
     document.addEventListener('DOMContentLoaded', function() {
-            // Set focus to search input if this is a search page
-            const urlParams = new URLSearchParams(window.location.search);
-            const searchQuery = urlParams.get('search');
-        
-            if (searchQuery) {
-                setTimeout(() => {
-                    const searchInput = document.querySelector('.search-bar input') || document.querySelector('.search-input');
-                    if (searchInput) {
-                        searchInput.value = searchQuery;
-                    }
-                }, 500);
+        // Set focus to search input if this is a search page
+        const urlParams = new URLSearchParams(window.location.search);
+        const searchQuery = urlParams.get('search');
+
+        if (searchQuery) {
+            // Update page title and header
+            document.title = `Search: ${searchQuery} - ALTscans`;
+            const pageHeader = document.querySelector('main h2');
+            if (pageHeader) {
+                pageHeader.textContent = `Search Results: "${searchQuery}"`;
             }
-        
-            fetch('/assets/footer.html')
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Network response was not ok ' + response.statusText);
-                    }
-                    return response.text();
-                })
-                .then(data => {
-                    document.getElementById('footer-content').innerHTML = data;
-                })
-                .catch(error => console.error('Error loading footer:', error));
-        });
-    
-    fetch('/assets/header.html')
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok ' + response.statusText);
+            
+            // Update the sidebar header to indicate we're in search mode
+            const sidebarHeader = document.getElementById('sidebar-header');
+            if (sidebarHeader) {
+                sidebarHeader.textContent = 'Search Filters';
             }
-            return response.text();
-        })
-        .then(data => {
-            document.getElementById('header-content').innerHTML = data;
-        })
-        .catch(error => console.error('Error loading header:', error));
-    
-    
+        }
+        
+        // Load header content
+        fetch('/assets/header.html')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok ' + response.statusText);
+                }
+                return response.text();
+            })
+            .then(data => {
+                document.getElementById('header-content').innerHTML = data;
+                
+                // After header is loaded, ensure search form works
+                if (searchQuery) {
+                    setTimeout(() => {
+                        const searchInput = document.querySelector('.search-bar input') || document.querySelector('.search-input');
+                        if (searchInput) {
+                            searchInput.value = searchQuery;
+                            // Focus the input so user can easily modify their search
+                            searchInput.focus();
+                            // Select the text for easy editing
+                            searchInput.select();
+                        }
+                    }, 500);
+                }
+            })
+            .catch(error => console.error('Error loading header:', error));
+        
+        // Load footer content
+        fetch('/assets/footer.html')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok ' + response.statusText);
+                }
+                return response.text();
+            })
+            .then(data => {
+                document.getElementById('footer-content').innerHTML = data;
+            })
+            .catch(error => console.error('Error loading footer:', error));
+    });
     </script>
 </head>
 <body>

@@ -35,9 +35,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   const seriesContainer = document.querySelector('.series-container');
   
   try {
-    let getSeriesRes = await getSeries();
-    console.log(getSeriesRes);
-    
+    let getSeriesRes = await getSeries();    
     // If search query exists, filter the series
     if (searchQuery) {
       console.log('Searching for:', searchQuery);
@@ -79,7 +77,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
     
     getSeriesRes.forEach((series, index) => {
-      console.log(series.manga_status);
       
       const seriesBox = document.createElement('div');
       seriesBox.classList.add('series-box');

@@ -199,12 +199,12 @@
       </div>
     </nav>
 
-    <nav class="search-bar" id="search-form">
-      <input class="search-input" type="text" placeholder="SEARCH... (Ctrl+K)">
-      <button class="icon" id="search-button">
+    <form class="search-bar" id="search-form" method="GET" action="/routes/browse" onsubmit="return validateSearch(this)">
+      <input class="search-input" name="search" type="text" placeholder="SEARCH... (Ctrl+K)" required>
+      <button class="icon" id="search-button" type="submit">
           <sl-icon-button name="search" label="Search" style="height:30px;"></sl-icon-button>
       </button>
-    </nav>
+    </form>
 
     <nav class="actions">
       <button class="icon profile">
@@ -215,6 +215,7 @@
 <div class="notice">
     <p>This site is currently under development, please report any bugs or errors in our <a href="https://discord.gg/Rr5HWHuk7Y">discord server</a></p>
 </div>
+<script src="/assets/js/search-browse.js"></script>
 <script>
       function toggleMenu() {
           document.getElementById("nav-menu").classList.toggle("show");
@@ -239,36 +240,51 @@
         }
       }
       
-      // Search functionality
-      document.addEventListener("DOMContentLoaded", () => {
-          const searchForm = document.getElementById("search-form");
+      // Simple keyboard shortcuts for search
+      document.addEventListener('keydown', function(e) {
           const searchInput = document.querySelector(".search-input");
-          const searchButton = document.getElementById("search-button");
+          if (!searchInput) return;
           
-          function handleSearch(e) {
-              if (e) e.preventDefault();
-              const query = searchInput.value.trim();
-              
-              if (query.length > 0) {
-                  window.location.href = `/routes/browse?search=${encodeURIComponent(query)}`;
-              } else {
-                  searchInput.focus();
-              }
+          // Ctrl+K or Cmd+K to focus search
+          if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+              e.preventDefault();
+              searchInput.focus();
           }
           
-          if (searchForm && searchInput) {
-              searchForm.addEventListener("submit", handleSearch);
-              if (searchButton) {
-                  searchButton.addEventListener("click", handleSearch);
-              }
+          // ESC key to clear search input
+          if (e.key === 'Escape' && document.activeElement === searchInput) {
+              searchInput.value = '';
+              searchInput.blur();
           }
           
-          // Add keyboard shortcut (Ctrl+K or Cmd+K on Mac)
-          document.addEventListener('keydown', (e) => {
-              if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+          // Block empty searches
+          if (e.key === 'Enter' && document.activeElement === searchInput) {
+              if (searchInput.value.trim() === '') {
                   e.preventDefault();
+                  return false;
+              }
+          }
+      });
+      
+      // Validate search form before submission
+      function validateSearch(form) {
+          const searchInput = form.querySelector(".search-input") || form.querySelector("input[name='search']");
+          if (!searchInput || searchInput.value.trim() === '') {
+              if (searchInput) {
+                  searchInput.value = ''; // Clear the input
                   searchInput.focus();
               }
-          });
+              return false; // Prevent form submission
+          }
+          return true; // Allow form submission
+      }
+      
+      // Initialize search functionality
+      document.addEventListener('DOMContentLoaded', function() {
+          const searchForm = document.getElementById('search-form');
+          if (searchForm) {
+              // Form validation is handled by the onsubmit attribute
+              console.log("Search form initialized");
+          }
       });
 </script>
