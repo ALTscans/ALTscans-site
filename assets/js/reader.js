@@ -330,9 +330,14 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Jump to first or last chapter
     else if (e.key === 'Home') {
-      currentChapter = 1;
-      loadChapter(seriesId, seriesName, currentChapter);
-      window.scrollTo({top: 0, behavior: 'smooth'});
+      axios.get(`${basedbUrl}/api/admin/getSeriesDetails/${seriesId}/${seriesName}`)
+        .then(response => {
+          const maxChapter = response.data.seriesDetails.chapters;
+          // Sort chapters in ascending order and then get the first chapter
+          currentChapter = maxChapter.sort((a, b) => a.chapterNumber - b.chapterNumber)[0];
+          loadChapter(seriesId, seriesName, currentChapter);
+          window.scrollTo({top: 0, behavior: 'smooth'});
+        })
     }
     else if (e.key === 'End') {
       axios.get(`${basedbUrl}/api/admin/getSeriesDetails/${seriesId}/${seriesName}`)
