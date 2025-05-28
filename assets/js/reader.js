@@ -423,9 +423,9 @@ document.addEventListener('DOMContentLoaded', () => {
   
   // Function to show keyboard shortcuts help
   function showKeyboardShortcutsHelp() {
-    // Create modal if it doesn't exist
     let modal = document.getElementById('keyboard-shortcuts-modal');
-    
+
+    // Create modal if not there cause why is it not there?
     if (!modal) {
       modal = document.createElement('div');
       modal.id = 'keyboard-shortcuts-modal';
