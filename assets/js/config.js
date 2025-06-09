@@ -1,5 +1,5 @@
 //Final Commit For Month - March 2025
-const base_url = `http://localhost:8888`;
+const base_url = `https://api.alternativescans.icu`;
 const frontoken = `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjoiNlIxVVNhdHEhdE5oZGgkV05OaHAiLCJpYXQiOjE3NDgzNzMyODl9.qtzXR_F-xqq0p_gEr3FPu5I8-oaUQ2kkcVej4EMZ6qI`;
 const discordUrl = `https://discord.com/oauth2/authorize?client_id=1326916685655052369&response_type=code&redirect_uri=https%3A%2F%2Falternativescans.icu%2Flogin&scope=identify+email`;
 //For dev
