@@ -193,6 +193,8 @@ document.addEventListener("DOMContentLoaded", async () => {
         const earliestAvailableChapter = Math.min(...series.chapters.map(chapter => chapter.chapterNo));
         const latestAvailableChapter = Math.max(...series.chapters.map(chapter => chapter.chapterNo));
 
+        console.log(earliestAvailableChapter);
+        
         firstChapterBtn.addEventListener("click", () => {
           openChapter(seriesId, nick, earliestAvailableChapter);
         });

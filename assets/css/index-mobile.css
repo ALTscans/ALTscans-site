@@ -214,14 +214,14 @@ body {
     justify-content: center;
     align-items: center;
     color: var(--primary-color);
-    background-color:var(--desktop-secondary);
+    background-color: var(--desktop-secondary);
     border: var(--primary-color);
     border-style: solid;
     border-radius: 20px;
-    -webkit-box-shadow:0px 0px 80px 10px rgba(255,164,27,0.5);
-    -moz-box-shadow: 0px 0px 80px 10px rgba(255,164,27,0.5);
-    box-shadow: 0px 0px 80px 30px rgba(255,164,27,0.5);
-    
+    -webkit-box-shadow: 0px 0px 80px 10px rgba(255, 164, 27, 0.5);
+    -moz-box-shadow: 0px 0px 80px 10px rgba(255, 164, 27, 0.5);
+    box-shadow: 0px 0px 80px 30px rgba(255, 164, 27, 0.5);
+
     p {
         margin: 0;
         padding: 0;
@@ -329,7 +329,7 @@ body {
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
-        width: 90%;
+        width: 100%;
         align-self: center;
     }
 
@@ -425,6 +425,9 @@ body {
 .series-title {
     font-size: 1.1em;
     font-weight: bold;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 .rating {
     margin-top: 5px;
