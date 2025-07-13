@@ -14,14 +14,16 @@ async function fetchLatestReleases() {
 
     // Group the releases by series titles
     const groupedReleases = latestReleases.reduce((acc, release) => {
-      if (!acc[release.title]) {
-        acc[release.title] = [];
+      const normalizedTitle = release.title.toLowerCase(); // or use a more sophisticated normalization
+      if (!acc[normalizedTitle]) {
+        acc[normalizedTitle] = [];
       }
-      acc[release.title].push(release);
+      acc[normalizedTitle].push(release);
       return acc;
     }, {});
 
     // Render the latest releases for mobile and desktop
+    console.log(`GroupedReleases:`, groupedReleases);
     renderMobile(groupedReleases);
     renderDesktop(groupedReleases);
   } catch (error) {
