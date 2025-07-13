@@ -46,7 +46,7 @@ function renderMobile(groupedData) {
   
   Object.keys(groupedData).forEach(seriesTitle => {
     const series = groupedData[seriesTitle];
-    series.sort((a, b) => b.chapterNo - a.chapterNo); // Sort chapters by chapter number in descending order
+    series.sort((a, b) => b.chapterNo - a.chapterNo); 
     const el = document.createElement('div');
     el.className = 'series-container';
     el.dataset.id = series[0]._id;
@@ -69,7 +69,9 @@ function renderMobile(groupedData) {
       ${
         series[0].previousChapter > 0 ? `<button class="chapter hvr-grow" onClick="readChapter(${series[0].manga}, '${series[0].nick}', ${series[0].previousChapter})" data-chapter="${series[0].previousChapter}">READ CHAPTER ${series[0].previousChapter}</button>` : ''
       }
-      <button class="chapter hvr-grow" data-chapter="${series[0].previousChapter -1}" onClick="readChapter(${series[series.length - 1].manga}, '${series[series.length - 1].nick}', ${series[0].previousChapter - 1})">READ CHAPTER ${series[0].previousChapter - 1}</button>
+      ${
+        series[0].previousChapter > 1 ? `<button class="chapter hvr-grow" data-chapter="${series[0].previousChapter -1}" onClick="readChapter(${series[series.length - 1].manga}, '${series[series.length - 1].nick}', ${series[0].previousChapter - 1})">READ CHAPTER ${series[0].previousChapter - 1}</button>` : ''
+      }
       </div>
     `;
     container.appendChild(el);
