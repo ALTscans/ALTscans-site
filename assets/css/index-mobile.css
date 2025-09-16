@@ -155,26 +155,87 @@ body {
 }
 
 .backdrop-blur {
-    width: 100%;
-    height: 100%;
-    display: flex;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
     z-index: 200000;
-    position: absolute;
+    display: none;
     flex-direction: column;
     justify-content: center;
-    align-content: center;
     align-items: center;
+    -webkit-backdrop-filter: blur(20px);
     backdrop-filter: blur(20px);
 }
 
 .notice-container {
-    width: 70%;
-    height: 40%;
+  width: fit-content;
+  height: fit-content;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: var(--primary-color);
+  background: var(--desktop-bg);
+  border-radius: 20px;
+  box-shadow: 0px 0px 30px;
+
+    p {
+      width: 80%;
+    }
+
+    .joinDiscord {      
+    background: var(--desktop-accent);
+    border-radius: 10px;
+    margin-top: 20px;
+    padding: 10px;
+    width: 20%;
+    cursor: pointer;
     display: flex;
-    flex-direction: row;
     justify-content: center;
+    color: black;
+    }
+
+}
+
+.close-notice {
+    background: var(--desktop-accent);
+    border-radius: 10px;
+    margin-top: 20px;
+    padding: 10px;
+    width: 20%;
+    cursor: pointer;
+    border-style: none;
+}
+
+.mobilePopNav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 200000;
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
+
+  .mobile-nav-menu {
+    display: flex;
+    flex-direction: column;
     align-items: center;
-    color: var(--primary-color);
+    gap: 20px;
+
+    a {
+    padding: 10px;
+    border-radius: 15px;
+    font-size: 20px;
+    }
+  }
 }
 
 @media (max-width:991px) {
@@ -380,6 +441,7 @@ body {
 .rating span {
   color: #aaa;
   cursor: pointer;
+  -webkit-user-select: none;
   user-select: none;
   transition: color 0.2s;
   font-size: 1em;
@@ -708,6 +770,7 @@ body {
 .popular-section .star-rating span {
   color: #aaa;
   cursor: pointer;
+  -webkit-user-select: none;
   user-select: none;
   transition: color 0.2s;
 }

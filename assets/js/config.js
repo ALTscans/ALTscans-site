@@ -207,3 +207,9 @@ document.addEventListener("DOMContentLoaded", async () => {
 });
 
 
+document.addEventListener("DOMContentLoaded", function() {
+    const hamburger = document.querySelector(".hamburger");
+    hamburger.addEventListener("click", function() {
+        document.querySelector(".mobilePopNav").setAttribute("style", "display: flex;");
+    });
+});

@@ -113,6 +113,14 @@
         text-align: center;
       }
 
+      .links {
+        display: flex;
+        flex-direction: column;
+        margin: 10px;
+        border-radius: 20px;
+        cursor: pointer;
+      }
+
       .nav {
         display: none;
         flex-direction: column;
@@ -183,8 +191,15 @@
     }
     
     @media(min-width: 320px) {
-        font-size: 12px;
+        body {
+            font-size: 12px;
+        }
     }
+
+    .hamburger {
+      margin-bottom: 10px;
+    }
+
 </style>
 
 <header class="top-bar">
@@ -192,22 +207,19 @@
       <a href="/index" class="logo hvr-grow">
         <img src="/assets/img/favicons/android-icon-72x72.png" alt="Logo">
       </a>
-      <span class="hamburger" onclick="toggleMenu()">☰</span>
-      <div class="nav" id="nav-menu">
-        <a href="/" id="home-nav" class="hvr-grow">HOME<span></span></a> 
-        <a href="/routes/browse" id="series-nav" class="hvr-grow">BROWSE<span></span></a>
-      </div>
     </nav>
+
+          <span class="hamburger">☰</span>
 
     <form class="search-bar" id="search-form" method="GET" action="/routes/browse" onsubmit="return validateSearch(this)">
       <input class="search-input" name="search" type="text" placeholder="SEARCH... (Ctrl+K)" required>
-      <button class="icon" id="search-button" type="submit">
+      <button title="Search" class="icon" id="search-button" type="submit">
           <sl-icon-button name="search" label="Search" style="height:30px;"></sl-icon-button>
       </button>
     </form>
 
     <nav class="actions">
-      <button class="icon profile">
+      <button title="Profile" class="icon profile">
           <sl-icon-button class="login-btn" name="person-circle" label="Search" href="/login" style="height:30px;"></sl-icon-button>     
       </button>
     </nav>
@@ -215,11 +227,10 @@
 <div class="notice">
     <p>This site is currently under development, please report any bugs or errors in our <a href="https://discord.gg/Rr5HWHuk7Y">discord server</a></p>
 </div>
+
+
 <script src="/assets/js/search-browse.js"></script>
 <script>
-      function toggleMenu() {
-          document.getElementById("nav-menu").classList.toggle("show");
-      }
   
       // JavaScript to toggle orange square inside text
       const navLinks = document.querySelectorAll(".nav a");
