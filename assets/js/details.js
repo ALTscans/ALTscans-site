@@ -205,7 +205,11 @@ document.addEventListener("DOMContentLoaded", async () => {
         function renderChapters(chapters) {
           chapterListContainer.innerHTML = ''; // Clear existing chapters
           
-          chapters.forEach(release => {
+          const sorted = [...chapters].sort((a, b) => Number(b.chapterNo) - Number(a.chapterNo));
+
+          
+          
+          sorted.forEach(release => {
             const chapterItem = document.createElement('div');
             chapterItem.classList.add('chapter-item', 'hover-grow');
             chapterItem.setAttribute('onclick', `openChapter(${seriesId}, '${nick}', ${release.chapterNo})`);
